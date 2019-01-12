@@ -5,7 +5,7 @@
 [![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg?style=flat)](https://godoc.org/github.com/peterhellberg/gfx)
 [![License MIT](https://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat)](https://github.com/peterhellberg/gfx#license-mit)
 
-* :warning: NO STABILITY GUARANTEES AS OF YET *
+** :warning: NO STABILITY GUARANTEES AS OF YET **
 
 Convenience package for dealing with graphics in my pixel drawing experiments.
 
