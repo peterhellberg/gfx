@@ -1,6 +1,9 @@
 package gfx
 
-import "image/color"
+import (
+	"image/color"
+	"math/rand"
+)
 
 // Standard colors
 var (
@@ -22,16 +25,29 @@ func ColorNRGBA(r, g, b, a uint8) color.NRGBA {
 	return color.NRGBA{r, g, b, a}
 }
 
+// Palette is a slice of colors
+type Palette []color.NRGBA
+
+// Color returns the color at intex n.
+func (p Palette) Color(n int) color.NRGBA {
+	return p[n]
+}
+
+// Random color from the palette.
+func (p Palette) Random() color.NRGBA {
+	return p[rand.Intn(len(p))]
+}
+
 // ColorPICO8 returns the PICO-8 color at index n.
 func ColorPICO8(n int) color.NRGBA {
-	return PalettePICO8[n]
+	return PalettePICO8.Color(n)
 }
 
 // PalettePICO8 is the palette used by PICO-8.
 // The PICO-8 is a virtual video game console created by Lexaloffle Games.
 //
 // https://lospec.com/palette-list/pico-8
-var PalettePICO8 = []color.NRGBA{
+var PalettePICO8 = Palette{
 	{0x00, 0x00, 0x00, 0xFF},
 	{0x5F, 0x57, 0x4F, 0xFF},
 	{0xC2, 0xC3, 0xC7, 0xFF},
@@ -52,7 +68,7 @@ var PalettePICO8 = []color.NRGBA{
 
 // ColorEDG64 returns the Endesga 64 color at index n.
 func ColorEDG64(n int) color.NRGBA {
-	return PaletteEDG64[n]
+	return PaletteEDG64.Color(n)
 }
 
 // PaletteEDG64 is the Endesga 64 Palette.
@@ -61,7 +77,7 @@ func ColorEDG64(n int) color.NRGBA {
 // organic and structured life of the heptaverse." Created by Endesga. #EDG64
 //
 // https://lospec.com/palette-list/endesga-64
-var PaletteEDG64 = []color.NRGBA{
+var PaletteEDG64 = Palette{
 	{0xFF, 0x00, 0x40, 0xFF},
 	{0x13, 0x13, 0x13, 0xFF},
 	{0x1B, 0x1B, 0x1B, 0xFF},
@@ -130,14 +146,14 @@ var PaletteEDG64 = []color.NRGBA{
 
 // ColorEDG36 returns the Endesga 36 color at index n.
 func ColorEDG36(n int) color.NRGBA {
-	return PaletteEDG36[n]
+	return PaletteEDG36.Color(n)
 }
 
 // PaletteEDG36 is the Endesga 36 Palette.
 // Created by Endesga. #EDG36
 //
 // https://lospec.com/palette-list/endesga-36
-var PaletteEDG36 = []color.NRGBA{
+var PaletteEDG36 = Palette{
 	{0xDB, 0xE0, 0xE7, 0xFF},
 	{0xA3, 0xAC, 0xBE, 0xFF},
 	{0x67, 0x70, 0x8B, 0xFF},
@@ -178,14 +194,14 @@ var PaletteEDG36 = []color.NRGBA{
 
 // ColorEDG32 returns the Endesga 32 color at index n.
 func ColorEDG32(n int) color.NRGBA {
-	return PaletteEDG32[n]
+	return PaletteEDG32.Color(n)
 }
 
 // PaletteEDG32 is the Endesga 32 Palette.
 // Created by Endesga for his game NYKRA. #EDG32
 //
 // https://lospec.com/palette-list/endesga-32
-var PaletteEDG32 = []color.NRGBA{
+var PaletteEDG32 = Palette{
 	{0xBE, 0x4A, 0x2F, 0xFF},
 	{0xD7, 0x76, 0x43, 0xFF},
 	{0xEA, 0xD4, 0xAA, 0xFF},
@@ -222,14 +238,14 @@ var PaletteEDG32 = []color.NRGBA{
 
 // ColorEDG16 returns the Endesga 16 color at index n.
 func ColorEDG16(n int) color.NRGBA {
-	return PaletteEDG16[n]
+	return PaletteEDG16.Color(n)
 }
 
 // PaletteEDG16 is the Endesga 16 Palette.
 // Created by Endesga. #EDG16
 //
 // https://lospec.com/palette-list/endesga-16
-var PaletteEDG16 = []color.NRGBA{
+var PaletteEDG16 = Palette{
 	{0xE4, 0xA6, 0x72, 0xFF},
 	{0xB8, 0x6F, 0x50, 0xFF},
 	{0x74, 0x3F, 0x39, 0xFF},
@@ -250,7 +266,7 @@ var PaletteEDG16 = []color.NRGBA{
 
 // ColorCGA returns the CGA color at index n.
 func ColorCGA(n int) color.NRGBA {
-	return PaletteCGA[n]
+	return PaletteCGA.Color(n)
 }
 
 // PaletteCGA is the CGA palette.
@@ -258,7 +274,7 @@ func ColorCGA(n int) color.NRGBA {
 // The black can be replaced by any of the other colors in the full CGA palette.
 //
 // https://lospec.com/palette-list/cga-palette-1-high
-var PaletteCGA = []color.NRGBA{
+var PaletteCGA = Palette{
 	{0x00, 0x00, 0x00, 0xFF},
 	{0xFF, 0x55, 0xFF, 0xFF},
 	{0x55, 0xFF, 0xFF, 0xFF},
@@ -267,14 +283,14 @@ var PaletteCGA = []color.NRGBA{
 
 // Color2BitGrayScale returns the 2BitGrayScale color at index n.
 func Color2BitGrayScale(n int) color.NRGBA {
-	return Palette2BitGrayScale[n]
+	return Palette2BitGrayScale.Color(n)
 }
 
 // Palette2BitGrayScale is a grayscale palette calculated using 2-bits per color.
 // It was used by the original gameboy and a few other computer systems.
 //
 // https://lospec.com/palette-list/2-bit-grayscale
-var Palette2BitGrayScale = []color.NRGBA{
+var Palette2BitGrayScale = Palette{
 	{0x00, 0x00, 0x00, 0xFF},
 	{0x67, 0x67, 0x67, 0xFF},
 	{0xB6, 0xB6, 0xB6, 0xFF},
