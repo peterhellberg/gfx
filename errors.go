@@ -1,7 +1,5 @@
 package gfx
 
-import "fmt"
-
 // ErrDone can for example be returned when you are done rendering.
 var ErrDone = Error("done")
 
@@ -15,5 +13,5 @@ func (e Error) Error() string {
 
 // Errorf constructs a formatted error
 func Errorf(format string, a ...interface{}) error {
-	return Error(fmt.Sprintf(format, a...))
+	return Error(Sprintf(format, a...))
 }
