@@ -24,6 +24,11 @@ func DrawLine(m draw.Image, from, to Vec, t float64, c color.Color) {
 
 // DrawCircle draws a circle with radius and thickness.
 func DrawCircle(m draw.Image, u Vec, c color.Color, r, t float64) {
+	if t == 0 {
+		DrawFilledCircle(m, u, c, r)
+		return
+	}
+
 	bounds := IR(int(u.X-r), int(u.Y-r), int(u.X+r), int(u.Y+r))
 
 	EachPixel(m, bounds, func(x, y int) {
