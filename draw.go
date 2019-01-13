@@ -21,8 +21,21 @@ func DrawLine(m draw.Image, from, to Vec, t float64, c color.Color) {
 	polylineFromTo(from, to, t).Fill(m, c)
 }
 
-// DrawFilledCircle draws a (crude) filled circle for now.
+// DrawFilledCircle draws a filled circle.
 func DrawFilledCircle(m draw.Image, u Vec, c color.Color, r float64) {
+	bounds := IR(int(u.X-r), int(u.Y-r), int(u.X+r), int(u.Y+r))
+
+	EachPixel(m, bounds, func(x, y int) {
+		v := V(float64(x), float64(y))
+
+		if u.To(v).Len() < r {
+			m.Set(x, y, c)
+		}
+	})
+}
+
+// DrawFastFilledCircle draws a (crude) filled circle.
+func DrawFastFilledCircle(m draw.Image, u Vec, c color.Color, r float64) {
 	ir := int(r)
 	r2 := ir * ir
 	pt := u.Pt()
