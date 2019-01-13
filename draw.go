@@ -21,6 +21,21 @@ func DrawLine(m draw.Image, from, to Vec, t float64, c color.Color) {
 	polylineFromTo(from, to, t).Fill(m, c)
 }
 
+// DrawCircle draws a circle with radius and thickness.
+func DrawCircle(m draw.Image, u Vec, c color.Color, r, t float64) {
+	bounds := IR(int(u.X-r), int(u.Y-r), int(u.X+r), int(u.Y+r))
+
+	EachPixel(m, bounds, func(x, y int) {
+		v := V(float64(x), float64(y))
+
+		l := u.To(v).Len() + 0.5
+
+		if l < r && l > r-t {
+			m.Set(x, y, c)
+		}
+	})
+}
+
 // DrawFilledCircle draws a filled circle.
 func DrawFilledCircle(m draw.Image, u Vec, c color.Color, r float64) {
 	bounds := IR(int(u.X-r), int(u.Y-r), int(u.X+r), int(u.Y+r))
