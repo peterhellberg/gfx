@@ -20,6 +20,16 @@ var (
 	ColorCyan    = ColorCGA(2)
 )
 
+// ColorWithAlpha creates a new color.NRGBA based
+// on the provided color.Color and alpha arguments.
+func ColorWithAlpha(c color.Color, a uint8) color.NRGBA {
+	nc := color.NRGBAModel.Convert(c).(color.NRGBA)
+
+	nc.A = a
+
+	return nc
+}
+
 // ColorNRGBA constructs a color.NRGBA
 func ColorNRGBA(r, g, b, a uint8) color.NRGBA {
 	return color.NRGBA{r, g, b, a}
