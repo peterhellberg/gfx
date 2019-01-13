@@ -180,6 +180,16 @@ func (u Vec) Pt() image.Point {
 	return image.Pt(int(u.X), int(u.Y))
 }
 
+// Rect constructs a Rect around the vector based on the provided Left, Top, Right, Bottom values.
+func (u Vec) Rect(l, t, r, b float64) Rect {
+	return R(u.X+l, u.Y+t, u.X+r, u.Y+b)
+}
+
+// Bounds returns the bounds around the vector based on the provided Left, Top, Right, Bottom values.
+func (u Vec) Bounds(l, t, r, b float64) image.Rectangle {
+	return u.Rect(l, t, r, b).Bounds()
+}
+
 // Lerp returns a linear interpolation between vectors a and b.
 //
 // This function basically returns a point along the line between a and b and t chooses which one.
