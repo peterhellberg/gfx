@@ -71,8 +71,8 @@ func DrawFastFilledCircle(m draw.Image, u Vec, r float64, c color.Color) {
 }
 
 // DrawPointCircle draws a circle at the given point
-func DrawPointCircle(m draw.Image, p image.Point, r int, t float64, c color.Color) {
-	points := circlePoints(p, r)
+func DrawPointCircle(m draw.Image, p image.Point, r, t float64, c color.Color) {
+	points := circlePoints(p, int(r))
 
 	switch {
 	case t <= 1:
