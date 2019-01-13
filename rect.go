@@ -30,6 +30,16 @@ func R(minX, minY, maxX, maxY float64) Rect {
 	return NewRect(Vec{minX, minY}, Vec{maxX, maxY})
 }
 
+// BoundsToRect converts an image.Rectangle to a Rect.
+func BoundsToRect(ir image.Rectangle) Rect {
+	return R(float64(ir.Min.X), float64(ir.Min.Y), float64(ir.Max.X), float64(ir.Max.Y))
+}
+
+// BoundsCenter returns the vector in the center of an image.Rectangle
+func BoundsCenter(ir image.Rectangle) Vec {
+	return BoundsToRect(ir).Center()
+}
+
 // String returns the string representation of the Rect.
 //
 //   r := gfx.R(100, 50, 200, 300)
