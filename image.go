@@ -49,12 +49,12 @@ func SetPoint(m draw.Image, p image.Point, c color.Color) {
 	m.Set(p.X, p.Y, c)
 }
 
-// NewImage creates an image of the given size and color
-func NewImage(w, h int, c color.Color) *image.NRGBA {
+// NewImage creates an image of the given size (optionally filled with a color)
+func NewImage(w, h int, colors ...color.Color) *image.NRGBA {
 	m := image.NewNRGBA(image.Rect(0, 0, w, h))
 
-	if _, _, _, a := c.RGBA(); a > 0 {
-		draw.Draw(m, m.Bounds(), NewUniform(c), image.ZP, draw.Src)
+	if len(colors) > 0 {
+		draw.Draw(m, m.Bounds(), NewUniform(colors[0]), image.ZP, draw.Src)
 	}
 
 	return m
