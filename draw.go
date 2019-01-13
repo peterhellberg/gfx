@@ -37,7 +37,7 @@ func DrawCircle(m draw.Image, u Vec, c color.Color, r, t float64) {
 		l := u.To(v).Len() + 0.5
 
 		if l < r && l > r-t {
-			m.Set(x, y, c)
+			Mix(m, x, y, c)
 		}
 	})
 }
@@ -50,7 +50,7 @@ func DrawFilledCircle(m draw.Image, u Vec, c color.Color, r float64) {
 		v := V(float64(x), float64(y))
 
 		if u.To(v).Len() < r {
-			m.Set(x, y, c)
+			Mix(m, x, y, c)
 		}
 	})
 }

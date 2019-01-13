@@ -34,9 +34,21 @@ func EachPixel(m draw.Image, r image.Rectangle, fn func(x, y int)) {
 	}
 }
 
-// Mix the current pixel color at the image.Point with the given color.
-func Mix(m draw.Image, p image.Point, c color.Color) {
-	draw.Draw(m, image.Rect(p.X, p.Y, p.X+1, p.Y+1), image.NewUniform(c), image.ZP, draw.Over)
+// Mix the current pixel color at x and y with the given color.
+func Mix(m draw.Image, x, y int, c color.Color) {
+	_, _, _, a := c.RGBA()
+
+	switch a {
+	case 0xFFFF:
+		m.Set(x, y, c)
+	default:
+		draw.Draw(m, image.Rect(x, y, x+1, y+1), image.NewUniform(c), image.ZP, draw.Over)
+	}
+}
+
+// MixPoint the current pixel color at the image.Point with the given color.
+func MixPoint(m draw.Image, p image.Point, c color.Color) {
+	Mix(m, p.X, p.Y, c)
 }
 
 // Set x and y to the given color.

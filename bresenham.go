@@ -45,9 +45,9 @@ func DrawBresenhamLine(m draw.Image, from, to Vec, c color.Color) {
 
 	for x := x0; x <= x1; x++ {
 		if steep {
-			m.Set(int(y), int(x), c)
+			Mix(m, int(y), int(x), c)
 		} else {
-			m.Set(int(x), int(y), c)
+			Mix(m, int(x), int(y), c)
 		}
 
 		e -= dy

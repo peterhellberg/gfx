@@ -61,7 +61,7 @@ func (p Polygon) EachPixel(m draw.Image, fn func(x, y int)) {
 // Fill polygon on the image with the given color
 func (p Polygon) Fill(m draw.Image, c color.Color) {
 	p.EachPixel(m, func(x, y int) {
-		m.Set(x, y, c)
+		Mix(m, x, y, c)
 	})
 }
 
