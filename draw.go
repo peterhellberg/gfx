@@ -146,3 +146,10 @@ func DrawPolygon(m draw.Image, p Polygon, c color.Color, t float64) {
 		}
 	}
 }
+
+// DrawPolyline draws a polyline with the given color and thickness.
+func DrawPolyline(m draw.Image, pl Polyline, c color.Color, t float64) {
+	for _, p := range pl {
+		DrawPolygon(m, p, c, t)
+	}
+}
