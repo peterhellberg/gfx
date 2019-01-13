@@ -40,12 +40,21 @@ type Palette []color.NRGBA
 
 // Color returns the color at intex n.
 func (p Palette) Color(n int) color.NRGBA {
-	return p[n]
+	if n >= 0 && n < p.Len() {
+		return p[n]
+	}
+
+	return color.NRGBA{}
+}
+
+// Len returns the number of colors in the palette
+func (p Palette) Len() int {
+	return len(p)
 }
 
 // Random color from the palette.
 func (p Palette) Random() color.NRGBA {
-	return p[rand.Intn(len(p))]
+	return p[rand.Intn(p.Len())]
 }
 
 // ColorPICO8 returns the PICO-8 color at index n.
