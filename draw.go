@@ -16,6 +16,7 @@ type Drawer interface {
 func DrawLine(m draw.Image, from, to Vec, t float64, c color.Color) {
 	if t <= 1 {
 		DrawBresenhamLine(m, from, to, c)
+		return
 	}
 
 	polylineFromTo(from, to, t).Fill(m, c)
