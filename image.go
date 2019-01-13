@@ -53,7 +53,9 @@ func SetPoint(m draw.Image, p image.Point, c color.Color) {
 func NewImage(w, h int, c color.Color) *image.NRGBA {
 	m := image.NewNRGBA(image.Rect(0, 0, w, h))
 
-	draw.Draw(m, m.Bounds(), NewUniform(c), image.ZP, draw.Src)
+	if _, _, _, a := c.RGBA(); a > 0 {
+		draw.Draw(m, m.Bounds(), NewUniform(c), image.ZP, draw.Src)
+	}
 
 	return m
 }
