@@ -22,10 +22,10 @@ func DrawLine(m draw.Image, from, to Vec, t float64, c color.Color) {
 	polylineFromTo(from, to, t).Fill(m, c)
 }
 
-// DrawCircle draws a circle with radius and thickness.
-func DrawCircle(m draw.Image, u Vec, c color.Color, r, t float64) {
+// DrawCircle draws a circle with radius and thickness. (filled if t == 0)
+func DrawCircle(m draw.Image, u Vec, r, t float64, c color.Color) {
 	if t == 0 {
-		DrawFilledCircle(m, u, c, r)
+		DrawFilledCircle(m, u, r, c)
 		return
 	}
 
@@ -43,7 +43,7 @@ func DrawCircle(m draw.Image, u Vec, c color.Color, r, t float64) {
 }
 
 // DrawFilledCircle draws a filled circle.
-func DrawFilledCircle(m draw.Image, u Vec, c color.Color, r float64) {
+func DrawFilledCircle(m draw.Image, u Vec, r float64, c color.Color) {
 	bounds := IR(int(u.X-r), int(u.Y-r), int(u.X+r), int(u.Y+r))
 
 	EachPixel(m, bounds, func(x, y int) {
@@ -56,7 +56,7 @@ func DrawFilledCircle(m draw.Image, u Vec, c color.Color, r float64) {
 }
 
 // DrawFastFilledCircle draws a (crude) filled circle.
-func DrawFastFilledCircle(m draw.Image, u Vec, c color.Color, r float64) {
+func DrawFastFilledCircle(m draw.Image, u Vec, r float64, c color.Color) {
 	ir := int(r)
 	r2 := ir * ir
 	pt := u.Pt()
@@ -71,7 +71,7 @@ func DrawFastFilledCircle(m draw.Image, u Vec, c color.Color, r float64) {
 }
 
 // DrawPointCircle draws a circle at the given point
-func DrawPointCircle(m draw.Image, p image.Point, c color.Color, r int, t float64) {
+func DrawPointCircle(m draw.Image, p image.Point, r int, t float64, c color.Color) {
 	points := circlePoints(p, r)
 
 	switch {
@@ -132,7 +132,7 @@ func DrawImageRectangle(m draw.Image, r image.Rectangle, c color.Color) {
 }
 
 // DrawPolygon filled or as line polygons if the thickness is >= 1.
-func DrawPolygon(m draw.Image, p Polygon, c color.Color, t float64) {
+func DrawPolygon(m draw.Image, p Polygon, t float64, c color.Color) {
 	n := len(p)
 
 	if n < 3 {
@@ -154,8 +154,8 @@ func DrawPolygon(m draw.Image, p Polygon, c color.Color, t float64) {
 }
 
 // DrawPolyline draws a polyline with the given color and thickness.
-func DrawPolyline(m draw.Image, pl Polyline, c color.Color, t float64) {
+func DrawPolyline(m draw.Image, pl Polyline, t float64, c color.Color) {
 	for _, p := range pl {
-		DrawPolygon(m, p, c, t)
+		DrawPolygon(m, p, t, c)
 	}
 }
