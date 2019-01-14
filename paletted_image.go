@@ -33,6 +33,16 @@ func NewPalettedImage(r image.Rectangle, p Palette) *PalettedImage {
 	return &PalettedImage{pix, 1 * w, r, p}
 }
 
+// NewPixImage returns a new paletted image with the given pix, stride and palette.
+func NewPixImage(pix []uint8, stride int, p Palette) *PalettedImage {
+	return &PalettedImage{
+		Rect:    IR(0, 0, stride, len(pix)/stride),
+		Pix:     pix,
+		Stride:  stride,
+		Palette: p,
+	}
+}
+
 // ColorModel returns the color model of the paletted image.
 func (p *PalettedImage) ColorModel() color.Model {
 	return p.Palette
@@ -46,7 +56,7 @@ func (p *PalettedImage) Bounds() image.Rectangle {
 // At retrieves the color at (x, y).
 func (p *PalettedImage) At(x, y int) color.Color {
 	if len(p.Palette) == 0 {
-		return nil
+		return color.Transparent
 	}
 
 	if !(image.Point{x, y}.In(p.Rect)) {
@@ -55,7 +65,7 @@ func (p *PalettedImage) At(x, y int) color.Color {
 
 	i := p.PixOffset(x, y)
 
-	return p.Palette[p.Pix[i]]
+	return p.Palette.Color(int(p.Pix[i]))
 }
 
 // PixOffset returns the index of the first element of Pix
