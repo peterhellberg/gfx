@@ -8,12 +8,12 @@ var (
 	ColorWhite       = color.White
 	ColorTransparent = color.Transparent
 	ColorOpaque      = color.Opaque
-	ColorRed         = Color3Bit(1)
-	ColorGreen       = Color3Bit(2)
-	ColorBlue        = Color3Bit(3)
-	ColorCyan        = Color3Bit(4)
-	ColorMagenta     = Color3Bit(5)
-	ColorYellow      = Color3Bit(6)
+	ColorRed         = Palette3Bit.Color(1)
+	ColorGreen       = Palette3Bit.Color(2)
+	ColorBlue        = Palette3Bit.Color(3)
+	ColorCyan        = Palette3Bit.Color(4)
+	ColorMagenta     = Palette3Bit.Color(5)
+	ColorYellow      = Palette3Bit.Color(6)
 )
 
 // ColorWithAlpha creates a new color.NRGBA based
