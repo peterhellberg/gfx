@@ -1,6 +1,7 @@
 package gfx
 
 import (
+	"image"
 	"image/color"
 	"math/rand"
 )
@@ -55,6 +56,21 @@ func (p Palette) Len() int {
 // Random color from the palette.
 func (p Palette) Random() color.NRGBA {
 	return p[rand.Intn(p.Len())]
+}
+
+// Image returns a new image based on the input image, but with colors from the palette.
+func (p Palette) Image(src image.Image) *image.NRGBA {
+	m := NewNRGBA(src.Bounds())
+	w := src.Bounds().Dx()
+	h := src.Bounds().Dy()
+
+	for x := 0; x < w; x++ {
+		for y := 0; y < h; y++ {
+			m.Set(x, y, p.Convert(src.At(x, y)))
+		}
+	}
+
+	return m
 }
 
 // Convert returns the palette color closest to c in Euclidean R,G,B space.
