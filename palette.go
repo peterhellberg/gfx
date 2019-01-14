@@ -10,7 +10,7 @@ import (
 // Palette is a slice of colors.
 type Palette []color.NRGBA
 
-// Color returns the color at intex n.
+// Color returns the color at index n.
 func (p Palette) Color(n int) color.NRGBA {
 	if n >= 0 && n < p.Len() {
 		return p[n]
