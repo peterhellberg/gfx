@@ -78,10 +78,6 @@ func (t *Turtle) Forward(steps float64) {
 	})
 }
 
-func (t *Turtle) scaled(f float64) float64 {
-	return t.Direction.Len() * f
-}
-
 func (t *Turtle) addOp(top turtleOperation) {
 	t.ops = append(t.ops, top)
 }
