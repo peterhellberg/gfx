@@ -63,13 +63,18 @@ func SetPoint(m draw.Image, p image.Point, c color.Color) {
 
 // NewImage creates an image of the given size (optionally filled with a color)
 func NewImage(w, h int, colors ...color.Color) *image.NRGBA {
-	m := image.NewNRGBA(image.Rect(0, 0, w, h))
+	m := NewNRGBA(image.Rect(0, 0, w, h))
 
 	if len(colors) > 0 {
 		draw.Draw(m, m.Bounds(), NewUniform(colors[0]), image.ZP, draw.Src)
 	}
 
 	return m
+}
+
+// NewNRGBA returns a new NRGBA image with the given bounds.
+func NewNRGBA(r image.Rectangle) *image.NRGBA {
+	return image.NewNRGBA(r)
 }
 
 // NewUniform creates a new uniform image of the given color.
@@ -91,4 +96,9 @@ func SavePNG(fn string, m image.Image) error {
 // EncodePNG encodes an image as PNG to the provided io.Writer
 func EncodePNG(w io.Writer, m image.Image) error {
 	return png.Encode(w, m)
+}
+
+// DecodePNG decodes a PNG from the provided io.Reader
+func DecodePNG(r io.Reader) (image.Image, error) {
+	return png.Decode(r)
 }
