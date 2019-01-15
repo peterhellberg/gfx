@@ -48,7 +48,7 @@ func NewResizedPalettedImage(src *PalettedImage, w, h int) *PalettedImage {
 	return dst
 }
 
-// ScaledPalettedImage returns a paletted image scaled by the provided scaling factor.
+// NewScaledPalettedImage returns a paletted image scaled by the provided scaling factor.
 func NewScaledPalettedImage(src *PalettedImage, s float64) *PalettedImage {
 	b := src.Bounds()
 
