@@ -9,6 +9,9 @@ import (
 	"os"
 )
 
+// ZP is the zero image.Point.
+var ZP = image.ZP
+
 // NewImage creates an image of the given size (optionally filled with a color)
 func NewImage(w, h int, colors ...color.Color) *image.NRGBA {
 	m := NewNRGBA(image.Rect(0, 0, w, h))
@@ -96,6 +99,17 @@ func SavePNG(fn string, m image.Image) error {
 // EncodePNG encodes an image as PNG to the provided io.Writer
 func EncodePNG(w io.Writer, m image.Image) error {
 	return png.Encode(w, m)
+}
+
+// OpenPNG decodes a PNG using the provided file name.
+func OpenPNG(fn string) (image.Image, error) {
+	r, err := os.Open(fn)
+	if err != nil {
+		return nil, err
+	}
+	defer r.Close()
+
+	return DecodePNG(r)
 }
 
 // DecodePNG decodes a PNG from the provided io.Reader
