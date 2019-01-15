@@ -17,7 +17,7 @@ func NewImage(w, h int, colors ...color.Color) *image.NRGBA {
 	m := NewNRGBA(image.Rect(0, 0, w, h))
 
 	if len(colors) > 0 {
-		draw.Draw(m, m.Bounds(), NewUniform(colors[0]), image.ZP, draw.Src)
+		DrawSrc(m, m.Bounds(), NewUniform(colors[0]), ZP)
 	}
 
 	return m
@@ -51,7 +51,7 @@ func Mix(m draw.Image, x, y int, c color.Color) {
 	case 0xFFFF:
 		m.Set(x, y, c)
 	default:
-		draw.Draw(m, image.Rect(x, y, x+1, y+1), image.NewUniform(c), image.ZP, draw.Over)
+		DrawOver(m, image.Rect(x, y, x+1, y+1), image.NewUniform(c), ZP)
 	}
 }
 

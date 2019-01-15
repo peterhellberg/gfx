@@ -11,6 +11,16 @@ type Drawer interface {
 	Draw(draw.Image)
 }
 
+// DrawOver draws src over dst.
+func DrawOver(dst draw.Image, r image.Rectangle, src image.Image, sp image.Point) {
+	draw.Draw(dst, r, src, sp, draw.Over)
+}
+
+// DrawSrc draws src on dst.
+func DrawSrc(dst draw.Image, r image.Rectangle, src image.Image, sp image.Point) {
+	draw.Draw(dst, r, src, sp, draw.Src)
+}
+
 // DrawLine draws a line of the given color.
 // A thickness of <= 1 is drawn using DrawBresenhamLine.
 func DrawLine(m draw.Image, from, to Vec, t float64, c color.Color) {
