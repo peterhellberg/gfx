@@ -23,8 +23,8 @@ func ResizeImage(src image.Image, dst draw.Image) {
 	}
 }
 
-// ResizedImage returns an image with the provided dimensions.
-func ResizedImage(src image.Image, w, h int) *image.NRGBA {
+// NewResizedImage returns an image with the provided dimensions.
+func NewResizedImage(src image.Image, w, h int) *image.NRGBA {
 	dst := NewImage(w, h)
 
 	ResizeImage(src, dst)
@@ -32,15 +32,15 @@ func ResizedImage(src image.Image, w, h int) *image.NRGBA {
 	return dst
 }
 
-// ScaledImage returns an image scaled by the provided scaling factor.
-func ScaledImage(src image.Image, s float64) *image.NRGBA {
+// NewScaledImage returns an image scaled by the provided scaling factor.
+func NewScaledImage(src image.Image, s float64) *image.NRGBA {
 	b := src.Bounds()
 
-	return ResizedImage(src, int(float64(b.Dx())*s), int(float64(b.Dy())*s))
+	return NewResizedImage(src, int(float64(b.Dx())*s), int(float64(b.Dy())*s))
 }
 
-// ResizedPalettedImage returns an image with the provided dimensions.
-func ResizedPalettedImage(src *PalettedImage, w, h int) *PalettedImage {
+// NewResizedPalettedImage returns an image with the provided dimensions.
+func NewResizedPalettedImage(src *PalettedImage, w, h int) *PalettedImage {
 	dst := NewPaletted(w, h, src.Palette)
 
 	ResizeImage(src, dst)
@@ -49,8 +49,8 @@ func ResizedPalettedImage(src *PalettedImage, w, h int) *PalettedImage {
 }
 
 // ScaledPalettedImage returns a paletted image scaled by the provided scaling factor.
-func ScaledPalettedImage(src *PalettedImage, s float64) *PalettedImage {
+func NewScaledPalettedImage(src *PalettedImage, s float64) *PalettedImage {
 	b := src.Bounds()
 
-	return ResizedPalettedImage(src, int(float64(b.Dx())*s), int(float64(b.Dy())*s))
+	return NewResizedPalettedImage(src, int(float64(b.Dx())*s), int(float64(b.Dy())*s))
 }
