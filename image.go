@@ -82,32 +82,6 @@ func EachPixel(m image.Image, r image.Rectangle, fn func(x, y int)) {
 	}
 }
 
-// ScaledImage returns an image scaled by the provided scaling factor.
-func ScaledImage(src image.Image, s float64) *image.NRGBA {
-	b := src.Bounds()
-
-	return ResizedImage(src, int(float64(b.Dx())*s), int(float64(b.Dy())*s))
-}
-
-// ResizedImage returns an image with the provided dimensions.
-func ResizedImage(src image.Image, w, h int) *image.NRGBA {
-	dst := NewImage(w, h)
-
-	xRatio := src.Bounds().Dx()<<16/w + 1
-	yRatio := src.Bounds().Dy()<<16/h + 1
-
-	for x := 0; x < w; x++ {
-		for y := 0; y < h; y++ {
-			sx := ((x * xRatio) >> 16)
-			sy := ((y * yRatio) >> 16)
-
-			dst.Set(x, y, src.At(sx, sy))
-		}
-	}
-
-	return dst
-}
-
 // SavePNG saves an image using the provided file name.
 func SavePNG(fn string, m image.Image) error {
 	w, err := os.Create(fn)
