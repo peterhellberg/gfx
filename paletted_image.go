@@ -6,6 +6,9 @@ import (
 	"image/draw"
 )
 
+// PalettedImages is a slice of paletted images.
+type PalettedImages []*PalettedImage
+
 // PalettedImage is an in-memory image of uint8 indices into a given palette.
 type PalettedImage struct {
 	// Pix holds the image's pixels, as palette indices. The pixel at
