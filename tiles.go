@@ -20,18 +20,18 @@ func NewTileset(p Palette, s image.Point, td TilesetData) *Tileset {
 	ts := &Tileset{Palette: p, Size: s}
 
 	for i := 0; i < len(td); i++ {
-		ts.Tiles = append(ts.Tiles, NewTile(td[i], s.X, p))
+		ts.Tiles = append(ts.Tiles, NewTile(p, s.X, td[i]))
 	}
 
 	return ts
 }
 
 // NewTile returns a new paletted image with the given pix, stride and palette.
-func NewTile(pix []uint8, stride int, p Palette) *Paletted {
+func NewTile(p Palette, width int, pix []uint8) *Paletted {
 	return &Paletted{
-		Rect:    IR(0, 0, stride, len(pix)/stride+len(pix)%stride),
-		Pix:     pix,
-		Stride:  stride,
+		Rect:    IR(0, 0, width, len(pix)/width+len(pix)%width),
 		Palette: p,
+		Stride:  width,
+		Pix:     pix,
 	}
 }
