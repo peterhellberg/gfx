@@ -30,7 +30,7 @@ func NewTileset(p Palette, s image.Point, td TilesetData) *Tileset {
 func NewTile(pix []uint8, stride int, p Palette) *Paletted {
 	return &Paletted{
 		Rect:    IR(0, 0, stride, len(pix)/stride+len(pix)%stride),
-		Data:    pix,
+		Pix:     pix,
 		Stride:  stride,
 		Palette: p,
 	}

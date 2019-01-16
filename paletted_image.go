@@ -15,9 +15,9 @@ type PalettedImage interface {
 
 // Paletted is an in-memory image of uint8 indices into a given palette.
 type Paletted struct {
-	// Data holds the image's pixels, as palette indices. The pixel at
-	// (x, y) starts at Data[(y-Rect.Min.Y)*Stride + (x-Rect.Min.X)*1].
-	Data []uint8
+	// Pix holds the image's pixels, as palette indices. The pixel at
+	// (x, y) starts at Pix[(y-Rect.Min.Y)*Stride + (x-Rect.Min.X)*1].
+	Pix []uint8
 	// Stride is the Pix stride (in bytes) between vertically adjacent pixels.
 	Stride int
 	// Rect is the image's bounds.
@@ -88,7 +88,7 @@ func (p *Paletted) At(x, y int) color.Color {
 
 	i := p.PixOffset(x, y)
 
-	return p.Palette.Color(int(p.Data[i]))
+	return p.Palette.Color(int(p.Pix[i]))
 }
 
 // PixOffset returns the index of the first element of Pix
@@ -105,7 +105,7 @@ func (p *Paletted) Set(x, y int, c color.Color) {
 
 	i := p.PixOffset(x, y)
 
-	p.Data[i] = uint8(p.Palette.Index(c))
+	p.Pix[i] = uint8(p.Palette.Index(c))
 }
 
 // Index returns the color index at (x, y). (Short for ColorIndexAt)
@@ -126,7 +126,7 @@ func (p *Paletted) ColorIndexAt(x, y int) uint8 {
 
 	i := p.PixOffset(x, y)
 
-	return p.Data[i]
+	return p.Pix[i]
 }
 
 // SetColorIndex changes the color index at (x, y).
@@ -137,7 +137,7 @@ func (p *Paletted) SetColorIndex(x, y int, index uint8) {
 
 	i := p.PixOffset(x, y)
 
-	p.Data[i] = index
+	p.Pix[i] = index
 }
 
 // SubImage returns an image representing the portion of the image p visible
@@ -157,7 +157,7 @@ func (p *Paletted) SubImage(r image.Rectangle) image.Image {
 	i := p.PixOffset(r.Min.X, r.Min.Y)
 
 	return &Paletted{
-		Data:    p.Data[i:],
+		Pix:     p.Pix[i:],
 		Stride:  p.Stride,
 		Rect:    p.Rect.Intersect(r),
 		Palette: p.Palette,
@@ -171,7 +171,7 @@ func (p *Paletted) Opaque() bool {
 	i0, i1 := 0, p.Rect.Dx()
 
 	for y := p.Rect.Min.Y; y < p.Rect.Max.Y; y++ {
-		for _, c := range p.Data[i0:i1] {
+		for _, c := range p.Pix[i0:i1] {
 			present[c] = true
 		}
 
