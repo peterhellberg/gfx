@@ -87,6 +87,10 @@ func EachPixel(m image.Image, r image.Rectangle, fn func(x, y int)) {
 
 // SavePNG saves an image using the provided file name.
 func SavePNG(fn string, m image.Image) error {
+	if m == nil || m.Bounds().Empty() {
+		return Error("SavePNG: empty image provided")
+	}
+
 	w, err := os.Create(fn)
 	if err != nil {
 		return err
