@@ -69,6 +69,17 @@ func (p Palette) Index(c color.Color) int {
 	return ret
 }
 
+// AsColorPalette converts the Palette to a color.Palette
+func (p Palette) AsColorPalette() color.Palette {
+	var cp = make(color.Palette, len(p))
+
+	for i, c := range p {
+		cp[i] = c
+	}
+
+	return cp
+}
+
 // sqDiff returns the squared-difference of x and y, shifted by 2 so that
 // adding four of those won't overflow a uint32.
 //
