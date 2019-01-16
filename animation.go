@@ -14,8 +14,10 @@ var DefaultAnimationDelay = 50
 
 // Animation represents multiple images.
 type Animation struct {
-	Frames []*PalettedImage // The successive images.
-	Delay  int              // Delay between each of the frames.
+	Frames   []image.Image   // The successive images.
+	Palettes []color.Palette // The successive palettes.
+
+	Delay int // Delay between each of the frames.
 
 	// LoopCount controls the number of times an animation will be
 	// restarted during display.
@@ -25,9 +27,10 @@ type Animation struct {
 	LoopCount int
 }
 
-// Add a frame to the animation.
-func (a *Animation) Add(f *PalettedImage) {
-	a.Frames = append(a.Frames, f)
+// AddPalettedImage adds a frame and palette to the animation.
+func (a *Animation) AddPalettedImage(pi *PalettedImage, delays ...int) {
+	a.Frames = append(a.Frames, pi)
+	a.Palettes = append(a.Palettes, pi.Palette.AsColorPalette())
 }
 
 // SaveGIF saves the animation to a GIF using the provided file name.
@@ -44,15 +47,19 @@ func (a *Animation) SaveGIF(fn string) error {
 // EncodeGIF writes the animation to w in GIF format with the
 // given loop count and delay between frames.
 func (a *Animation) EncodeGIF(w io.Writer) error {
-	var frames []*image.Paletted
-	var delays []int
+	if len(a.Frames) != len(a.Palettes) {
+		return Error("Animation: the number of Frames and Palettes does not match")
+	}
 
 	if a.Delay < 1 {
 		a.Delay = DefaultAnimationDelay
 	}
 
-	for _, src := range a.Frames {
-		dst := image.NewPaletted(src.Bounds(), asColorPalette(src.Palette))
+	var frames []*image.Paletted
+	var delays []int
+
+	for i, src := range a.Frames {
+		dst := image.NewPaletted(src.Bounds(), a.Palettes[i])
 
 		draw.Draw(dst, dst.Bounds(), src, image.ZP, draw.Src)
 
@@ -65,14 +72,4 @@ func (a *Animation) EncodeGIF(w io.Writer) error {
 		Delay:     delays,
 		LoopCount: a.LoopCount,
 	})
-}
-
-func asColorPalette(p Palette) color.Palette {
-	var cp = make(color.Palette, len(p))
-
-	for i, c := range p {
-		cp[i] = c
-	}
-
-	return cp
 }
