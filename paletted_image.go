@@ -36,7 +36,7 @@ func NewPalettedImage(r image.Rectangle, p Palette) *PalettedImage {
 // NewPixImage returns a new paletted image with the given pix, stride and palette.
 func NewPixImage(pix []uint8, stride int, p Palette) *PalettedImage {
 	return &PalettedImage{
-		Rect:    IR(0, 0, stride, len(pix)/stride),
+		Rect:    IR(0, 0, stride, len(pix)/stride+len(pix)%stride),
 		Pix:     pix,
 		Stride:  stride,
 		Palette: p,
