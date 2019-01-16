@@ -2,59 +2,36 @@ package gfx
 
 import "image"
 
-// Tiles is a slice of images.
-type Tiles []*image.NRGBA
+// Tiles is a slice of paletted images.
+type Tiles []PalettedImage
 
-// NewTiles returns a new Tiles from an image.Image and given stride.
-func NewTiles(m image.Image, stride int) Tiles {
-	var t Tiles
-
-	w := m.Bounds().Dx()
-	h := m.Bounds().Dy()
-
-	for y := 0; y < h; y += stride {
-		for x := 0; x < w; x += stride {
-			dst := NewImage(stride, stride)
-
-			DrawOver(dst, dst.Bounds(), m, Pt(x, y))
-
-			t = append(t, dst)
-		}
-	}
-
-	return t
+// Tileset is a paletted tileset.
+type Tileset struct {
+	Palette Palette     // Palette of the tileset.
+	Size    image.Point // Size is the size of each tile.
+	Tiles   Tiles       // Images containst all of the images in the tileset.
 }
 
-// NewTiledImage returns a new tiled image.
-func NewTiledImage(s Tiles, cols int, layers ...TileLayer) *image.NRGBA {
-	if len(s) == 0 || len(layers) == 0 || cols > len(layers[0]) {
-		panic("bad NewTiledImage input")
+// TilesetData is the raw data in a tileset
+type TilesetData [][]uint8
+
+// NewTileset creates a new paletted tileset.
+func NewTileset(p Palette, s image.Point, td TilesetData) *Tileset {
+	ts := &Tileset{Palette: p, Size: s}
+
+	for i := 0; i < len(td); i++ {
+		ts.Tiles = append(ts.Tiles, NewTile(td[i], s.X, p))
 	}
 
-	size := s[0].Bounds().Dx()
-
-	w := cols * size
-	h := len(layers[0]) / cols * size
-
-	dst := NewImage(w, h)
-
-	for _, layer := range layers {
-		rows := len(layer) / cols
-
-		w = cols * size
-		h = rows * size
-
-		for row := 0; row < rows; row++ {
-			for col := 0; col < cols; col++ {
-				i, x, y := (row*cols)+col, col*size, row*size
-
-				DrawOver(dst, IR(x, y, x+16, y+16), s[layer[i]], ZP)
-			}
-		}
-	}
-
-	return dst
+	return ts
 }
 
-// TileLayer is a layer of tiles.
-type TileLayer []uint8
+// NewTile returns a new paletted image with the given pix, stride and palette.
+func NewTile(pix []uint8, stride int, p Palette) *Paletted {
+	return &Paletted{
+		Rect:    IR(0, 0, stride, len(pix)/stride+len(pix)%stride),
+		Data:    pix,
+		Stride:  stride,
+		Palette: p,
+	}
+}

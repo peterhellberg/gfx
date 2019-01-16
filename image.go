@@ -14,7 +14,7 @@ var ZP = image.ZP
 
 // NewImage creates an image of the given size (optionally filled with a color)
 func NewImage(w, h int, colors ...color.Color) *image.NRGBA {
-	m := NewNRGBA(image.Rect(0, 0, w, h))
+	m := NewNRGBA(IR(0, 0, w, h))
 
 	if len(colors) > 0 {
 		DrawSrc(m, m.Bounds(), NewUniform(colors[0]), ZP)
@@ -51,7 +51,7 @@ func Mix(m draw.Image, x, y int, c color.Color) {
 	case 0xFFFF:
 		m.Set(x, y, c)
 	default:
-		DrawOver(m, image.Rect(x, y, x+1, y+1), image.NewUniform(c), ZP)
+		DrawOver(m, IR(x, y, x+1, y+1), image.NewUniform(c), ZP)
 	}
 }
 

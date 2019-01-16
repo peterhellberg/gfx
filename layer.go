@@ -5,20 +5,44 @@ import (
 	"image/color"
 )
 
-// PalettedLayer represents a layer of paletted tiles.
-type PalettedLayer struct {
-	*PalettedTileset
+// Layer represents a layer of paletted tiles.
+type Layer struct {
+	*Tileset
 	Width int // Width of the layer in number of tiles.
 	Data  LayerData
 }
 
-// NewPalettedLayer creates a new layer.
-func NewPalettedLayer(tileset *PalettedTileset, width int, data LayerData) *PalettedLayer {
-	return &PalettedLayer{tileset, width, data}
+// LayerData is the data for a layer
+type LayerData []int
+
+// Size returns the size of the layer data given the number of columns.
+func (ld LayerData) Size(cols int) image.Point {
+	l := len(ld)
+
+	if l < cols {
+		return Pt(cols, 1)
+	}
+
+	rows := l / cols
+
+	if rows*cols == l {
+		return Pt(cols, rows)
+	}
+
+	if rows%cols > 0 {
+		rows++
+	}
+
+	return Pt(cols, rows)
+}
+
+// NewLayer creates a new layer.
+func NewLayer(tileset *Tileset, width int, data LayerData) *Layer {
+	return &Layer{tileset, width, data}
 }
 
 // At returns the color at (x, y).
-func (l *PalettedLayer) At(x, y int) color.Color {
+func (l *Layer) At(x, y int) color.Color {
 	if x < 0 || y < 0 {
 		return color.Transparent
 	}
@@ -33,12 +57,12 @@ func (l *PalettedLayer) At(x, y int) color.Color {
 }
 
 // Bounds returns the bounds of the paletted layer.
-func (l *PalettedLayer) Bounds() image.Rectangle {
+func (l *Layer) Bounds() image.Rectangle {
 	lpix := len(l.Data)
 
 	switch {
 	case l.Width < 1, lpix == 0,
-		l.PalettedTileset == nil,
+		l.Tileset == nil,
 		l.Size.X < 1, l.Size.Y < 1:
 		return ZR
 	case lpix < l.Width:
@@ -54,12 +78,12 @@ func (l *PalettedLayer) Bounds() image.Rectangle {
 }
 
 // ColorModel returns the color model for the paletted layer.
-func (l *PalettedLayer) ColorModel() color.Model {
+func (l *Layer) ColorModel() color.Model {
 	return color.NRGBAModel
 }
 
 // ColorIndexAt returns the palette index of the pixel at (x, y).
-func (l *PalettedLayer) ColorIndexAt(x, y int) uint8 {
+func (l *Layer) ColorIndexAt(x, y int) uint8 {
 	t := l.TileAt(x, y)
 
 	if t == nil {
@@ -70,22 +94,32 @@ func (l *PalettedLayer) ColorIndexAt(x, y int) uint8 {
 }
 
 // TileAt returns the tile image at (x, y).
-func (l *PalettedLayer) TileAt(x, y int) image.PalettedImage {
+func (l *Layer) TileAt(x, y int) image.PalettedImage {
 	i := l.indexAt(x, y)
 
-	if i < 0 || i >= len(l.Images) {
+	if i < 0 || i >= len(l.Tiles) {
 		return nil
 	}
 
-	return l.Images[i]
+	return l.Tiles[i]
 }
 
 // TileSize returns the tileset tile size.
-func (l *PalettedLayer) TileSize() image.Point {
+func (l *Layer) TileSize() image.Point {
 	return l.Size
 }
 
-func (l *PalettedLayer) indexAt(x, y int) int {
+// GfxPalette retrieves the layer palette.
+func (l *Layer) GfxPalette() Palette {
+	return l.Palette
+}
+
+// ColorPalette retrieves the layer palette.
+func (l *Layer) ColorPalette() color.Palette {
+	return l.Palette.AsColorPalette()
+}
+
+func (l *Layer) indexAt(x, y int) int {
 	gx, gy := l.gridXY(x, y)
 
 	i := gy*l.Width + gx
@@ -97,7 +131,7 @@ func (l *PalettedLayer) indexAt(x, y int) int {
 	return l.Data[i]
 }
 
-func (l *PalettedLayer) gridXY(x, y int) (int, int) {
+func (l *Layer) gridXY(x, y int) (int, int) {
 	var gx int
 
 	if x >= l.Size.X {

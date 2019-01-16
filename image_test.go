@@ -17,7 +17,7 @@ func TestIR(t *testing.T) {
 	x0, y0, x1, y1 := 10, 10, 30, 30
 
 	got := IR(x0, y0, x1, y1)
-	want := image.Rect(x0, y0, x1, y1)
+	want := IR(x0, y0, x1, y1)
 
 	if got != want {
 		t.Fatalf("IR(%d, %d, %d, %d) = %v, want %v", x0, y0, x1, y1, got, want)

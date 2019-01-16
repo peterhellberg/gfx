@@ -29,8 +29,8 @@ func (p Palette) Random() color.NRGBA {
 	return p[rand.Intn(p.Len())]
 }
 
-// Image returns a new image based on the input image, but with colors from the palette.
-func (p Palette) Image(src image.Image) *PalettedImage {
+// Tile returns a new image based on the input image, but with colors from the palette.
+func (p Palette) Tile(src image.Image) *Paletted {
 	dst := NewPalettedImage(src.Bounds(), p)
 
 	draw.Draw(dst, dst.Bounds(), src, image.ZP, draw.Src)
