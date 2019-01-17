@@ -27,11 +27,37 @@ func NewTileset(p Palette, s image.Point, td TilesetData) *Tileset {
 }
 
 // NewTile returns a new paletted image with the given pix, stride and palette.
-func NewTile(p Palette, width int, pix []uint8) *Paletted {
+func NewTile(p Palette, cols int, pix []uint8) *Paletted {
 	return &Paletted{
-		Rect:    IR(0, 0, width, len(pix)/width+len(pix)%width),
 		Palette: p,
-		Stride:  width,
+		Stride:  cols,
 		Pix:     pix,
+		Rect:    calcRect(cols, pix),
 	}
+}
+
+func calcRect(cols int, pix []uint8) image.Rectangle {
+	s := calcSize(cols, pix)
+
+	return IR(0, 0, s.X, s.Y)
+}
+
+func calcSize(cols int, pix []uint8) image.Point {
+	l := len(pix)
+
+	if l < cols {
+		return Pt(cols, 1)
+	}
+
+	rows := l / cols
+
+	if rows*cols == l {
+		return Pt(cols, rows)
+	}
+
+	if rows%cols > 0 {
+		rows++
+	}
+
+	return Pt(cols, rows)
 }
