@@ -29,6 +29,22 @@ func (p Palette) Random() color.NRGBA {
 	return p[rand.Intn(p.Len())]
 }
 
+func (p Palette) Sheet(width int) *Paletted {
+	if width < 1 {
+		width = 1
+	}
+
+	var pix []uint8
+
+	for i, _ := range p {
+		pix = append(pix, uint8(i))
+	}
+
+	m := NewTile(p, width, pix)
+
+	return m
+}
+
 // Tile returns a new image based on the input image, but with colors from the palette.
 func (p Palette) Tile(src image.Image) *Paletted {
 	dst := NewPalettedImage(src.Bounds(), p)
