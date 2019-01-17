@@ -88,7 +88,11 @@ func (p *Paletted) At(x, y int) color.Color {
 
 	i := p.PixOffset(x, y)
 
-	return p.Palette.Color(int(p.Pix[i]))
+	if i < len(p.Pix) {
+		return p.Palette.Color(int(p.Pix[i]))
+	}
+
+	return ColorTransparent
 }
 
 // PixOffset returns the index of the first element of Pix
