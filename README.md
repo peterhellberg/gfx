@@ -13,11 +13,15 @@ Convenience package for dealing with graphics in my pixel drawing experiments.
 
 The geometry types is based on those found in <https://github.com/faiface/pixel> (but indended for use without Pixel)
 
-### `Vec` a 2D vector type
+### `gfx.Vec`
 
-### `Rect` is a 2D rectangle
+Vec is a 2D vector type with X and Y coordinates.
 
-## Matrix
+### `gfx.Rect`
+
+Rect is a 2D rectangle aligned with the axes of the coordinate system. It is defined by two points, Min and Max.
+
+## `gfx.Matrix`
 
 Matrix is a 2x3 affine matrix that can be used for all kinds of spatial transforms, such as movement, scaling and rotations.
 
@@ -25,13 +29,13 @@ Matrix is a 2x3 affine matrix that can be used for all kinds of spatial transfor
 
 ### Bresenham's line algorithm
 
-<http://en.wikipedia.org/wiki/Bresenham's_line_algorithm>
+`gfx.DrawBresenhamLine` draws a line using [Bresenham's line algorithm](http://en.wikipedia.org/wiki/Bresenham's_line_algorithm).
 
-## Polygon
+## `Polygon`
 
 A Polygon is represented by a list of vectors.
 
-### Polyline
+### `Polyline`
 
 A Polyline is a slice of polygons forming a line.
 
@@ -41,7 +45,7 @@ A small Turtle inspired drawing type. (`Resize`, `Turn`, `Move`, `Forward`, `Dra
 
 <https://www.cse.wustl.edu/~taoju/research/TurtlesforCADRevised.pdf>
 
-## Animation
+## `gfx.Animation`
 
 There is rudimentary support for making animations using this package, the animations can then be encoded into GIF.
 
@@ -97,9 +101,9 @@ most of them are found in the [Lospec Palette List](https://lospec.com/palette-l
 | `gfx.PaletteFamicube`      |     64 | ![famicube](https://lospec.com/palette-list/famicube-32x.png)
 | `gfx.PaletteSplendor128`   |    128 | ![aap-splendor128](https://lospec.com/palette-list/aap-splendor128-32x.png)
 
-### Errors
+### `gfx.Error`
 
-There is a `gfx.Error` type.
+The `gfx.Error` type is a string that implements the `error` interface.
 
 > If you are using [Ebiten](https://github.com/hajimehoshi/ebiten) then you can return the provided `gfx.ErrDone` error to exit its run loop.
 
