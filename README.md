@@ -29,6 +29,54 @@ A small Turtle inspired drawing type. (`Resize`, `Turn`, `Move`, `Forward`, `Dra
 
 <https://www.cse.wustl.edu/~taoju/research/TurtlesforCADRevised.pdf>
 
+## Animation
+
+There is rudimentary support for making animations using this package, the animations can then be encoded into GIF.
+
+## Colors
+
+There are a few default colors in this package, convenient when you just want to experiment,
+for more ambitious projects I suggest using the Palette support (or even one of the included palettes).
+
+The default colors are as follows:
+
+- `gfx.ColorBlack`
+- `gfx.ColorWhite`
+- `gfx.ColorTransparent`
+- `gfx.ColorOpaque`
+- `gfx.ColorRed`
+- `gfx.ColorGreen`
+- `gfx.ColorBlue`
+- `gfx.ColorCyan`
+- `gfx.ColorMagenta`
+- `gfx.ColorYellow`
+
+### Palettes
+
+- `gfx.Palette1Bit`
+- `gfx.Palette2BitGrayScale`
+- `gfx.Palette3Bit`
+- `gfx.PaletteCGA`
+- `gfx.Palette15PDX`
+- `gfx.Palette20PDX`
+- `gfx.PaletteAAP16`
+- `gfx.PaletteAAP64`
+- `gfx.PaletteSplendor128`
+- `gfx.PaletteArne16`
+- `gfx.PaletteFamicube`
+- `gfx.PaletteEDG16`
+- `gfx.PaletteEDG32`
+- `gfx.PaletteEDG36`
+- `gfx.PaletteEDG64`
+- `gfx.PaletteEDG8`
+- `gfx.PaletteEN4`
+- `gfx.PaletteARQ4`
+- `gfx.PaletteInk`
+- `gfx.PaletteAmmo8`
+- `gfx.PaletteNYX8`
+- `gfx.PaletteNight16`
+- `gfx.PalettePICO8`
+
 ## License (MIT)
 
 Copyright (c) 2019 [Peter Hellberg](https://c7.se/)
