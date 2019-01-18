@@ -100,7 +100,7 @@ There is a `gfx.Error` type.
 
 ### HTTP
 
-You can use `gfx.GetPNG` do download and decode a PNG.
+You can use `gfx.GetPNG` to download and decode a PNG given an URL.
 
 ### Log
 
@@ -123,9 +123,11 @@ Copyright (c) 2019 [Peter Hellberg](https://c7.se)
 > distribute, sublicense, and/or sell copies of the Software, and to
 > permit persons to whom the Software is furnished to do so, subject to
 > the following conditions:
-
+>
 > The above copyright notice and this permission notice shall be
 > included in all copies or substantial portions of the Software.
+
+<img src="https://data.gopher.se/gopher/viking-gopher.svg" align="right" width="230" height="230">
 
 > THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
 > EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
