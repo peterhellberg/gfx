@@ -52,16 +52,19 @@ for more ambitious projects I suggest using the Palette support (or even one of 
 
 ### Default colors
 
-- `gfx.ColorBlack`
-- `gfx.ColorWhite`
-- `gfx.ColorTransparent`
-- `gfx.ColorOpaque`
-- `gfx.ColorRed`
-- `gfx.ColorGreen`
-- `gfx.ColorBlue`
-- `gfx.ColorCyan`
-- `gfx.ColorMagenta`
-- `gfx.ColorYellow`
+
+| Variable               | Color
+|------------------------|---------------------------------------------------------
+| `gfx.ColorBlack`       | ![gfx.ColorBlack](https://fakeimg.pl/128x32/000000?text=+)
+| `gfx.ColorWhite`       | ![gfx.ColorWhite](https://fakeimg.pl/128x32/FFFFFF?text=+)
+| `gfx.ColorTransparent` | ![gfx.ColorTransparent](https://fakeimg.pl/128x32/000000,0/?text=+)
+| `gfx.ColorOpaque`      | ![gfx.ColorOpaque](https://fakeimg.pl/128x32/FFFFFF?text=+)
+| `gfx.ColorRed`         | ![gfx.ColorRed](https://fakeimg.pl/128x32/FF0000?text=+)
+| `gfx.ColorGreen`       | ![gfx.ColorGreen](https://fakeimg.pl/128x32/00FF00?text=+)
+| `gfx.ColorBlue`        | ![gfx.ColorBlue](https://fakeimg.pl/128x32/0000FF?text=+)
+| `gfx.ColorCyan`        | ![gfx.ColorCyan](https://fakeimg.pl/128x32/00FFFF?text=+)
+| `gfx.ColorMagenta`     | ![gfx.ColorMagenta](https://fakeimg.pl/128x32/FF00FF?text=+)
+| `gfx.ColorYellow`      | ![gfx.ColorYellow](https://fakeimg.pl/128x32/FFFF00?text=+)
 
 ### Palettes
 
