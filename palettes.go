@@ -11,27 +11,40 @@ type PaletteLookup map[PaletteName]Palette
 
 // PaletteByName is a map of all palettes by name.
 var PaletteByName = PaletteLookup{
-	"15PDX":         Palette15PDX,
-	"20PDX":         Palette20PDX,
+	// Basic palettes
+	"1Bit":          Palette1Bit,
 	"2BitGrayScale": Palette2BitGrayScale,
 	"3Bit":          Palette3Bit,
-	"AAP16":         PaletteAAP16,
-	"AAP64":         PaletteAAP64,
-	"Ammo8":         PaletteAmmo8,
-	"ARQ4":          PaletteARQ4,
-	"Arne16":        PaletteArne16,
 	"CGA":           PaletteCGA,
-	"EDG16":         PaletteEDG16,
-	"EDG32":         PaletteEDG32,
-	"EDG36":         PaletteEDG36,
-	"EDG64":         PaletteEDG64,
-	"EDG8":          PaletteEDG8,
-	"EN4":           PaletteEN4,
-	"Ink":           PaletteInk,
-	"NYX8":          PaletteNYX8,
-	"Night16":       PaletteNight16,
-	"PICO8":         PalettePICO8,
-	"Splendor128":   PaletteSplendor128,
+
+	// Palettes by GrafxKid.
+	"15PDX": Palette15PDX,
+	"20PDX": Palette20PDX,
+
+	// Palettes by Adigun Polack.
+	"AAP16":       PaletteAAP16,
+	"AAP64":       PaletteAAP64,
+	"Splendor128": PaletteSplendor128,
+
+	// Palettes by Arne.
+	"Arne16":   PaletteArne16,
+	"Famicube": PaletteFamicube,
+
+	// Palettes by Endesga.
+	"EDG16": PaletteEDG16,
+	"EDG32": PaletteEDG32,
+	"EDG36": PaletteEDG36,
+	"EDG64": PaletteEDG64,
+	"EDG8":  PaletteEDG8,
+	"EN4":   PaletteEN4,
+	"ARQ4":  PaletteARQ4,
+
+	// Palettes by others.
+	"Ink":     PaletteInk,
+	"Ammo8":   PaletteAmmo8,
+	"NYX8":    PaletteNYX8,
+	"Night16": PaletteNight16,
+	"PICO8":   PalettePICO8,
 }
 
 // PalettesByNumberOfColors is a map of int to Palettes.
