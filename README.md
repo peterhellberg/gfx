@@ -36,6 +36,49 @@ Matrix is a 2x3 affine matrix that can be used for all kinds of spatial transfor
 A `gfx.Polygon` is represented by a list of vectors.
 There is also `gfx.Polyline` which is a slice of polygons forming a line.
 
+```go
+package main
+
+import "github.com/peterhellberg/gfx"
+
+var edg32 = gfx.PaletteEDG32
+
+func main() {
+	m := gfx.NewImage(512, 512)
+
+	p := gfx.Polygon{
+		{40, 40},
+		{240, 60},
+		{440, 460},
+		{160, 360},
+		{180, 140},
+	}
+
+	p.Fill(m, edg32.Color(7))
+
+	pc := p.Rect().Center()
+
+	p.EachPixel(m, func(x, y int) {
+		pv := gfx.IV(x, y)
+
+		l := pv.To(pc).Len()
+
+		gfx.Mix(m, x, y, edg32.Color(int(l/18)%32))
+	})
+
+	for n, v := range p {
+		c := edg32.Color(n * 4)
+
+		gfx.DrawCircle(m, v, 15, 8, gfx.ColorWithAlpha(c, 96))
+		gfx.DrawCircle(m, v, 16, 1, c)
+	}
+
+	gfx.SavePNG("/tmp/gfx-readme-examples-polygon.png", m)
+}
+```
+
+![gfx-readme-examples-polygon](https://user-images.githubusercontent.com/565124/51088235-61b28e80-175d-11e9-924d-835487277f4a.png)
+
 ## Turtle drawing :turtle:
 
 `gfx.Turtle` is a small Turtle inspired drawing type. (`Resize`, `Turn`, `Move`, `Forward`, `Draw`)
@@ -69,6 +112,41 @@ func main() {
 ## Animation
 
 There is rudimentary support for making animations using `gfx.Animation`, the animations can then be encoded into GIF.
+
+```go
+package main
+
+import "github.com/peterhellberg/gfx"
+
+func main() {
+	a := &gfx.Animation{}
+	p := gfx.PaletteEDG36
+
+	var fireflower = []uint8{
+		0, 1, 1, 1, 1, 1, 1, 0,
+		1, 1, 2, 2, 2, 2, 1, 1,
+		1, 2, 3, 3, 3, 3, 2, 1,
+		1, 1, 2, 2, 2, 2, 1, 1,
+		0, 1, 1, 1, 1, 1, 1, 0,
+		0, 0, 0, 4, 4, 0, 0, 0,
+		0, 0, 0, 4, 4, 0, 0, 0,
+		4, 4, 0, 4, 4, 0, 4, 4,
+		0, 4, 0, 4, 4, 0, 4, 0,
+		0, 4, 4, 4, 4, 4, 4, 0,
+		0, 0, 4, 4, 4, 4, 0, 0,
+	}
+
+	for i := 0; i < len(p)-4; i++ {
+		t := gfx.NewTile(p[i:i+4], 8, fireflower)
+
+		a.AddPalettedImage(gfx.NewScaledPalettedImage(t, 20))
+	}
+
+	a.SaveGIF("/tmp/gfx-readme-examples-animation.gif")
+}
+```
+
+![gfx-readme-examples-animation](https://user-images.githubusercontent.com/565124/51402952-437ad300-1b4f-11e9-89f3-292f69f38429.gif)
 
 ## Colors
 
