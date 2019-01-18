@@ -16,11 +16,17 @@ type Turtle struct {
 }
 
 // NewTurtle creates a new turtle used for drawing.
-func NewTurtle(p Vec) *Turtle {
-	return &Turtle{
+func NewTurtle(p Vec, options ...func(*Turtle)) *Turtle {
+	t := &Turtle{
 		Position:  p,
 		Direction: V(0, -1),
 	}
+
+	for _, option := range options {
+		option(t)
+	}
+
+	return t
 }
 
 // Bounds return the bounds of the drawing.
