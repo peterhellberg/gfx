@@ -21,7 +21,7 @@ Vec is a 2D vector type with X and Y coordinates.
 
 Rect is a 2D rectangle aligned with the axes of the coordinate system. It is defined by two points, Min and Max.
 
-## `gfx.Matrix`
+### `gfx.Matrix`
 
 Matrix is a 2x3 affine matrix that can be used for all kinds of spatial transforms, such as movement, scaling and rotations.
 
@@ -31,20 +31,20 @@ Matrix is a 2x3 affine matrix that can be used for all kinds of spatial transfor
 
 `gfx.DrawBresenhamLine` draws a line using [Bresenham's line algorithm](http://en.wikipedia.org/wiki/Bresenham's_line_algorithm).
 
-## `gfx.Polygon`
+## Polygons
 
 A `gfx.Polygon` is represented by a list of vectors.
 There is also `gfx.Polyline` which is a slice of polygons forming a line.
 
-## `gfx.Turtle` :turtle:
+## Turtle drawing :turtle:
 
-A small Turtle inspired drawing type. (`Resize`, `Turn`, `Move`, `Forward`, `Draw`)
+`gfx.Turtle` is a small Turtle inspired drawing type. (`Resize`, `Turn`, `Move`, `Forward`, `Draw`)
 
 <https://www.cse.wustl.edu/~taoju/research/TurtlesforCADRevised.pdf>
 
-## `gfx.Animation`
+## Animation
 
-There is rudimentary support for making animations using this package, the animations can then be encoded into GIF.
+There is rudimentary support for making animations using `gfx.Animation`, the animations can then be encoded into GIF.
 
 ## Colors
 
@@ -100,7 +100,7 @@ most of them are found in the [Lospec Palette List](https://lospec.com/palette-l
 | `gfx.PaletteFamicube`      |     64 | ![famicube](https://lospec.com/palette-list/famicube-32x.png)
 | `gfx.PaletteSplendor128`   |    128 | ![aap-splendor128](https://lospec.com/palette-list/aap-splendor128-32x.png)
 
-### `gfx.Error`
+### Errors
 
 The `gfx.Error` type is a string that implements the `error` interface.
 
