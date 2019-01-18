@@ -17,11 +17,23 @@ The geometry types is based on those found in <https://github.com/faiface/pixel>
 
 ### `Rect` is a 2D rectangle
 
+## Matrix
+
+Matrix is a 2x3 affine matrix that can be used for all kinds of spatial transforms, such as movement, scaling and rotations.
+
 ## Line algorithms
 
 ### Bresenham's line algorithm
 
 <http://en.wikipedia.org/wiki/Bresenham's_line_algorithm>
+
+## Polygon
+
+A Polygon is represented by a list of vectors.
+
+### Polyline
+
+A Polyline is a slice of polygons forming a line.
 
 ## `Turtle` drawing :turtle:
 
@@ -38,7 +50,7 @@ There is rudimentary support for making animations using this package, the anima
 There are a few default colors in this package, convenient when you just want to experiment,
 for more ambitious projects I suggest using the Palette support (or even one of the included palettes).
 
-The default colors are as follows:
+### Default colors
 
 - `gfx.ColorBlack`
 - `gfx.ColorWhite`
@@ -52,6 +64,9 @@ The default colors are as follows:
 - `gfx.ColorYellow`
 
 ### Palettes
+
+There are a number of palettes in the `gfx` package,
+most of them are found in the [Lospec Palette List](https://lospec.com/palette-list/).
 
 - `gfx.Palette1Bit`
 - `gfx.Palette2BitGrayScale`
@@ -77,9 +92,29 @@ The default colors are as follows:
 - `gfx.PaletteNight16`
 - `gfx.PalettePICO8`
 
+### Errors
+
+There is a `gfx.Error` type.
+
+> If you are using [Ebiten](https://github.com/hajimehoshi/ebiten) then you can return the provided `gfx.ErrDone` error to exit its run loop.
+
+### HTTP
+
+You can use `gfx.GetPNG` do download and decode a PNG.
+
+### Log
+
+I find that it is fairly common for me to do some logging driven development
+when experimenting with graphical effects, so I've included `gfx.Log`,
+`gfx.Dump`, `gfx.Printf` and `gfx.Sprintf` in this package.
+
+### Resizing images
+
+You can use `gfx.ResizeImage` to resize an image. (nearest neighbor, mainly useful for pixelated graphics)
+
 ## License (MIT)
 
-Copyright (c) 2019 [Peter Hellberg](https://c7.se/)
+Copyright (c) 2019 [Peter Hellberg](https://c7.se)
 
 > Permission is hereby granted, free of charge, to any person obtaining
 > a copy of this software and associated documentation files (the
