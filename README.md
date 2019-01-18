@@ -42,6 +42,30 @@ There is also `gfx.Polyline` which is a slice of polygons forming a line.
 
 <https://www.cse.wustl.edu/~taoju/research/TurtlesforCADRevised.pdf>
 
+```go
+package main
+
+import "github.com/peterhellberg/gfx"
+
+func main() {
+	m := gfx.NewImage(512, 512, gfx.ColorWhite)
+
+	gfx.NewTurtle(gfx.V(148, 450), func(t *gfx.Turtle) {
+		t.Color = gfx.ColorWithAlpha(gfx.ColorMagenta, 64)
+
+		for i := 0; i < 224; i++ {
+			t.Forward(392 - float64(i))
+			t.Turn(121)
+		}
+
+	}).Draw(m)
+
+	gfx.SavePNG("/tmp/gfx-readme-examples-turtle.png", m)
+}
+```
+
+![gfx-readme-examples-turtle](https://user-images.githubusercontent.com/565124/51402174-0ad9fa00-1b4d-11e9-95b9-f5617979f34e.png)
+
 ## Animation
 
 There is rudimentary support for making animations using `gfx.Animation`, the animations can then be encoded into GIF.
