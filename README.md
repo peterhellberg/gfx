@@ -25,21 +25,18 @@ Rect is a 2D rectangle aligned with the axes of the coordinate system. It is def
 
 Matrix is a 2x3 affine matrix that can be used for all kinds of spatial transforms, such as movement, scaling and rotations.
 
-## Line algorithms
+## Line drawing algorithms
 
 ### Bresenham's line algorithm
 
 `gfx.DrawBresenhamLine` draws a line using [Bresenham's line algorithm](http://en.wikipedia.org/wiki/Bresenham's_line_algorithm).
 
-## `Polygon`
+## `gfx.Polygon`
 
-A Polygon is represented by a list of vectors.
+A `gfx.Polygon` is represented by a list of vectors.
+There is also `gfx.Polyline` which is a slice of polygons forming a line.
 
-### `Polyline`
-
-A Polyline is a slice of polygons forming a line.
-
-## `Turtle` drawing :turtle:
+## `gfx.Turtle` :turtle:
 
 A small Turtle inspired drawing type. (`Resize`, `Turn`, `Move`, `Forward`, `Draw`)
 
@@ -51,10 +48,12 @@ There is rudimentary support for making animations using this package, the anima
 
 ## Colors
 
-There are a few default colors in this package, convenient when you just want to experiment,
-for more ambitious projects I suggest using the Palette support (or even one of the included palettes).
+You can construct new colors using `gfx.ColorNRGBA` and `gfx.ColorWithAlpha`.
 
 ### Default colors
+
+There are a few default colors in this package, convenient when you just want to experiment,
+for more ambitious projects I suggest creating a `gfx.Palette` (or even use one of the included palettes).
 
 
 | Variable               | Color
