@@ -28,7 +28,7 @@ type Animation struct {
 }
 
 // AddPalettedImage adds a frame and palette to the animation.
-func (a *Animation) AddPalettedImage(p PalettedImage, delays ...int) {
+func (a *Animation) AddPalettedImage(p PalettedImage) {
 	a.Frames = append(a.Frames, p)
 	a.Palettes = append(a.Palettes, p.ColorPalette())
 }
