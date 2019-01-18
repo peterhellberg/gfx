@@ -71,31 +71,31 @@ for more ambitious projects I suggest using the Palette support (or even one of 
 There are a number of palettes in the `gfx` package,
 most of them are found in the [Lospec Palette List](https://lospec.com/palette-list/).
 
-| Variable                   | Lospec Palette
-|----------------------------|------------------------------------------------------
-| `gfx.Palette1Bit`          |
-| `gfx.Palette2BitGrayScale` | ![2-bit-grayscale](https://lospec.com/palette-list/2-bit-grayscale-32x.png)
-| `gfx.Palette3Bit`          | ![3-bit-rgb](https://lospec.com/palette-list/3-bit-rgb-32x.png)
-| `gfx.PaletteCGA`           | ![color-graphics-adapter](https://lospec.com/palette-list/color-graphics-adapter-32x.png)
-| `gfx.Palette15PDX`         | ![15p-dx](https://lospec.com/palette-list/20p-dx-32x.png)
-| `gfx.Palette20PDX`         | ![20p-dx](https://lospec.com/palette-list/20p-dx-32x.png)
-| `gfx.PaletteAAP16`         | ![aap-16](https://lospec.com/palette-list/aap-16-32x.png)
-| `gfx.PaletteAAP64`         | ![aap-64](https://lospec.com/palette-list/aap-64-32x.png)
-| `gfx.PaletteSplendor128`   | ![aap-splendor128](https://lospec.com/palette-list/aap-splendor128-32x.png)
-| `gfx.PaletteArne16`        | ![arne-16](https://lospec.com/palette-list/arne-16-32x.png)
-| `gfx.PaletteFamicube`      | ![famicube](https://lospec.com/palette-list/famicube-32x.png)
-| `gfx.PaletteEDG16`         | ![endesega-16](https://lospec.com/palette-list/endesga-16-32x.png)
-| `gfx.PaletteEDG32`         | ![endesega-32](https://lospec.com/palette-list/endesga-32-32x.png)
-| `gfx.PaletteEDG36`         | ![endesega-36](https://lospec.com/palette-list/endesga-36-32x.png)
-| `gfx.PaletteEDG64`         | ![endesega-64](https://lospec.com/palette-list/endesga-64-32x.png)
-| `gfx.PaletteEDG8`          | ![endesega-8](https://lospec.com/palette-list/endesga-8-32x.png)
-| `gfx.PaletteEN4`           | ![en4](https://lospec.com/palette-list/en4-32x.png)
-| `gfx.PaletteARQ4`          | ![arq4](https://lospec.com/palette-list/arq4-32x.png)
-| `gfx.PaletteInk`           | ![ink](https://lospec.com/palette-list/ink-32x.png)
-| `gfx.PaletteAmmo8`         | ![ammo-8](https://lospec.com/palette-list/ammo-8-32x.png)
-| `gfx.PaletteNYX8`          | ![nyx8](https://lospec.com/palette-list/nyx8-32x.png)
-| `gfx.PaletteNight16`       | ![night-16](https://lospec.com/palette-list/night-16-32x.png)
-| `gfx.PalettePICO8`         | ![pico-8]((https://lospec.com/palette-list/pico-8-32x.png))
+| Variable                   | Colors | Lospec Palette
+|----------------------------|-------:| -----------------------------------------------------
+| `gfx.Palette1Bit`          |      2 |
+| `gfx.Palette2BitGrayScale` |      4 | ![2-bit-grayscale](https://lospec.com/palette-list/2-bit-grayscale-32x.png)
+| `gfx.PaletteEN4`           |      4 | ![en4](https://lospec.com/palette-list/en4-32x.png)
+| `gfx.PaletteARQ4`          |      4 | ![arq4](https://lospec.com/palette-list/arq4-32x.png)
+| `gfx.PaletteInk`           |      5 | ![ink](https://lospec.com/palette-list/ink-32x.png)
+| `gfx.Palette3Bit`          |      8 | ![3-bit-rgb](https://lospec.com/palette-list/3-bit-rgb-32x.png)
+| `gfx.PaletteEDG8`          |      8 | ![endesega-8](https://lospec.com/palette-list/endesga-8-32x.png)
+| `gfx.PaletteAmmo8`         |      8 | ![ammo-8](https://lospec.com/palette-list/ammo-8-32x.png)
+| `gfx.PaletteNYX8`          |      8 | ![nyx8](https://lospec.com/palette-list/nyx8-32x.png)
+| `gfx.Palette15PDX`         |     15 | ![15p-dx](https://lospec.com/palette-list/15p-dx-32x.png)
+| `gfx.PaletteCGA`           |     16 | ![color-graphics-adapter](https://lospec.com/palette-list/color-graphics-adapter-32x.png)
+| `gfx.PalettePICO8`         |     16 | ![pico-8](https://lospec.com/palette-list/pico-8-32x.png)
+| `gfx.PaletteNight16`       |     16 | ![night-16](https://lospec.com/palette-list/night-16-32x.png)
+| `gfx.PaletteAAP16`         |     16 | ![aap-16](https://lospec.com/palette-list/aap-16-32x.png)
+| `gfx.PaletteArne16`        |     16 | ![arne-16](https://lospec.com/palette-list/arne-16-32x.png)
+| `gfx.PaletteEDG16`         |     16 | ![endesega-16](https://lospec.com/palette-list/endesga-16-32x.png)
+| `gfx.Palette20PDX`         |     20 | ![20p-dx](https://lospec.com/palette-list/20p-dx-32x.png)
+| `gfx.PaletteEDG32`         |     32 | ![endesega-32](https://lospec.com/palette-list/endesga-32-32x.png)
+| `gfx.PaletteEDG36`         |     36 | ![endesega-36](https://lospec.com/palette-list/endesga-36-32x.png)
+| `gfx.PaletteEDG64`         |     64 | ![endesega-64](https://lospec.com/palette-list/endesga-64-32x.png)
+| `gfx.PaletteAAP64`         |     64 | ![aap-64](https://lospec.com/palette-list/aap-64-32x.png)
+| `gfx.PaletteFamicube`      |     64 | ![famicube](https://lospec.com/palette-list/famicube-32x.png)
+| `gfx.PaletteSplendor128`   |    128 | ![aap-splendor128](https://lospec.com/palette-list/aap-splendor128-32x.png)
 
 ### Errors
 
