@@ -4,10 +4,10 @@ import "image/color"
 
 // Standard colors
 var (
-	ColorBlack       = color.Black
-	ColorWhite       = color.White
-	ColorTransparent = color.Transparent
-	ColorOpaque      = color.Opaque
+	ColorTransparent = ColorNRGBA(0, 0, 0, 0)
+	ColorOpaque      = ColorNRGBA(0xFF, 0xFF, 0xFF, 0xFF)
+	ColorBlack       = Palette1Bit.Color(0)
+	ColorWhite       = Palette1Bit.Color(1)
 	ColorRed         = Palette3Bit.Color(1)
 	ColorGreen       = Palette3Bit.Color(2)
 	ColorBlue        = Palette3Bit.Color(3)
