@@ -9,7 +9,7 @@ type Tiles []PalettedImage
 type Tileset struct {
 	Palette Palette     // Palette of the tileset.
 	Size    image.Point // Size is the size of each tile.
-	Tiles   Tiles       // Images containst all of the images in the tileset.
+	Tiles   Tiles       // Images contains all of the images in the tileset.
 }
 
 // TilesetData is the raw data in a tileset
@@ -24,6 +24,28 @@ func NewTileset(p Palette, s image.Point, td TilesetData) *Tileset {
 	}
 
 	return ts
+}
+
+// NewTilesetFromImage creates a new paletted tileset based on the provided palette, tile size and image.
+func NewTilesetFromImage(p Palette, tileSize image.Point, m image.Image) *Tileset {
+	cols := m.Bounds().Dx() / tileSize.X
+	rows := m.Bounds().Dy() / tileSize.Y
+
+	tiles := make(Tiles, cols*rows)
+
+	for row := 0; row < rows; row++ {
+		for col := 0; col < cols; col++ {
+			t := NewPaletted(tileSize.X, tileSize.Y, p)
+
+			DrawSrc(t, t.Bounds(), m, Pt(col*tileSize.X, row*tileSize.Y))
+
+			i := (row * cols) + col
+
+			tiles[i] = t
+		}
+	}
+
+	return &Tileset{Palette: p, Size: tileSize, Tiles: tiles}
 }
 
 // NewTile returns a new paletted image with the given pix, stride and palette.
