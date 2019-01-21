@@ -9,9 +9,9 @@ Convenience package for dealing with graphics in my pixel drawing experiments.
 
 #### :warning: NO STABILITY GUARANTEES AS OF YET :warning:
 
-## Geometry
+## Geometry and Transformation
 
-The geometry types is based on those found in <https://github.com/faiface/pixel> (but indended for use without Pixel)
+The geometry and transformation types is based on those found in <https://github.com/faiface/pixel> (but indended for use without Pixel)
 
 ### Vec
 
