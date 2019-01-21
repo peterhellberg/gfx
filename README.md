@@ -13,17 +13,17 @@ Convenience package for dealing with graphics in my pixel drawing experiments.
 
 The geometry types is based on those found in <https://github.com/faiface/pixel> (but indended for use without Pixel)
 
-### `gfx.Vec`
+### Vec
 
-Vec is a 2D vector type with X and Y coordinates.
+`gfx.Vec` is a 2D vector type with X and Y coordinates.
 
-### `gfx.Rect`
+### Rect
 
-Rect is a 2D rectangle aligned with the axes of the coordinate system. It is defined by two points, Min and Max.
+`gfx.Rect` is a 2D rectangle aligned with the axes of the coordinate system. It is defined by two points, Min and Max.
 
-### `gfx.Matrix`
+### Matrix
 
-Matrix is a 2x3 affine matrix that can be used for all kinds of spatial transforms, such as movement, scaling and rotations.
+`gfx.Matrix` is a 2x3 affine matrix that can be used for all kinds of spatial transforms, such as movement, scaling and rotations.
 
 ```go
 package main
@@ -138,7 +138,7 @@ func main() {
 
 ![gfx-readme-examples-polygon](https://user-images.githubusercontent.com/565124/51088235-61b28e80-175d-11e9-924d-835487277f4a.png)
 
-## Turtle drawing :turtle:
+## :turtle: drawing
 
 `gfx.Turtle` is a small Turtle inspired drawing type. (`Resize`, `Turn`, `Move`, `Forward`, `Draw`)
 
