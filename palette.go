@@ -29,6 +29,7 @@ func (p Palette) Random() color.NRGBA {
 	return p[rand.Intn(p.Len())]
 }
 
+// Sheet returns a paletted image with all of the colors in the palette.
 func (p Palette) Sheet(width int) *Paletted {
 	if width < 1 {
 		width = 1
@@ -36,7 +37,7 @@ func (p Palette) Sheet(width int) *Paletted {
 
 	var pix []uint8
 
-	for i, _ := range p {
+	for i := range p {
 		pix = append(pix, uint8(i))
 	}
 
