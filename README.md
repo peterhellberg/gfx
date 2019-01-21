@@ -31,6 +31,26 @@ Matrix is a 2x3 affine matrix that can be used for all kinds of spatial transfor
 
 `gfx.DrawBresenhamLine` draws a line using [Bresenham's line algorithm](http://en.wikipedia.org/wiki/Bresenham's_line_algorithm).
 
+```go
+package main
+
+import "github.com/peterhellberg/gfx"
+
+func main() {
+	m := gfx.NewImage(64, 64, gfx.ColorWhite)
+
+	gfx.DrawBresenhamLine(m, gfx.V(10, 10), gfx.V(54, 54), gfx.ColorRed)
+	gfx.DrawBresenhamLine(m, gfx.V(10, 20), gfx.V(10, 54), gfx.ColorGreen)
+	gfx.DrawBresenhamLine(m, gfx.V(20, 10), gfx.V(54, 10), gfx.ColorBlue)
+
+	s := gfx.NewScaledImage(m, 4)
+
+	gfx.SavePNG("/tmp/gfx-readme-examples-bresenham-line.png", s)
+}
+```
+
+![gfx-readme-examples-bresenham-line](https://user-images.githubusercontent.com/565124/51472593-3a217e80-1d7a-11e9-902e-6875d3ee6cb8.png)
+
 ## Polygons
 
 A `gfx.Polygon` is represented by a list of vectors.
