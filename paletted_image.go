@@ -101,6 +101,19 @@ func (p *Paletted) At(x, y int) color.Color {
 	return ColorTransparent
 }
 
+// Pixels returns the pixels of the paletted image as a []uint8.
+func (p *Paletted) Pixels() []uint8 {
+	pix := make([]uint8, len(p.Pix)*4)
+
+	for i, n := range p.Pix {
+		o := i * 4
+		c := p.Palette.Color(int(n))
+		pix[o], pix[o+1], pix[o+2], pix[o+3] = c.R, c.G, c.B, c.A
+	}
+
+	return pix
+}
+
 // PixOffset returns the index of the first element of Pix
 // that corresponds to the pixel at (x, y).
 func (p *Paletted) PixOffset(x, y int) int {
