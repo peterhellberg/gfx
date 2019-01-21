@@ -27,8 +27,14 @@ type Paletted struct {
 }
 
 // NewPaletted returns a new paletted image with the given width, height and palette.
-func NewPaletted(w, h int, p Palette) *Paletted {
-	return NewPalettedImage(IR(0, 0, w, h), p)
+func NewPaletted(w, h int, p Palette, colors ...color.Color) *Paletted {
+	m := NewPalettedImage(IR(0, 0, w, h), p)
+
+	if len(colors) > 0 {
+		DrawSrc(m, m.Bounds(), NewUniform(colors[0]), ZP)
+	}
+
+	return m
 }
 
 // NewPalettedImage returns a new paletted image with the given bounds and palette.
