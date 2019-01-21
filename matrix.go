@@ -69,6 +69,11 @@ func (m Matrix) Rotated(around Vec, angle float64) Matrix {
 	return m
 }
 
+// RotatedDegrees rotates everything around a given point by the given number of degrees.
+func (m Matrix) RotatedDegrees(around Vec, degrees float64) Matrix {
+	return m.Rotated(around, degrees*math.Pi/180)
+}
+
 // Chained adds another Matrix to this one. All tranformations by the next Matrix will be applied
 // after the transformations of this Matrix.
 func (m Matrix) Chained(next Matrix) Matrix {
