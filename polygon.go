@@ -42,6 +42,17 @@ func (p Polygon) Rect() Rect {
 	return r
 }
 
+// Project creates a new Polygon with all vertexes projected through the given Matrix.
+func (p Polygon) Project(m Matrix) Polygon {
+	pp := make(Polygon, len(p))
+
+	for i, u := range p {
+		pp[i] = m.Project(u)
+	}
+
+	return pp
+}
+
 // EachPixel calls the provided function for each pixel
 // in the polygon rectangle bounds.
 func (p Polygon) EachPixel(m draw.Image, fn func(x, y int)) {
