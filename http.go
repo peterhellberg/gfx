@@ -21,3 +21,13 @@ func GetPNG(rawurl string) (image.Image, error) {
 
 	return DecodePNG(resp.Body)
 }
+
+// GetTileset retrieves a remote tileset using GetPNG.
+func GetTileset(p Palette, tileSize image.Point, rawurl string) (*Tileset, error) {
+	m, err := GetPNG(rawurl)
+	if err != nil {
+		return nil, err
+	}
+
+	return NewTilesetFromImage(p, tileSize, m), nil
+}
