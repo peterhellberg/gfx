@@ -119,6 +119,34 @@ func (l *Layer) ColorPalette() color.Palette {
 	return l.Tileset.Palette.AsColorPalette()
 }
 
+// Index returns the tile index at (x, y). (Short for TileIndexAt)
+func (l *Layer) Index(x, y int) int {
+	return l.TileIndexAt(x, y)
+}
+
+// TileIndexAt returns the tile index at (x, y).
+func (l *Layer) TileIndexAt(x, y int) int {
+	return l.indexAt(x, y)
+}
+
+// Put changes the tile index at (x, y). (Short for SetTileIndex)
+func (l *Layer) Put(x, y, index int) {
+	l.SetTileIndex(x, y, index)
+}
+
+// SetTileIndex changes the tile index at (x, y).
+func (l *Layer) SetTileIndex(x, y, index int) {
+	o := l.dataOffset(x, y)
+
+	if o >= 0 && o < len(l.Data) {
+		l.Data[o] = index
+	}
+}
+
+func (l *Layer) dataOffset(x, y int) int {
+	return (y-l.Bounds().Min.Y)*l.Width + (x-l.Bounds().Min.X)*1
+}
+
 func (l *Layer) indexAt(x, y int) int {
 	gx, gy := l.gridXY(x, y)
 
