@@ -21,6 +21,33 @@ func DrawSrc(dst draw.Image, r image.Rectangle, src image.Image, sp image.Point)
 	draw.Draw(dst, r, src, sp, draw.Src)
 }
 
+// DrawOverPalettedImage draws a PalettedImage over a PalettedDrawImage.
+func DrawOverPalettedImage(dst PalettedDrawImage, r image.Rectangle, src PalettedImage) {
+	w, h, m := r.Dx(), r.Dy(), r.Min
+
+	for x := m.X; x != w; x++ {
+		for y := m.Y; y != h; y++ {
+			if src.AlphaAt(x, y) > 0 {
+				dst.SetColorIndex(x, y, src.ColorIndexAt(x, y))
+			}
+		}
+	}
+}
+
+// DrawLayerOverPaletted draws a *Layer over a *Paletted.
+// (slightly faster than using the generic DrawOverPalettedImage)
+func DrawLayerOverPaletted(dst *Paletted, r image.Rectangle, src *Layer) {
+	w, h, m := r.Dx(), r.Dy(), r.Min
+
+	for x := m.X; x != w; x++ {
+		for y := m.Y; y != h; y++ {
+			if src.AlphaAt(x, y) > 0 {
+				dst.SetColorIndex(x, y, src.ColorIndexAt(x, y))
+			}
+		}
+	}
+}
+
 // DrawLine draws a line of the given color.
 // A thickness of <= 1 is drawn using DrawBresenhamLine.
 func DrawLine(m draw.Image, from, to Vec, t float64, c color.Color) {

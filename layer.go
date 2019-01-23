@@ -43,12 +43,28 @@ func NewLayer(tileset *Tileset, width int, data LayerData) *Layer {
 
 // At returns the color at (x, y).
 func (l *Layer) At(x, y int) color.Color {
+	return l.NRGBAAt(x, y)
+}
+
+// NRGBAAt returns the color.NRGBA at (x, y).
+func (l *Layer) NRGBAAt(x, y int) color.NRGBA {
 	if i := l.TileIndexAt(x, y); i > -1 {
-		return l.Tileset.Tiles[i].
-			At(x%l.Tileset.Size.X, y%l.Tileset.Size.Y)
+		s := l.Tileset.Size
+
+		return l.Tileset.Tiles[i].NRGBAAt(x%s.X, y%s.Y)
 	}
 
-	return color.Transparent
+	return ColorTransparent
+}
+
+// AlphaAt returns the alpha value at (x, y).
+func (l *Layer) AlphaAt(x, y int) uint8 {
+	if i := l.TileIndexAt(x, y); i > -1 {
+		tx, ty := x%l.Tileset.Size.X, y%l.Tileset.Size.Y
+		return l.Tileset.Tiles[i].AlphaAt(tx, ty)
+	}
+
+	return 0
 }
 
 // Bounds returns the bounds of the paletted layer.
@@ -80,7 +96,8 @@ func (l *Layer) ColorModel() color.Model {
 // ColorIndexAt returns the palette index of the pixel at (x, y).
 func (l *Layer) ColorIndexAt(x, y int) uint8 {
 	if t := l.TileAt(x, y); t != nil {
-		return t.ColorIndexAt(x, y)
+		ts := l.Tileset.Size
+		return t.ColorIndexAt(x%ts.X, y%ts.Y)
 	}
 
 	return 0
@@ -88,9 +105,7 @@ func (l *Layer) ColorIndexAt(x, y int) uint8 {
 
 // TileAt returns the tile image at (x, y).
 func (l *Layer) TileAt(x, y int) image.PalettedImage {
-	i := l.TileIndexAt(x, y)
-
-	if i >= 0 && i < len(l.Tileset.Tiles) {
+	if i := l.TileIndexAt(x, y); i >= 0 && i < len(l.Tileset.Tiles) {
 		return l.Tileset.Tiles[i]
 	}
 
@@ -129,7 +144,12 @@ func (l *Layer) TileIndexAt(x, y int) int {
 	return -1
 }
 
-// Put changes the tile index at (x, y). (Short for SetTileIndex)
+// DataAt returns the data at (dx, dy).
+func (l *Layer) DataAt(dx, dy int) int {
+	return l.Data[l.dataOffset(dx, dy)]
+}
+
+// Put changes the tile index at (dx, dy). (Short for SetTileIndex)
 func (l *Layer) Put(dx, dy, index int) {
 	l.SetTileIndex(dx, dy, index)
 }

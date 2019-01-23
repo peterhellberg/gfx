@@ -6,11 +6,19 @@ import (
 	"image/draw"
 )
 
-// PalettedImage interface
+// PalettedImage interface is implemented by *Paletted
 type PalettedImage interface {
 	GfxPalette() Palette
 	ColorPalette() color.Palette
+	NRGBAAt(int, int) color.NRGBA
+	AlphaAt(int, int) uint8
 	image.PalettedImage
+}
+
+// PalettedDrawImage interface is implemented by *Paletted
+type PalettedDrawImage interface {
+	SetColorIndex(int, int, uint8)
+	PalettedImage
 }
 
 // Paletted is an in-memory image of uint8 indices into a given palette.
@@ -43,7 +51,12 @@ func NewPalettedImage(r image.Rectangle, p Palette) *Paletted {
 
 	pix := make([]uint8, 1*w*h)
 
-	return &Paletted{pix, 1 * w, r, p}
+	return &Paletted{
+		Pix:     pix,
+		Stride:  1 * w,
+		Rect:    r,
+		Palette: p,
+	}
 }
 
 // NewResizedPalettedImage returns an image with the provided dimensions.
@@ -82,17 +95,19 @@ func (p *Paletted) ColorPalette() color.Palette {
 	return p.Palette.AsColorPalette()
 }
 
-// At retrieves the color at (x, y).
+// At returns the color at (x, y).
 func (p *Paletted) At(x, y int) color.Color {
-	if i := p.PixOffset(x, y); i >= 0 && i < len(p.Pix) {
-		n := int(p.Pix[i])
+	return p.NRGBAAt(x, y)
+}
 
-		if n < len(p.Palette) {
-			return p.Palette[n]
-		}
-	}
+// NRGBAAt returns the color.NRGBA at (x, y).
+func (p *Paletted) NRGBAAt(x, y int) color.NRGBA {
+	return p.Palette[p.ColorIndexAt(x, y)]
+}
 
-	return ColorTransparent
+// AlphaAt returns the alpha value at (x, y).
+func (p *Paletted) AlphaAt(x, y int) uint8 {
+	return p.Palette[p.ColorIndexAt(x, y)].A
 }
 
 // Pixels returns the pixels of the paletted image as a []uint8.
@@ -101,7 +116,7 @@ func (p *Paletted) Pixels() []uint8 {
 
 	for i, n := range p.Pix {
 		o := i * 4
-		c := p.Palette.Color(int(n))
+		c := p.Palette[int(n)]
 		pix[o], pix[o+1], pix[o+2], pix[o+3] = c.R, c.G, c.B, c.A
 	}
 
@@ -111,7 +126,8 @@ func (p *Paletted) Pixels() []uint8 {
 // PixOffset returns the index of the first element of Pix
 // that corresponds to the pixel at (x, y).
 func (p *Paletted) PixOffset(x, y int) int {
-	return (y-p.Rect.Min.Y)*p.Stride + (x - p.Rect.Min.X)
+	return y*p.Stride + x
+	//return (y-p.Rect.Min.Y)*p.Stride + (x-p.Rect.Min.X)*1
 }
 
 // Set changes the color at (x, y).
@@ -137,24 +153,16 @@ func (p *Paletted) Put(x, y int, index uint8) {
 
 // ColorIndexAt returns the color index at (x, y).
 func (p *Paletted) ColorIndexAt(x, y int) uint8 {
-	if !(image.Point{x, y}.In(p.Rect)) {
-		return 0
+	if o := p.PixOffset(x, y); o < len(p.Pix) {
+		return p.Pix[o]
 	}
 
-	i := p.PixOffset(x, y)
-
-	return p.Pix[i]
+	return 0
 }
 
 // SetColorIndex changes the color index at (x, y).
 func (p *Paletted) SetColorIndex(x, y int, index uint8) {
-	if !(image.Point{x, y}.In(p.Rect)) {
-		return
-	}
-
-	i := p.PixOffset(x, y)
-
-	p.Pix[i] = index
+	p.Pix[p.PixOffset(x, y)] = index
 }
 
 // SubImage returns an image representing the portion of the image p visible
