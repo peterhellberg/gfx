@@ -84,18 +84,12 @@ func (p *Paletted) ColorPalette() color.Palette {
 
 // At retrieves the color at (x, y).
 func (p *Paletted) At(x, y int) color.Color {
-	if len(p.Palette) == 0 {
-		return color.Transparent
-	}
+	if i := p.PixOffset(x, y); i >= 0 && i < len(p.Pix) {
+		n := int(p.Pix[i])
 
-	if !(image.Point{x, y}.In(p.Rect)) {
-		return p.Palette[0]
-	}
-
-	i := p.PixOffset(x, y)
-
-	if i < len(p.Pix) {
-		return p.Palette.Color(int(p.Pix[i]))
+		if n < len(p.Palette) {
+			return p.Palette[n]
+		}
 	}
 
 	return ColorTransparent
@@ -117,7 +111,7 @@ func (p *Paletted) Pixels() []uint8 {
 // PixOffset returns the index of the first element of Pix
 // that corresponds to the pixel at (x, y).
 func (p *Paletted) PixOffset(x, y int) int {
-	return (y-p.Rect.Min.Y)*p.Stride + (x-p.Rect.Min.X)*1
+	return (y-p.Rect.Min.Y)*p.Stride + (x - p.Rect.Min.X)
 }
 
 // Set changes the color at (x, y).

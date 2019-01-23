@@ -38,19 +38,14 @@ func (ld LayerData) Size(cols int) image.Point {
 
 // NewLayer creates a new layer.
 func NewLayer(tileset *Tileset, width int, data LayerData) *Layer {
-	return &Layer{tileset, width, data}
+	return &Layer{Tileset: tileset, Width: width, Data: data}
 }
 
 // At returns the color at (x, y).
 func (l *Layer) At(x, y int) color.Color {
-	if x < 0 || y < 0 {
-		return color.Transparent
-	}
-
-	t := l.TileAt(x, y)
-
-	if t != nil {
-		return t.At(x%l.Tileset.Size.X, y%l.Tileset.Size.Y)
+	if i := l.TileIndexAt(x, y); i > -1 {
+		return l.Tileset.Tiles[i].
+			At(x%l.Tileset.Size.X, y%l.Tileset.Size.Y)
 	}
 
 	return color.Transparent
@@ -84,24 +79,22 @@ func (l *Layer) ColorModel() color.Model {
 
 // ColorIndexAt returns the palette index of the pixel at (x, y).
 func (l *Layer) ColorIndexAt(x, y int) uint8 {
-	t := l.TileAt(x, y)
-
-	if t == nil {
-		return 0
+	if t := l.TileAt(x, y); t != nil {
+		return t.ColorIndexAt(x, y)
 	}
 
-	return t.ColorIndexAt(x, y)
+	return 0
 }
 
 // TileAt returns the tile image at (x, y).
 func (l *Layer) TileAt(x, y int) image.PalettedImage {
-	i := l.indexAt(x, y)
+	i := l.TileIndexAt(x, y)
 
-	if i < 0 || i >= len(l.Tileset.Tiles) {
-		return nil
+	if i >= 0 && i < len(l.Tileset.Tiles) {
+		return l.Tileset.Tiles[i]
 	}
 
-	return l.Tileset.Tiles[i]
+	return nil
 }
 
 // TileSize returns the tileset tile size.
@@ -126,51 +119,28 @@ func (l *Layer) Index(x, y int) int {
 
 // TileIndexAt returns the tile index at (x, y).
 func (l *Layer) TileIndexAt(x, y int) int {
-	return l.indexAt(x, y)
+	s := l.Tileset.Size
+	o := y/s.Y*l.Width + x/s.X
+
+	if o >= 0 && o < len(l.Data) {
+		return l.Data[o]
+	}
+
+	return -1
 }
 
 // Put changes the tile index at (x, y). (Short for SetTileIndex)
-func (l *Layer) Put(x, y, index int) {
-	l.SetTileIndex(x, y, index)
+func (l *Layer) Put(dx, dy, index int) {
+	l.SetTileIndex(dx, dy, index)
 }
 
-// SetTileIndex changes the tile index at (x, y).
-func (l *Layer) SetTileIndex(x, y, index int) {
-	o := l.dataOffset(x, y)
-
-	if o >= 0 && o < len(l.Data) {
+// SetTileIndex changes the tile index at (dx, dy).
+func (l *Layer) SetTileIndex(dx, dy, index int) {
+	if o := l.dataOffset(dx, dy); o >= 0 && o < len(l.Data) {
 		l.Data[o] = index
 	}
 }
 
-func (l *Layer) dataOffset(x, y int) int {
-	return (y-l.Bounds().Min.Y)*l.Width + (x-l.Bounds().Min.X)*1
-}
-
-func (l *Layer) indexAt(x, y int) int {
-	gx, gy := l.gridXY(x, y)
-
-	i := gy*l.Width + gx
-
-	if i < 0 || i >= len(l.Data) {
-		return -1
-	}
-
-	return l.Data[i]
-}
-
-func (l *Layer) gridXY(x, y int) (int, int) {
-	var gx int
-
-	if x >= l.Tileset.Size.X {
-		gx = x / l.Tileset.Size.X
-	}
-
-	var gy int
-
-	if y >= l.Tileset.Size.Y {
-		gy = y / l.Tileset.Size.Y
-	}
-
-	return gx, gy
+func (l *Layer) dataOffset(dx, dy int) int {
+	return dy*l.Width + dx
 }

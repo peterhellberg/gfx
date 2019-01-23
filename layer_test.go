@@ -24,3 +24,22 @@ func TestLayerData(t *testing.T) {
 		}
 	}
 }
+
+func TestDataOffset(t *testing.T) {
+	for _, tc := range []struct {
+		width int
+		size  image.Point
+		input image.Point
+		want  int
+	}{
+		{10, Pt(10, 10), Pt(20, 5), 70},
+		{30, Pt(30, 5), Pt(20, 10), 320},
+	} {
+		l := &Layer{Width: tc.width, Tileset: &Tileset{Size: tc.size}}
+
+		if got := l.dataOffset(tc.input.X, tc.input.Y); got != tc.want {
+			t.Fatalf("l.indexAt(%d, %d) = %d, want %d",
+				tc.input.X, tc.input.Y, got, tc.want)
+		}
+	}
+}
