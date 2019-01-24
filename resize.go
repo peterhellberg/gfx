@@ -9,7 +9,7 @@ import (
 func NewResizedImage(src image.Image, w, h int) *image.NRGBA {
 	dst := NewImage(w, h)
 
-	ResizeImage(src, dst)
+	ResizeImage(dst, src)
 
 	return dst
 }
@@ -25,8 +25,8 @@ func NewScaledImage(src image.Image, s float64) *image.NRGBA {
 	return NewResizedImage(src, int(float64(b.Dx())*s), int(float64(b.Dy())*s))
 }
 
-// ResizeImage using nearest neighbor scaling from src to dst.
-func ResizeImage(src image.Image, dst draw.Image) {
+// ResizeImage using nearest neighbor scaling on dst from src.
+func ResizeImage(dst draw.Image, src image.Image) {
 	w := dst.Bounds().Dx()
 	h := dst.Bounds().Dy()
 

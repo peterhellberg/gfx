@@ -63,7 +63,7 @@ func NewPalettedImage(r image.Rectangle, p Palette) *Paletted {
 func NewResizedPalettedImage(src PalettedImage, w, h int) *Paletted {
 	dst := NewPalettedImage(IR(0, 0, w, h), src.GfxPalette())
 
-	ResizeImage(src, dst)
+	ResizeImage(dst, src)
 
 	return dst
 }
