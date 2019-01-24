@@ -1,17 +1,17 @@
 package gfx
 
 func ExampleDrawBresenhamLine() {
-	dst := NewPalettedImage(IR(0, 0, 10, 5), Palette1Bit)
+	dst := NewPaletted(10, 5, Palette1Bit, ColorWhite)
 
-	DrawBresenhamLine(dst, V(1, 1), V(8, 3), ColorWhite)
+	DrawBresenhamLine(dst, V(1, 1), V(8, 3), ColorBlack)
 
 	for y := 0; y < dst.Bounds().Dy(); y++ {
 		for x := 0; x < dst.Bounds().Dx(); x++ {
 			switch dst.Index(x, y) {
 			case 0:
-				Printf("_")
-			case 1:
 				Printf("X")
+			case 1:
+				Printf("_")
 			}
 		}
 		Printf("\n")
