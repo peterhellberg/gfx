@@ -55,15 +55,13 @@ func (p Polygon) Project(m Matrix) Polygon {
 
 // EachPixel calls the provided function for each pixel
 // in the polygon rectangle bounds.
-func (p Polygon) EachPixel(m draw.Image, fn func(x, y int)) {
+func (p Polygon) EachPixel(m image.Image, fn func(x, y int)) {
 	if len(p) < 3 {
 		return
 	}
 
-	EachPixel(m, p.Rect().Bounds(), func(x, y int) {
-		u := V(float64(x), float64(y))
-
-		if u.In(p) {
+	EachPixel(m, p.Bounds(), func(x, y int) {
+		if V(float64(x), float64(y)).In(p) {
 			fn(x, y)
 		}
 	})
