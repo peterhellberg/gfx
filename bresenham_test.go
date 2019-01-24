@@ -7,20 +7,21 @@ func ExampleDrawBresenhamLine() {
 
 	for y := 0; y < dst.Bounds().Dy(); y++ {
 		for x := 0; x < dst.Bounds().Dx(); x++ {
-			switch dst.Index(x, y) {
-			case 0:
-				Printf("X")
-			case 1:
-				Printf("_")
+			if dst.Index(x, y) == 0 {
+				Printf("▓")
+			} else {
+				Printf("░")
 			}
 		}
 		Printf("\n")
 	}
 
 	// Output:
-	//__________
-	//_XX_______
-	//___XXXX___
-	//_______XX_
-	//__________
+	//
+	//░░░░░░░░░░
+	//░▓▓░░░░░░░
+	//░░░▓▓▓▓░░░
+	//░░░░░░░▓▓░
+	//░░░░░░░░░░
+	//
 }
