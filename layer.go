@@ -12,7 +12,7 @@ type Layer struct {
 	Data    LayerData
 }
 
-// LayerData is the data for a layer
+// LayerData is the data for a layer.
 type LayerData []int
 
 // Size returns the size of the layer data given the number of columns.

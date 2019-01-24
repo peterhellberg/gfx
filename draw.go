@@ -50,90 +50,124 @@ func DrawLayerOverPaletted(dst *Paletted, r image.Rectangle, src *Layer) {
 
 // DrawLine draws a line of the given color.
 // A thickness of <= 1 is drawn using DrawBresenhamLine.
-func DrawLine(m draw.Image, from, to Vec, t float64, c color.Color) {
-	if t <= 1 {
-		DrawBresenhamLine(m, from, to, c)
+func DrawLine(dst draw.Image, from, to Vec, thickness float64, c color.Color) {
+	if thickness <= 1 {
+		DrawBresenhamLine(dst, from, to, c)
 		return
 	}
 
-	polylineFromTo(from, to, t).Fill(m, c)
+	polylineFromTo(from, to, thickness).Fill(dst, c)
 }
 
-// DrawCircle draws a circle with radius and thickness. (filled if t == 0)
-func DrawCircle(m draw.Image, u Vec, r, t float64, c color.Color) {
-	if t == 0 {
-		DrawFilledCircle(m, u, r, c)
+// DrawImageRectangle draws a rectangle of the given color on the image.
+func DrawImageRectangle(dst draw.Image, r image.Rectangle, c color.Color) {
+	draw.Draw(dst, r, &image.Uniform{c}, image.ZP, draw.Over)
+}
+
+// DrawPolygon filled or as line polygons if the thickness is >= 1.
+func DrawPolygon(dst draw.Image, p Polygon, thickness float64, c color.Color) {
+	n := len(p)
+
+	if n < 3 {
 		return
 	}
 
-	bounds := IR(int(u.X-r), int(u.Y-r), int(u.X+r), int(u.Y+r))
+	switch {
+	case thickness < 1:
+		p.Fill(dst, c)
+	default:
+		for i := 0; i < n; i++ {
+			if i+1 == n {
+				polylineFromTo(p[n-1], p[0], thickness).Fill(dst, c)
+			} else {
+				polylineFromTo(p[i], p[i+1], thickness).Fill(dst, c)
+			}
+		}
+	}
+}
 
-	EachPixel(m, bounds, func(x, y int) {
+// DrawPolyline draws a polyline with the given color and thickness.
+func DrawPolyline(dst draw.Image, pl Polyline, thickness float64, c color.Color) {
+	for _, p := range pl {
+		DrawPolygon(dst, p, thickness, c)
+	}
+}
+
+// DrawCircle draws a circle with radius and thickness. (filled if thickness == 0)
+func DrawCircle(dst draw.Image, u Vec, radius, thickness float64, c color.Color) {
+	if thickness == 0 {
+		DrawFilledCircle(dst, u, radius, c)
+		return
+	}
+
+	bounds := IR(int(u.X-radius), int(u.Y-radius), int(u.X+radius), int(u.Y+radius))
+
+	EachPixel(dst, bounds, func(x, y int) {
 		v := V(float64(x), float64(y))
 
 		l := u.To(v).Len() + 0.5
 
-		if l < r && l > r-t {
-			Mix(m, x, y, c)
+		if l < radius && l > radius-thickness {
+			Mix(dst, x, y, c)
 		}
 	})
 }
 
 // DrawFilledCircle draws a filled circle.
-func DrawFilledCircle(m draw.Image, u Vec, r float64, c color.Color) {
-	bounds := IR(int(u.X-r), int(u.Y-r), int(u.X+r), int(u.Y+r))
+func DrawFilledCircle(dst draw.Image, u Vec, radius float64, c color.Color) {
+	bounds := IR(int(u.X-radius), int(u.Y-radius), int(u.X+radius), int(u.Y+radius))
 
-	EachPixel(m, bounds, func(x, y int) {
+	EachPixel(dst, bounds, func(x, y int) {
 		v := V(float64(x), float64(y))
 
-		if u.To(v).Len() < r {
-			Mix(m, x, y, c)
+		if u.To(v).Len() < radius {
+			Mix(dst, x, y, c)
 		}
 	})
 }
 
 // DrawFastFilledCircle draws a (crude) filled circle.
-func DrawFastFilledCircle(m draw.Image, u Vec, r float64, c color.Color) {
-	ir := int(r)
+func DrawFastFilledCircle(dst draw.Image, u Vec, radius float64, c color.Color) {
+	ir := int(radius)
 	r2 := ir * ir
 	pt := u.Pt()
 
 	for y := -ir; y <= ir; y++ {
 		for x := -ir; x <= ir; x++ {
 			if x*x+y*y <= r2 {
-				SetPoint(m, pt.Add(Pt(x, y)), c)
+				SetPoint(dst, pt.Add(Pt(x, y)), c)
 			}
 		}
 	}
 }
 
-// DrawPointCircle draws a circle at the given point
-func DrawPointCircle(m draw.Image, p image.Point, r, t float64, c color.Color) {
-	points := circlePoints(p, int(r))
+// DrawPointCircle draws a circle at the given point.
+func DrawPointCircle(dst draw.Image, p image.Point, radius, thickness float64, c color.Color) {
+	points := circlePoints(p, int(radius))
 
 	switch {
-	case t <= 1:
+	case thickness <= 1:
 		for i := range points {
-			SetPoint(m, points[i], c)
+			SetPoint(dst, points[i], c)
 		}
 	default:
 		center := PV(p)
 
 		for i := range points {
 			from := PV(points[i])
-			to := from.Add(from.To(center).Unit().Scaled(t))
+			to := from.Add(from.To(center).Unit().Scaled(thickness))
 
-			DrawLine(m, from, to, t, c)
+			DrawLine(dst, from, to, thickness, c)
 		}
 	}
 }
 
-func circlePoints(p image.Point, r int) Points {
+func circlePoints(p image.Point, radius int) Points {
 	var cp []image.Point
 
-	x, y, dx, dy := r-1, 0, 1, 1
+	x, y, dx, dy := radius-1, 0, 1, 1
 
-	e := dx - (r << 1)
+	e := dx - (radius << 1)
 
 	for x >= y {
 		cp = append(cp,
@@ -156,43 +190,9 @@ func circlePoints(p image.Point, r int) Points {
 		if e > 0 {
 			x--
 			dx += 2
-			e += dx - (r << 1)
+			e += dx - (radius << 1)
 		}
 	}
 
 	return cp
-}
-
-// DrawImageRectangle draws a rectangle of the given color on the image.
-func DrawImageRectangle(m draw.Image, r image.Rectangle, c color.Color) {
-	draw.Draw(m, r, &image.Uniform{c}, image.ZP, draw.Over)
-}
-
-// DrawPolygon filled or as line polygons if the thickness is >= 1.
-func DrawPolygon(m draw.Image, p Polygon, t float64, c color.Color) {
-	n := len(p)
-
-	if n < 3 {
-		return
-	}
-
-	switch {
-	case t < 1:
-		p.Fill(m, c)
-	default:
-		for i := 0; i < n; i++ {
-			if i+1 == n {
-				polylineFromTo(p[n-1], p[0], t).Fill(m, c)
-			} else {
-				polylineFromTo(p[i], p[i+1], t).Fill(m, c)
-			}
-		}
-	}
-}
-
-// DrawPolyline draws a polyline with the given color and thickness.
-func DrawPolyline(m draw.Image, pl Polyline, t float64, c color.Color) {
-	for _, p := range pl {
-		DrawPolygon(m, p, t, c)
-	}
 }

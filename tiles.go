@@ -27,9 +27,9 @@ func NewTileset(p Palette, s image.Point, td TilesetData) *Tileset {
 }
 
 // NewTilesetFromImage creates a new paletted tileset based on the provided palette, tile size and image.
-func NewTilesetFromImage(p Palette, tileSize image.Point, m image.Image) *Tileset {
-	cols := m.Bounds().Dx() / tileSize.X
-	rows := m.Bounds().Dy() / tileSize.Y
+func NewTilesetFromImage(p Palette, tileSize image.Point, src image.Image) *Tileset {
+	cols := src.Bounds().Dx() / tileSize.X
+	rows := src.Bounds().Dy() / tileSize.Y
 
 	tiles := make(Tiles, cols*rows)
 
@@ -37,7 +37,7 @@ func NewTilesetFromImage(p Palette, tileSize image.Point, m image.Image) *Tilese
 		for col := 0; col < cols; col++ {
 			t := NewPaletted(tileSize.X, tileSize.Y, p)
 
-			DrawSrc(t, t.Bounds(), m, Pt(col*tileSize.X, row*tileSize.Y))
+			DrawSrc(t, t.Bounds(), src, Pt(col*tileSize.X, row*tileSize.Y))
 
 			i := (row * cols) + col
 

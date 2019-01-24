@@ -56,18 +56,18 @@ func Mix(m draw.Image, x, y int, c color.Color) {
 }
 
 // MixPoint the current pixel color at the image.Point with the given color.
-func MixPoint(m draw.Image, p image.Point, c color.Color) {
-	Mix(m, p.X, p.Y, c)
+func MixPoint(dst draw.Image, p image.Point, c color.Color) {
+	Mix(dst, p.X, p.Y, c)
 }
 
 // Set x and y to the given color.
-func Set(m draw.Image, x, y int, c color.Color) {
-	m.Set(x, y, c)
+func Set(dst draw.Image, x, y int, c color.Color) {
+	dst.Set(x, y, c)
 }
 
 // SetPoint to the given color.
-func SetPoint(m draw.Image, p image.Point, c color.Color) {
-	m.Set(p.X, p.Y, c)
+func SetPoint(dst draw.Image, p image.Point, c color.Color) {
+	dst.Set(p.X, p.Y, c)
 }
 
 // EachPixel calls the provided function for each pixel in the provided rectangle.
@@ -86,8 +86,8 @@ func EachPixel(m image.Image, r image.Rectangle, fn func(x, y int)) {
 }
 
 // SavePNG saves an image using the provided file name.
-func SavePNG(fn string, m image.Image) error {
-	if m == nil || m.Bounds().Empty() {
+func SavePNG(fn string, src image.Image) error {
+	if src == nil || src.Bounds().Empty() {
 		return Error("SavePNG: empty image provided")
 	}
 
@@ -97,12 +97,12 @@ func SavePNG(fn string, m image.Image) error {
 	}
 	defer w.Close()
 
-	return EncodePNG(w, m)
+	return EncodePNG(w, src)
 }
 
-// EncodePNG encodes an image as PNG to the provided io.Writer
-func EncodePNG(w io.Writer, m image.Image) error {
-	return png.Encode(w, m)
+// EncodePNG encodes an image as PNG to the provided io.Writer.
+func EncodePNG(w io.Writer, src image.Image) error {
+	return png.Encode(w, src)
 }
 
 // OpenPNG decodes a PNG using the provided file name.
@@ -116,7 +116,7 @@ func OpenPNG(fn string) (image.Image, error) {
 	return DecodePNG(r)
 }
 
-// DecodePNG decodes a PNG from the provided io.Reader
+// DecodePNG decodes a PNG from the provided io.Reader.
 func DecodePNG(r io.Reader) (image.Image, error) {
 	return png.Decode(r)
 }

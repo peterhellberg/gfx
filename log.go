@@ -2,12 +2,12 @@ package gfx
 
 import "fmt"
 
-// Log to standard output
+// Log to standard output.
 func Log(format string, a ...interface{}) {
 	fmt.Printf(format+"\n", a...)
 }
 
-// Dump all of the arguments to standard output
+// Dump all of the arguments to standard output.
 func Dump(a ...interface{}) {
 	for _, v := range a {
 		Log("%+v", v)

@@ -2,7 +2,7 @@ package gfx
 
 import "image/color"
 
-// Standard colors
+// Standard colors transparent, opaque, black, white, red, green, blue, cyan, magenta, and yellow.
 var (
 	ColorTransparent = ColorNRGBA(0, 0, 0, 0)
 	ColorOpaque      = ColorNRGBA(0xFF, 0xFF, 0xFF, 0xFF)
@@ -26,7 +26,7 @@ func ColorWithAlpha(c color.Color, a uint8) color.NRGBA {
 	return nc
 }
 
-// ColorNRGBA constructs a color.NRGBA
+// ColorNRGBA constructs a color.NRGBA.
 func ColorNRGBA(r, g, b, a uint8) color.NRGBA {
 	return color.NRGBA{r, g, b, a}
 }

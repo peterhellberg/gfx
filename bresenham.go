@@ -8,7 +8,7 @@ import (
 // DrawBresenhamLine draws a line using Bresenham's line algorithm.
 //
 // http://en.wikipedia.org/wiki/Bresenham's_line_algorithm
-func DrawBresenhamLine(m draw.Image, from, to Vec, c color.Color) {
+func DrawBresenhamLine(dst draw.Image, from, to Vec, c color.Color) {
 	x0, y0 := from.XY()
 	x1, y1 := to.XY()
 
@@ -45,9 +45,9 @@ func DrawBresenhamLine(m draw.Image, from, to Vec, c color.Color) {
 
 	for x := x0; x <= x1; x++ {
 		if steep {
-			Mix(m, int(y), int(x), c)
+			Mix(dst, int(y), int(x), c)
 		} else {
-			Mix(m, int(x), int(y), c)
+			Mix(dst, int(x), int(y), c)
 		}
 
 		e -= dy

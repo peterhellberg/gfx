@@ -28,9 +28,9 @@ type Animation struct {
 }
 
 // AddPalettedImage adds a frame and palette to the animation.
-func (a *Animation) AddPalettedImage(p PalettedImage) {
-	a.Frames = append(a.Frames, p)
-	a.Palettes = append(a.Palettes, p.ColorPalette())
+func (a *Animation) AddPalettedImage(frame PalettedImage) {
+	a.Frames = append(a.Frames, frame)
+	a.Palettes = append(a.Palettes, frame.ColorPalette())
 }
 
 // SaveGIF saves the animation to a GIF using the provided file name.

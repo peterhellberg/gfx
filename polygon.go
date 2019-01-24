@@ -7,15 +7,15 @@ import (
 	"math"
 )
 
-// Polygon is represented by a list of vectors
+// Polygon is represented by a list of vectors.
 type Polygon []Vec
 
-// Bounds return the bounds of the polygon rectangle
+// Bounds return the bounds of the polygon rectangle.
 func (p Polygon) Bounds() image.Rectangle {
 	return p.Rect().Bounds()
 }
 
-// Rect is the polygon rectangle
+// Rect is the polygon rectangle.
 func (p Polygon) Rect() Rect {
 	r := R(math.MaxFloat64, math.MaxFloat64, -math.MaxFloat64, -math.MaxFloat64)
 
@@ -67,10 +67,10 @@ func (p Polygon) EachPixel(m image.Image, fn func(x, y int)) {
 	})
 }
 
-// Fill polygon on the image with the given color
-func (p Polygon) Fill(m draw.Image, c color.Color) {
-	p.EachPixel(m, func(x, y int) {
-		Mix(m, x, y, c)
+// Fill polygon on the image with the given color.
+func (p Polygon) Fill(dst draw.Image, c color.Color) {
+	p.EachPixel(dst, func(x, y int) {
+		Mix(dst, x, y, c)
 	})
 }
 

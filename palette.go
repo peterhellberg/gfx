@@ -19,7 +19,7 @@ func (p Palette) Color(n int) color.NRGBA {
 	return color.NRGBA{}
 }
 
-// Len returns the number of colors in the palette
+// Len returns the number of colors in the palette.
 func (p Palette) Len() int {
 	return len(p)
 }
@@ -86,7 +86,7 @@ func (p Palette) Index(c color.Color) int {
 	return ret
 }
 
-// AsColorPalette converts the Palette to a color.Palette
+// AsColorPalette converts the Palette to a color.Palette.
 func (p Palette) AsColorPalette() color.Palette {
 	var cp = make(color.Palette, len(p))
 
