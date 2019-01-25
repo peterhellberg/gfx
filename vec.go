@@ -212,3 +212,11 @@ func Clamp(x, min, max float64) float64 {
 	}
 	return x
 }
+
+// Centroid returns the centroid O of three vectors.
+func Centroid(a, b, c Vec) Vec {
+	return V(
+		(a.X+b.X+c.X)/3,
+		(a.Y+b.Y+c.Y)/3,
+	)
+}
