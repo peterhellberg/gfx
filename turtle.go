@@ -89,8 +89,12 @@ func (t *Turtle) addOp(top turtleOperation) {
 }
 
 type turtleOperation interface {
-	Drawer
+	turtleDrawer
 	Bounds() image.Rectangle
+}
+
+type turtleDrawer interface {
+	Draw(draw.Image)
 }
 
 type turtleOperations []turtleOperation

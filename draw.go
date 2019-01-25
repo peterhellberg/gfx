@@ -6,11 +6,6 @@ import (
 	"image/draw"
 )
 
-// Drawer is the draw interface.
-type Drawer interface {
-	Draw(draw.Image)
-}
-
 // DrawOver draws src over dst.
 func DrawOver(dst draw.Image, r image.Rectangle, src image.Image, sp image.Point) {
 	draw.Draw(dst, r, src, sp, draw.Over)
