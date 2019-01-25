@@ -50,7 +50,6 @@ type IMDraw struct {
 	points []point
 	pool   [][]point
 	matrix Matrix
-	mask   color.Color
 
 	tri   *TrianglesData
 	batch *Batch
@@ -60,7 +59,7 @@ var _ BasicTarget = (*IMDraw)(nil)
 
 type point struct {
 	pos       Vec
-	col       color.RGBA
+	col       color.NRGBA
 	pic       Vec
 	in        float64
 	precision int
@@ -91,7 +90,6 @@ func NewIMDraw(pic Picture) *IMDraw {
 		batch: NewBatch(tri, pic),
 	}
 	im.SetMatrix(IM)
-	im.SetColorMask(ColorTransparent)
 	im.Reset()
 	return im
 }
@@ -104,7 +102,7 @@ func (imd *IMDraw) Clear() {
 
 // Reset restores all point properties to defaults and removes all Pushed points.
 //
-// This does not affect matrix and color mask set by SetMatrix and SetColorMask.
+// This does not affect matrix set by SetMatrix.
 func (imd *IMDraw) Reset() {
 	imd.points = imd.points[:0]
 	imd.Color = ColorOpaque
@@ -116,7 +114,7 @@ func (imd *IMDraw) Reset() {
 
 // Draw draws all currently drawn shapes inside the IM onto another Target.
 //
-// Note, that IMDraw's matrix and color mask have no effect here.
+// Note, that IMDraw's matrix have no effect here.
 func (imd *IMDraw) Draw(t Target) {
 	imd.batch.Draw(t)
 }
@@ -125,7 +123,7 @@ func (imd *IMDraw) Draw(t Target) {
 // the position.
 func (imd *IMDraw) Push(pts ...Vec) {
 	opts := point{
-		col:       imd.Color.(color.RGBA),
+		col:       imd.Color.(color.NRGBA),
 		pic:       imd.Picture,
 		in:        imd.Intensity,
 		precision: imd.Precision,
@@ -145,12 +143,6 @@ func (imd *IMDraw) pushPt(pos Vec, pt point) {
 func (imd *IMDraw) SetMatrix(m Matrix) {
 	imd.matrix = m
 	imd.batch.SetMatrix(imd.matrix)
-}
-
-// SetColorMask sets a color that all further point's color will be multiplied by.
-func (imd *IMDraw) SetColorMask(c color.Color) {
-	imd.mask = c
-	imd.batch.SetColorMask(imd.mask)
 }
 
 // MakeTriangles returns a specialized copy of the provided Triangles that draws onto this IMDraw.
@@ -239,7 +231,7 @@ func (imd *IMDraw) Ellipse(radius Vec, thickness float64) {
 // angle and continues to the high angle. If low<high, the arc will be drawn counterclockwise.
 // Otherwise it will be clockwise. The angles are not normalized by any means.
 //
-//   imd.EllipseArc(pixel.V(100, 50), 0, 8*math.Pi, 0)
+//   imd.EllipseArc(gfx.V(100, 50), 0, 8*math.Pi, 0)
 //
 // This line will fill the whole ellipse 4 times.
 func (imd *IMDraw) EllipseArc(radius Vec, low, high, thickness float64) {
@@ -268,10 +260,9 @@ func (imd *IMDraw) restorePoints(points []point) {
 	imd.points = points[:0]
 }
 
-func (imd *IMDraw) applyMatrixAndMask(off int) {
+func (imd *IMDraw) applyMatrix(off int) {
 	for i := range (*imd.tri)[off:] {
 		(*imd.tri)[off+i].Position = imd.matrix.Project((*imd.tri)[off+i].Position)
-		//(*imd.tri)[off+i].Color = imd.mask.Mul((*imd.tri)[off+i].Color)
 	}
 }
 
@@ -296,7 +287,7 @@ func (imd *IMDraw) fillRectangle() {
 		}
 		d := point{
 			pos: V(b.pos.X, a.pos.Y),
-			//col: a.col.Add(b.col).Mul(pixel.Alpha(0.5)),
+			//col: a.col.Add(b.col).Mul(Alpha(0.5)),
 			pic: V(b.pic.X, a.pic.Y),
 			in:  (a.in + b.in) / 2,
 		}
@@ -309,7 +300,7 @@ func (imd *IMDraw) fillRectangle() {
 		}
 	}
 
-	imd.applyMatrixAndMask(off)
+	imd.applyMatrix(off)
 	imd.batch.Dirty()
 
 	imd.restorePoints(points)
@@ -326,7 +317,7 @@ func (imd *IMDraw) outlineRectangle(thickness float64) {
 	for i := 0; i+1 < len(points); i++ {
 		a, b := points[i], points[i+1]
 		mid := a
-		//mid.col = a.col.Add(b.col).Mul(pixel.Alpha(0.5))
+		mid.col = mixNRGBA(a.col, b.col)
 		mid.in = (a.in + b.in) / 2
 
 		imd.pushPt(a.pos, a)
@@ -360,7 +351,7 @@ func (imd *IMDraw) fillPolygon() {
 		}
 	}
 
-	imd.applyMatrixAndMask(off)
+	imd.applyMatrix(off)
 	imd.batch.Dirty()
 
 	imd.restorePoints(points)
@@ -402,7 +393,7 @@ func (imd *IMDraw) fillEllipseArc(radius Vec, low, high float64) {
 			(*imd.tri)[j+2].Position = b
 		}
 
-		imd.applyMatrixAndMask(off)
+		imd.applyMatrix(off)
 		imd.batch.Dirty()
 	}
 
@@ -458,7 +449,7 @@ func (imd *IMDraw) outlineEllipseArc(radius Vec, low, high, thickness float64, d
 			(*imd.tri)[j+5].Position = d
 		}
 
-		imd.applyMatrixAndMask(off)
+		imd.applyMatrix(off)
 		imd.batch.Dirty()
 
 		if doEndShape {
@@ -522,7 +513,8 @@ func (imd *IMDraw) polyline(thickness float64, closed bool) {
 	}
 
 	// first point
-	j, i := 0, 1
+	j := 0
+
 	ijNormal := points[0].pos.To(points[1].pos).Normal().Unit().Scaled(thickness / 2)
 
 	if !closed {
@@ -594,7 +586,9 @@ func (imd *IMDraw) polyline(thickness float64, closed bool) {
 	}
 
 	// last point
-	i, j = len(points)-2, len(points)-1
+	i := len(points) - 2
+	j = len(points) - 1
+
 	ijNormal = points[i].pos.To(points[j].pos).Normal().Unit().Scaled(thickness / 2)
 
 	imd.pushPt(points[j].pos.Sub(ijNormal), points[j])
@@ -617,4 +611,13 @@ func (imd *IMDraw) polyline(thickness float64, closed bool) {
 	}
 
 	imd.restorePoints(points)
+}
+
+func mixNRGBA(c1, c2 color.NRGBA) color.NRGBA {
+	return color.NRGBA{
+		c1.R/2 + c2.R/2,
+		c1.G/2 + c2.G/2,
+		c1.B/2 + c2.B/2,
+		c1.A/2 + c2.A/2,
+	}
 }
