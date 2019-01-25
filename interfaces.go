@@ -32,10 +32,6 @@ type BasicTarget interface {
 
 	// SetMatrix sets a Matrix that every point will be projected by.
 	SetMatrix(Matrix)
-
-	// SetColorMask sets a color that will be multiplied with the TrianglesColor property of all
-	// Triangles.
-	// SetColorMask(color.Color)
 }
 
 // Triangles represents a list of vertices, where each three vertices form a triangle. (First,
@@ -61,7 +57,7 @@ type Triangles interface {
 
 	// Update copies vertex properties from the supplied Triangles into this Triangles.
 	//
-	// Properies not supported by these Triangles should be ignored. Properties not supported by
+	// Properties not supported by these Triangles should be ignored. Properties not supported by
 	// the supplied Triangles should be left untouched.
 	//
 	// The two Triangles must have the same Len.
@@ -89,7 +85,7 @@ type TrianglesPosition interface {
 // TrianglesColor specifies Triangles with Color property.
 type TrianglesColor interface {
 	Triangles
-	Color(i int) color.RGBA
+	Color(i int) color.NRGBA
 }
 
 // TrianglesPicture specifies Triangles with Picture propery.
@@ -129,7 +125,7 @@ type TargetPicture interface {
 // Positions outside the Picture's Bounds must return full transparent (Alpha(0)).
 type PictureColor interface {
 	Picture
-	Color(at Vec) color.RGBA
+	Color(at Vec) color.NRGBA
 }
 
 // Float64Scaler can scale a float64 to another float64.

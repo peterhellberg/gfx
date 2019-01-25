@@ -25,7 +25,6 @@ var _ BasicTarget = (*Batch)(nil)
 func NewBatch(container Triangles, pic Picture) *Batch {
 	b := &Batch{cont: Drawer{Triangles: container, Picture: pic}}
 	b.SetMatrix(IM)
-	b.SetColorMask(ColorOpaque)
 	return b
 }
 
@@ -54,15 +53,6 @@ func (b *Batch) Draw(t Target) {
 // SetMatrix sets a Matrix that every point will be projected by.
 func (b *Batch) SetMatrix(m Matrix) {
 	b.mat = m
-}
-
-// SetColorMask sets a mask color used in the following draws onto the Batch.
-func (b *Batch) SetColorMask(c color.Color) {
-	if c == nil {
-		b.col = ColorOpaque
-		return
-	}
-	b.col = c
 }
 
 // MakeTriangles returns a specialized copy of the provided Triangles that draws onto this Batch.
@@ -122,7 +112,7 @@ func (bt *batchTriangles) Copy() Triangles {
 	}
 }
 
-func (bt *batchTriangles) draw(bp *batchPicture) {
+func (bt *batchTriangles) draw(_ *batchPicture) {
 	bt.tmp.Update(bt.tri)
 
 	for i := range *bt.tmp {

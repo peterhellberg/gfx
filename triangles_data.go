@@ -18,7 +18,7 @@ var (
 // Vertex holds Position, Color, Picture and Intensity.
 type Vertex struct {
 	Position  Vec
-	Color     color.RGBA
+	Color     color.NRGBA
 	Picture   Vec
 	Intensity float64
 }
@@ -56,7 +56,7 @@ func (td *TrianglesData) SetLen(length int) {
 
 // Slice returns a sub-Triangles of this TrianglesData.
 func (td *TrianglesData) Slice(i, j int) Triangles {
-	s := TrianglesData((*td)[i:j])
+	s := (*td)[i:j]
 
 	return &s
 }
@@ -115,7 +115,7 @@ func (td *TrianglesData) Position(i int) Vec {
 }
 
 // Color returns the color property of i-th vertex.
-func (td *TrianglesData) Color(i int) color.RGBA {
+func (td *TrianglesData) Color(i int) color.NRGBA {
 	return (*td)[i].Color
 }
 
