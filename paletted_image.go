@@ -10,7 +10,7 @@ import (
 type PalettedImage interface {
 	GfxPalette() Palette
 	ColorPalette() color.Palette
-	NRGBAAt(int, int) color.NRGBA
+	RGBAAt(int, int) color.RGBA
 	AlphaAt(int, int) uint8
 	image.PalettedImage
 }
@@ -97,11 +97,11 @@ func (p *Paletted) ColorPalette() color.Palette {
 
 // At returns the color at (x, y).
 func (p *Paletted) At(x, y int) color.Color {
-	return p.NRGBAAt(x, y)
+	return p.RGBAAt(x, y)
 }
 
-// NRGBAAt returns the color.NRGBA at (x, y).
-func (p *Paletted) NRGBAAt(x, y int) color.NRGBA {
+// RGBAAt returns the color.RGBA at (x, y).
+func (p *Paletted) RGBAAt(x, y int) color.RGBA {
 	return p.Palette[p.ColorIndexAt(x, y)]
 }
 

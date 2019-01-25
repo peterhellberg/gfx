@@ -6,10 +6,10 @@ import (
 )
 
 func TestColorNRGBA(t *testing.T) {
-	got := ColorNRGBA(11, 22, 33, 44)
-	want := color.NRGBA{11, 22, 33, 44}
+	got := ColorRGBA(11, 22, 33, 44)
+	want := color.RGBA{11, 22, 33, 44}
 
 	if got != want {
-		t.Fatalf("NRGBA(11,22,33,44) = %v, want %v", got, want)
+		t.Fatalf("RGBA(11,22,33,44) = %v, want %v", got, want)
 	}
 }
