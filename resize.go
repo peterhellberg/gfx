@@ -6,7 +6,7 @@ import (
 )
 
 // NewResizedImage returns an image with the provided dimensions.
-func NewResizedImage(src image.Image, w, h int) *image.RGBA {
+func NewResizedImage(src image.Image, w, h int) *image.NRGBA {
 	dst := NewImage(w, h)
 
 	ResizeImage(dst, src)
@@ -15,11 +15,11 @@ func NewResizedImage(src image.Image, w, h int) *image.RGBA {
 }
 
 // NewScaledImage returns an image scaled by the provided scaling factor.
-func NewScaledImage(src image.Image, s float64) *image.RGBA {
+func NewScaledImage(src image.Image, s float64) *image.NRGBA {
 	b := src.Bounds()
 
 	if b.Empty() {
-		return &image.RGBA{}
+		return &image.NRGBA{}
 	}
 
 	return NewResizedImage(src, int(float64(b.Dx())*s), int(float64(b.Dy())*s))

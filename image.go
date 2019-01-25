@@ -13,8 +13,8 @@ import (
 var ZP = image.ZP
 
 // NewImage creates an image of the given size (optionally filled with a color)
-func NewImage(w, h int, colors ...color.Color) *image.RGBA {
-	m := NewRGBA(IR(0, 0, w, h))
+func NewImage(w, h int, colors ...color.Color) *image.NRGBA {
+	m := NewNRGBA(IR(0, 0, w, h))
 
 	if len(colors) > 0 {
 		DrawSrc(m, m.Bounds(), NewUniform(colors[0]), ZP)
