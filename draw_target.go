@@ -58,31 +58,7 @@ func (dt *DrawTarget) Set(x, y int, c color.Color) {
 
 // MakePicture creates a TargetPicture for the provided Picture.
 func (dt *DrawTarget) MakePicture(pic Picture) TargetPicture {
-	return &targetPicture{Picture: pic, dt: dt}
-}
-
-type targetPicture struct {
-	Picture
-	dt *DrawTarget
-}
-
-func (tp *targetPicture) Draw(tt TargetTriangles) {
-	td := MakeTrianglesData(tt.Len())
-
-	td.Update(tt)
-
-	for i := 0; i < td.Len(); i += 3 {
-		t := NewTriangle(i, td)
-		b := t.Bounds()
-
-		for x := b.Min.X; x < b.Max.X; x++ {
-			for y := b.Min.Y; y < b.Max.Y; y++ {
-				if u := IV(x, y); t.Contains(u) {
-					Mix(tp.dt, x, y, t.Color(u))
-				}
-			}
-		}
-	}
+	panic(Error("*DrawTarget: not implemented yet."))
 }
 
 // MakeTriangles creates TargetTriangles for the given Triangles
@@ -106,9 +82,10 @@ func (tt *targetTriangles) Draw() {
 
 		for x := b.Min.X; x < b.Max.X; x++ {
 			for y := b.Min.Y; y < b.Max.Y; y++ {
+
 				if u := IV(x, y); t.Contains(u) {
 					tt.dt.Set(x, y, t.Color(u))
-					// Mix(tt.dt, x, y, t.Color(u))
+					//Mix(tt.dt, x, y, t.Color(u))
 				}
 			}
 		}
