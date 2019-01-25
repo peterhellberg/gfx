@@ -31,8 +31,8 @@ func NewBatch(container Triangles, pic Picture) *Batch {
 // Dirty notifies Batch about an external modification of it's container. If you retain access to
 // the Batch's container and change it, call Dirty to notify Batch about the change.
 //
-//   container := &pixel.TrianglesData{}
-//   batch := pixel.NewBatch(container, nil)
+//   container := &gfx.TrianglesData{}
+//   batch := gfx.NewBatch(container, nil)
 //   container.SetLen(10) // container changed from outside of Batch
 //   batch.Dirty()        // notify Batch about the change
 func (b *Batch) Dirty() {
