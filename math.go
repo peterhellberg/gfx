@@ -22,6 +22,16 @@ func MathSqrt(x float64) float64 {
 	return math.Sqrt(x)
 }
 
+// MathSin returns the sine of the radian argument x.
+func MathSin(x float64) float64 {
+	return math.Sin(x)
+}
+
+// MathCos returns the cosine of the radian argument x.
+func MathCos(x float64) float64 {
+	return math.Cos(x)
+}
+
 // Sign returns -1 for values < 0, 0 for 0, and 1 for values > 0.
 func Sign(x float64) float64 {
 	switch {
