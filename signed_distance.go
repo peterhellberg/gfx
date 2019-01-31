@@ -38,6 +38,24 @@ func (sd SignedDistance) Rhombus(b Vec) float64 {
 	return d * Sign(q.X*b.Y+q.Y*b.X-b.X*b.Y)
 }
 
+// EquilateralTriangle primitive
+func (sd SignedDistance) EquilateralTriangle(s float64) float64 {
+	k := math.Sqrt(3)
+
+	p := sd.Vec
+
+	p.X = math.Abs(p.X) - s
+	p.Y = p.Y + s/k
+
+	if p.X+k*p.Y > 0.0 {
+		p = V(p.X-k*p.Y, -k*p.X-p.Y).Scaled(0.5)
+	}
+
+	p.X -= Clamp(p.X, -2.0, 0.0)
+
+	return -p.Len() * Sign(p.Y)
+}
+
 // Rounded signed distance function shape
 func (sd SignedDistance) Rounded(v, r float64) float64 {
 	return v - r
