@@ -1,7 +1,5 @@
 package gfx
 
-import "math"
-
 // SignedDistance holds 2D signed distance functions based on
 // https://iquilezles.org/www/articles/distfunctions2d/distfunctions2d.htm
 type SignedDistance struct {
@@ -40,11 +38,11 @@ func (sd SignedDistance) Rhombus(b Vec) float64 {
 
 // EquilateralTriangle primitive
 func (sd SignedDistance) EquilateralTriangle(s float64) float64 {
-	k := math.Sqrt(3)
+	k := MathSqrt(3)
 
 	p := sd.Vec
 
-	p.X = math.Abs(p.X) - s
+	p.X = MathAbs(p.X) - s
 	p.Y = p.Y + s/k
 
 	if p.X+k*p.Y > 0.0 {
@@ -56,6 +54,22 @@ func (sd SignedDistance) EquilateralTriangle(s float64) float64 {
 	return -p.Len() * Sign(p.Y)
 }
 
+// IsoscelesTriangle primitive
+func (sd SignedDistance) IsoscelesTriangle(q Vec) float64 {
+	p := sd.Vec
+
+	p.X = MathAbs(p.X)
+
+	a := p.Sub(q.Scaled(Clamp(p.Dot(q)/q.Dot(q), 0.0, 1.0)))
+	b := p.Sub(q.ScaledXY(V(Clamp(p.X/q.X, 0.0, 1.0), 1.0)))
+
+	s := -Sign(q.Y)
+
+	d := V(a.Dot(a), s*(p.X*q.Y-p.Y*q.X)).Min(V(b.Dot(b), s*(p.Y-q.Y)))
+
+	return -MathSqrt(d.X) * Sign(d.Y)
+}
+
 // Rounded signed distance function shape
 func (sd SignedDistance) Rounded(v, r float64) float64 {
 	return v - r
@@ -63,5 +77,5 @@ func (sd SignedDistance) Rounded(v, r float64) float64 {
 
 // Annular signed distance function shape
 func (sd SignedDistance) Annular(v, r float64) float64 {
-	return math.Abs(v) - r
+	return MathAbs(v) - r
 }
