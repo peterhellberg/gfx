@@ -102,6 +102,14 @@ func (u Vec) To(v Vec) Vec {
 	}
 }
 
+// Mod returns the floating-point remainder vector of x and y.
+func (u Vec) Mod(v Vec) Vec {
+	return Vec{
+		math.Mod(u.X, v.X),
+		math.Mod(u.Y, v.Y),
+	}
+}
+
 // Scaled returns the vector u multiplied by c.
 func (u Vec) Scaled(c float64) Vec {
 	return Vec{u.X * c, u.Y * c}
