@@ -205,27 +205,13 @@ func (u Vec) Bounds(l, t, r, b float64) image.Rectangle {
 	return u.Rect(l, t, r, b).Bounds()
 }
 
-// Lerp returns a linear interpolation between vectors a and b.
+// Lerp returns a linear interpolation between vectors u and v.
 //
 // This function basically returns a point along the line between a and b and t chooses which one.
 // If t is 0, then a will be returned, if t is 1, b will be returned. Anything between 0 and 1 will
 // return the appropriate point between a and b and so on.
-func Lerp(a, b Vec, t float64) Vec {
-	return a.Scaled(1 - t).Add(b.Scaled(t))
-}
-
-// Clamp returns x clamped to the interval [min, max].
-//
-// If x is less than min, min is returned. If x is more than max, max is returned. Otherwise, x is
-// returned.
-func Clamp(x, min, max float64) float64 {
-	if x < min {
-		return min
-	}
-	if x > max {
-		return max
-	}
-	return x
+func (u Vec) Lerp(v Vec, t float64) Vec {
+	return u.Scaled(1 - t).Add(v.Scaled(t))
 }
 
 // Centroid returns the centroid O of three vectors.

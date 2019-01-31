@@ -88,7 +88,7 @@ func (r Rect) Area() float64 {
 
 // Center returns the position of the center of the Rect.
 func (r Rect) Center() Vec {
-	return Lerp(r.Min, r.Max, 0.5)
+	return r.Min.Lerp(r.Max, 0.5)
 }
 
 // Moved returns the Rect moved (both Min and Max) by the given vector delta.

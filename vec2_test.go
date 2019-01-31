@@ -23,11 +23,11 @@ func ExampleLerp() {
 	a, b := V(1, 2), V(30, 40)
 
 	Dump(
-		Lerp(a, b, 0),
-		Lerp(a, b, 0.1),
-		Lerp(a, b, 0.5),
-		Lerp(a, b, 0.9),
-		Lerp(a, b, 1),
+		a.Lerp(b, 0),
+		a.Lerp(b, 0.1),
+		a.Lerp(b, 0.5),
+		a.Lerp(b, 0.9),
+		a.Lerp(b, 1),
 	)
 
 	// Output:

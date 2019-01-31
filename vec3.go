@@ -80,9 +80,5 @@ func (u Vec3) Norm() Vec3 {
 // The amount t is usually a value between 0 and 1. If t=0 v will be
 // returned; if t=1 w will be returned.
 func (u Vec3) Lerp(v Vec3, t float64) Vec3 {
-	return Vec3{lerp(u.X, v.X, t), lerp(u.Y, v.Y, t), lerp(u.Z, v.Z, t)}
-}
-
-func lerp(a, b, t float64) float64 {
-	return a + (b-a)*t
+	return Vec3{Lerp(u.X, v.X, t), Lerp(u.Y, v.Y, t), Lerp(u.Z, v.Z, t)}
 }
