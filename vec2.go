@@ -130,6 +130,21 @@ func (u Vec) Unit() Vec {
 	return u.Scaled(1 / u.Len())
 }
 
+// Abs returns the absolute vector of the vector u.
+func (u Vec) Abs() Vec {
+	return Vec{math.Abs(u.X), math.Abs(u.Y)}
+}
+
+// Max returns the maximum vector of u and v.
+func (u Vec) Max(v Vec) Vec {
+	return Vec{math.Max(u.X, v.X), math.Max(u.Y, v.Y)}
+}
+
+// Min returns the minimum vector of u and v.
+func (u Vec) Min(v Vec) Vec {
+	return Vec{math.Min(u.X, v.X), math.Min(u.Y, v.Y)}
+}
+
 // Rotated returns the vector u rotated by the given angle in radians.
 func (u Vec) Rotated(angle float64) Vec {
 	sin, cos := math.Sincos(angle)
