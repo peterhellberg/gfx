@@ -98,6 +98,27 @@ func (sd SignedDistance) OpIntersection(x, y float64) float64 {
 	return MathMax(x, y)
 }
 
+// OpSmoothUnion smooth operation for union.
+func (sd SignedDistance) OpSmoothUnion(x, y, k float64) float64 {
+	h := Clamp(0.5+0.5*(y-x)/k, 0.0, 1.0)
+
+	return Lerp(y, x, h) - k*h*(1.0-h)
+}
+
+// OpSmoothSubtraction smooth operation for subtraction.
+func (sd SignedDistance) OpSmoothSubtraction(x, y, k float64) float64 {
+	h := Clamp(0.5-0.5*(y+x)/k, 0.0, 1.0)
+
+	return Lerp(y, -x, h) + k*h*(1.0-h)
+}
+
+// OpSmoothIntersection smooth operation for intersection.
+func (sd SignedDistance) OpSmoothIntersection(x, y, k float64) float64 {
+	h := Clamp(0.5-0.5*(y-x)/k, 0.0, 1.0)
+
+	return Lerp(y, x, h) + k*h*(1.0-h)
+}
+
 // OpSymX symmetry operation for X.
 func (sd SignedDistance) OpSymX(sdf SignedDistanceFunc) float64 {
 	sd.X = MathAbs(sd.X)
