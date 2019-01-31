@@ -6,6 +6,9 @@ type SignedDistance struct {
 	Vec
 }
 
+// SignedDistanceFunc is a func that takes a SignedDistance and returns a float64.
+type SignedDistanceFunc func(SignedDistance) float64
+
 // Circle primitive
 func (sd SignedDistance) Circle(r float64) float64 {
 	return sd.Len() - r
@@ -78,4 +81,48 @@ func (sd SignedDistance) Rounded(v, r float64) float64 {
 // Annular signed distance function shape
 func (sd SignedDistance) Annular(v, r float64) float64 {
 	return MathAbs(v) - r
+}
+
+// OpUnion basic boolean operation for union.
+func (sd SignedDistance) OpUnion(x, y float64) float64 {
+	return MathMin(x, y)
+}
+
+// OpSubtraction basic boolean operation for subtraction.
+func (sd SignedDistance) OpSubtraction(x, y float64) float64 {
+	return MathMax(-x, y)
+}
+
+// OpIntersection basic boolean operation for intersection.
+func (sd SignedDistance) OpIntersection(x, y float64) float64 {
+	return MathMax(x, y)
+}
+
+// OpSymX symmetry operation for X.
+func (sd SignedDistance) OpSymX(sdf SignedDistanceFunc) float64 {
+	sd.X = MathAbs(sd.X)
+
+	return sdf(sd)
+}
+
+// OpSymY symmetry operation for Y.
+func (sd SignedDistance) OpSymY(sdf SignedDistanceFunc) float64 {
+	sd.Y = MathAbs(sd.Y)
+
+	return sdf(sd)
+}
+
+// OpSymXY symmetry operation for X and Y.
+func (sd SignedDistance) OpSymXY(sdf SignedDistanceFunc) float64 {
+	sd.X = MathAbs(sd.X)
+	sd.Y = MathAbs(sd.Y)
+
+	return sdf(sd)
+}
+
+// OpRepeat repeats based on the given c vector.
+func (sd SignedDistance) OpRepeat(c Vec, sdf SignedDistanceFunc) float64 {
+	q := sd.Mod(c).Sub(c.Scaled(0.5))
+
+	return sdf(SignedDistance{q})
 }
