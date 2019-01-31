@@ -12,9 +12,14 @@ func MathMax(x, y float64) float64 {
 	return math.Max(x, y)
 }
 
-// Abs returns the absolute value of x.
+// MathAbs returns the absolute value of x.
 func MathAbs(x float64) float64 {
 	return math.Abs(x)
+}
+
+// MathSqrt returns the square root of x.
+func MathSqrt(x float64) float64 {
+	return math.Sqrt(x)
 }
 
 // Sign returns -1 for values < 0, 0 for 0, and 1 for values > 0.
