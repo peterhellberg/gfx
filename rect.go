@@ -135,6 +135,11 @@ func (r Rect) Contains(u Vec) bool {
 	return r.Min.X <= u.X && u.X <= r.Max.X && r.Min.Y <= u.Y && u.Y <= r.Max.Y
 }
 
+// Overlaps checks whether one Rect overlaps another Rect.
+func (r Rect) Overlaps(s Rect) bool {
+	return r.Intersect(s) != Rect{}
+}
+
 // Union returns the minimal Rect which covers both r and s. Rects r and s must be normalized.
 func (r Rect) Union(s Rect) Rect {
 	return R(
