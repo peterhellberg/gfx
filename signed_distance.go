@@ -147,3 +147,8 @@ func (sd SignedDistance) OpRepeat(c Vec, sdf SignedDistanceFunc) float64 {
 
 	return sdf(SignedDistance{q})
 }
+
+// OpTx translates using the given matrix.
+func (sd SignedDistance) OpTx(t Matrix, sdf SignedDistanceFunc) float64 {
+	return sdf(SignedDistance{t.Unproject(sd.Vec)})
+}
