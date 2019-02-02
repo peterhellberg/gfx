@@ -98,8 +98,8 @@ func (p Palette) AsColorPalette() color.Palette {
 	return cp
 }
 
-// ComplexAt returns the color at the given complex128 value.
-func (p Palette) ComplexAt(z complex128) color.Color {
+// CmplxPhaseAt returns the color at the phase of the given complex128 value.
+func (p Palette) CmplxPhaseAt(z complex128) color.Color {
 	t := CmplxPhase(z)/Pi + 1
 
 	if t > 1 {
