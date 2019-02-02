@@ -1,9 +1,6 @@
 package gfx
 
-import (
-	"math"
-	"math/cmplx"
-)
+import "math"
 
 // Mathematical constants.
 var (
@@ -38,17 +35,6 @@ func MathSin(x float64) float64 {
 // MathCos returns the cosine of the radian argument x.
 func MathCos(x float64) float64 {
 	return math.Cos(x)
-}
-
-// CmplxSin returns the sine of x.
-func CmplxSin(x complex128) complex128 {
-	return cmplx.Sin(x)
-}
-
-// CmplxPhase returns the phase (also called the argument) of x.
-// The returned value is in the range [-Pi, Pi].
-func CmplxPhase(x complex128) float64 {
-	return cmplx.Phase(x)
 }
 
 // Sign returns -1 for values < 0, 0 for 0, and 1 for values > 0.
