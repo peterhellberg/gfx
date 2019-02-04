@@ -22,9 +22,25 @@ func CmplxCosh(x complex128) complex128 {
 	return cmplx.Cosh(x)
 }
 
+// CmplxTan returns the tangent of x.
+func CmplxTan(x complex128) complex128 {
+	return cmplx.Tan(x)
+}
+
+// CmplxTanh returns the hyperbolic tangent of x.
+func CmplxTanh(x complex128) complex128 {
+	return cmplx.Tanh(x)
+}
+
 // CmplxPow returns x**y, the base-x exponential of y.
 func CmplxPow(x, y complex128) complex128 {
 	return cmplx.Pow(x, y)
+}
+
+// CmplxSqrt returns the square root of x.
+// The result r is chosen so that real(r) ≥ 0 and imag(r) has the same sign as imag(x).
+func CmplxSqrt(x complex128) complex128 {
+	return cmplx.Sqrt(x)
 }
 
 // CmplxPhase returns the phase (also called the argument) of x.
