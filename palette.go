@@ -30,23 +30,6 @@ func (p Palette) Random() color.NRGBA {
 	return p[rand.Intn(p.Len())]
 }
 
-// Sheet returns a paletted image with all of the colors in the palette.
-func (p Palette) Sheet(width int) *Paletted {
-	if width < 1 {
-		width = 1
-	}
-
-	var pix []uint8
-
-	for i := range p {
-		pix = append(pix, uint8(i))
-	}
-
-	m := NewTile(p, width, pix)
-
-	return m
-}
-
 // Tile returns a new image based on the input image, but with colors from the palette.
 func (p Palette) Tile(src image.Image) *Paletted {
 	dst := NewPalettedImage(src.Bounds(), p)
@@ -122,35 +105,7 @@ func (p Palette) At(t float64) color.Color {
 	i := int(math.Floor(t * float64(n-1)))
 	s := 1 / float64(n-1)
 
-	return lerpColors(p[i], p[i+1], (t-float64(i)*s)/s)
-}
-
-func lerpColors(c0, c1 color.Color, t float64) color.Color {
-	if t <= 0 {
-		return c0
-	}
-
-	if t >= 1 {
-		return c1
-	}
-
-	r0, g0, b0, a0 := c0.RGBA()
-	r1, g1, b1, a1 := c1.RGBA()
-
-	fr0, fg0, fb0, fa0 := float64(r0), float64(g0), float64(b0), float64(a0)
-	fr1, fg1, fb1, fa1 := float64(r1), float64(g1), float64(b1), float64(a1)
-
-	fr := Clamp(fr0+(fr1-fr0)*t, 0, 0xffff)
-	fg := Clamp(fg0+(fg1-fg0)*t, 0, 0xffff)
-	fb := Clamp(fb0+(fb1-fb0)*t, 0, 0xffff)
-	fa := Clamp(fa0+(fa1-fa0)*t, 0, 0xffff)
-
-	r := uint16(fr)
-	g := uint16(fg)
-	b := uint16(fb)
-	a := uint16(fa)
-
-	return color.RGBA64{r, g, b, a}
+	return LerpColors(p[i], p[i+1], (t-float64(i)*s)/s)
 }
 
 // sqDiff returns the squared-difference of x and y, shifted by 2 so that

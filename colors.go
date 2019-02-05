@@ -35,3 +35,26 @@ func ColorNRGBA(r, g, b, a uint8) color.NRGBA {
 func ColorRGBA(r, g, b, a uint8) color.RGBA {
 	return color.RGBA{r, g, b, a}
 }
+
+// LerpColors performs linear interpolation between two colors.
+func LerpColors(c0, c1 color.Color, t float64) color.Color {
+	switch {
+	case t <= 0:
+		return c0
+	case t >= 1:
+		return c1
+	}
+
+	r0, g0, b0, a0 := c0.RGBA()
+	r1, g1, b1, a1 := c1.RGBA()
+
+	fr0, fg0, fb0, fa0 := float64(r0), float64(g0), float64(b0), float64(a0)
+	fr1, fg1, fb1, fa1 := float64(r1), float64(g1), float64(b1), float64(a1)
+
+	return color.RGBA64{
+		uint16(Clamp(fr0+(fr1-fr0)*t, 0, 0xffff)),
+		uint16(Clamp(fg0+(fg1-fg0)*t, 0, 0xffff)),
+		uint16(Clamp(fb0+(fb1-fb0)*t, 0, 0xffff)),
+		uint16(Clamp(fa0+(fa1-fa0)*t, 0, 0xffff)),
+	}
+}
