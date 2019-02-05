@@ -28,18 +28,40 @@ func TestIMDrawPush(t *testing.T) {
 func TestIMDrawLine(t *testing.T) {
 	imd := NewIMDraw(nil)
 
-	imd.Push(V(1, 2), V(3, 4))
+	imd.EndShape = SharpEndShape
+
+	imd.Line(0)
+
+	imd.Push(V(1, 2))
 	imd.Line(1)
+
+	imd.Push(V(1, 2), V(1, 2), V(10, 5))
+	imd.Line(1)
+
+	imd.EndShape = RoundEndShape
+
+	imd.Push(V(1, 2), V(3, 4))
+	imd.Line(2)
+
+	imd.Push(V(1, 2), V(3, 4), V(10, 5))
+	imd.Line(3)
 }
 
 func TestIMDrawRectangle(t *testing.T) {
 	imd := NewIMDraw(nil)
+
+	imd.Push(V(1, 2))
+	imd.Rectangle(0)
 
 	imd.Push(V(1, 2), V(3, 4))
 	imd.Rectangle(0)
 
 	imd.Push(V(3, 3), V(7, 8))
 	imd.Rectangle(1)
+
+	imd.Push(V(1, 2))
+	imd.Rectangle(1)
+
 }
 
 func TestIMDrawPolygon(t *testing.T) {
