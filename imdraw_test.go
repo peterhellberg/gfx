@@ -65,6 +65,8 @@ func TestIMDrawCircle(t *testing.T) {
 func TestIMDrawCircleArc(t *testing.T) {
 	imd := NewIMDraw(nil)
 
+	imd.EndShape = RoundEndShape
+
 	imd.Push(V(1, 2))
 	imd.CircleArc(40, 0, 8*math.Pi, 0)
 
@@ -84,6 +86,8 @@ func TestIMDrawEllipse(t *testing.T) {
 
 func TestIMDrawEllipseArc(t *testing.T) {
 	imd := NewIMDraw(nil)
+
+	imd.EndShape = SharpEndShape
 
 	imd.Push(V(1, 2))
 	imd.EllipseArc(V(5, 10), 0, 8*math.Pi, 0)
