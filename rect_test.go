@@ -33,7 +33,7 @@ func TestBoundsCenter(t *testing.T) {
 }
 
 func TestRectString(t *testing.T) {
-	if got, want := R(1, 2, 3, 4).String(), "Rect(1, 2, 3, 4)"; got != want {
+	if got, want := R(1, 2, 3, 4).String(), "gfx.R(1, 2, 3, 4)"; got != want {
 		t.Fatalf("R(1, 2, 3, 4).String() = %q, want %q", got, want)
 	}
 }

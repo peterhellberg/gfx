@@ -54,10 +54,10 @@ func Unit(angle float64) Vec {
 // String returns the string representation of the vector u.
 //
 //   u := gfx.V(4.5, -1.3)
-//   u.String()     // returns "Vec(4.5, -1.3)"
-//   fmt.Println(u) // Vec(4.5, -1.3)
+//   u.String()     // returns "gfx.V(4.5, -1.3)"
+//   fmt.Println(u) // gfx.V(4.5, -1.3)
 func (u Vec) String() string {
-	return fmt.Sprintf("Vec(%v, %v)", u.X, u.Y)
+	return fmt.Sprintf("gfx.V(%v, %v)", u.X, u.Y)
 }
 
 // XY returns the components of the vector in two return values.

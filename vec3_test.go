@@ -24,7 +24,7 @@ func TestIV3(t *testing.T) {
 }
 
 func TestVec3String(t *testing.T) {
-	if got, want := V3(1, 2, 3).String(), "Vec3(1, 2, 3)"; got != want {
+	if got, want := V3(1, 2, 3).String(), "gfx.V3(1, 2, 3)"; got != want {
 		t.Fatalf("V3(1,2,3) = %q, want %q", got, want)
 	}
 }

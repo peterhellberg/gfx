@@ -31,7 +31,7 @@ func IV3(x, y, z int) Vec3 {
 
 // String returns the string representation of the vector u.
 func (u Vec3) String() string {
-	return fmt.Sprintf("Vec3(%v, %v, %v)", u.X, u.Y, u.Z)
+	return fmt.Sprintf("gfx.V3(%v, %v, %v)", u.X, u.Y, u.Z)
 }
 
 // XYZ returns the components of the vector in three return values.

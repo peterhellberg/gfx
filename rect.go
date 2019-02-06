@@ -46,10 +46,10 @@ func BoundsCenter(ir image.Rectangle) Vec {
 // String returns the string representation of the Rect.
 //
 //   r := gfx.R(100, 50, 200, 300)
-//   r.String()     // returns "Rect(100, 50, 200, 300)"
-//   fmt.Println(r) // Rect(100, 50, 200, 300)
+//   r.String()     // returns "gfx.R(100, 50, 200, 300)"
+//   fmt.Println(r) // gfx.R(100, 50, 200, 300)
 func (r Rect) String() string {
-	return fmt.Sprintf("Rect(%v, %v, %v, %v)", r.Min.X, r.Min.Y, r.Max.X, r.Max.Y)
+	return fmt.Sprintf("gfx.R(%v, %v, %v, %v)", r.Min.X, r.Min.Y, r.Max.X, r.Max.Y)
 }
 
 // Norm returns the Rect in normal form, such that Max is component-wise greater or equal than Min.
