@@ -121,3 +121,18 @@ func TestTriangleBounds(t *testing.T) {
 		t.Fatalf("tri.Bounds() = %v, want %v", got, want)
 	}
 }
+
+func ExampleT() {
+	t := T(
+		Vx(1, 2, ColorRed),
+		Vx(3, 4, ColorGreen, V(1, 1)),
+		Vx(5, 6, ColorBlue, 0.5),
+	)
+
+	Log("%v\n%v\n%v", t[0], t[1], t[2])
+
+	// Output:
+	// {gfx.V(1, 2) {255 0 0 255} gfx.V(0, 0) 0}
+	// {gfx.V(3, 4) {0 255 0 255} gfx.V(1, 1) 0}
+	// {gfx.V(5, 6) {0 0 255 255} gfx.V(0, 0) 0.5}
+}

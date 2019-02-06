@@ -24,6 +24,11 @@ func NewTriangle(i int, td *TrianglesData) Triangle {
 	return t
 }
 
+// T constructs a new triangle based on three vertexes.
+func T(a, b, c Vertex) Triangle {
+	return Triangle{a, b, c}
+}
+
 // Positions returns the three positions.
 func (t Triangle) Positions() (Vec, Vec, Vec) {
 	return t[0].Position, t[1].Position, t[2].Position
