@@ -19,7 +19,7 @@ func TestV(t *testing.T) {
 	}
 }
 
-func ExampleLerp() {
+func ExampleVecLerp() {
 	a, b := V(1, 2), V(30, 40)
 
 	Dump(
@@ -36,17 +36,4 @@ func ExampleLerp() {
 	//Vec(15.5, 21)
 	//Vec(27.1, 36.2)
 	//Vec(30, 40)
-}
-
-func ExampleClamp() {
-	Dump(
-		Clamp(-5, 10, 10),
-		Clamp(15, 10, 15),
-		Clamp(25, 10, 20),
-	)
-
-	// Output:
-	// 10
-	// 15
-	// 20
 }
