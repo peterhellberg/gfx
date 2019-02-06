@@ -256,9 +256,31 @@ Log
 
 I find that it is fairly common for me to do some logging driven development when experimenting with graphical effects, so I've included gfx.Log, gfx.Dump, gfx.Printf and gfx.Sprintf in this package.
 
+Math
+
+I have included a few functions that call functions in math.
+
+There is also gfx.Sign, gfx.Clamp and gfx.Lerp functions for float64.
+
+Cmplx
+
+I have included a few functions that call functions in cmplx.
+
+Reading files
+
+It is fairly common to read files in my experiments, so I've included gfx.ReadFile and gfx.ReadJSON in this package.
+
 Resizing images
 
 You can use gfx.ResizeImage to resize an image. (nearest neighbor, mainly useful for pixelated graphics)
+
+Noise
+
+Different types of noise is often used in procedural generation.
+
+SimplexNoise
+
+SimplexNoise is a speed-improved simplex noise algorithm for 2D, 3D and 4D.
 
 */
 package gfx
