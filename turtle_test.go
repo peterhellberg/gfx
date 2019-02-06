@@ -1,8 +1,6 @@
 package gfx
 
-import (
-	"testing"
-)
+import "testing"
 
 func TestDegreesRadians(t *testing.T) {
 	for d, want := range map[Degrees]float64{

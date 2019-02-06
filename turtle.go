@@ -4,6 +4,7 @@ import (
 	"image"
 	"image/color"
 	"image/draw"
+	"math"
 )
 
 // Turtle keeps track of the state of the Turtle.
@@ -138,4 +139,14 @@ func (lo lineOp) Rect() Rect {
 
 func (lo lineOp) Bounds() image.Rectangle {
 	return lo.Rect().Bounds()
+}
+
+const degToRad = math.Pi / 180
+
+// Degrees of arc.
+type Degrees float64
+
+// Radians convert degrees to radians.
+func (d Degrees) Radians() float64 {
+	return float64(d) * degToRad
 }
