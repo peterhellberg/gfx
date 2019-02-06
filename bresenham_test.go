@@ -8,9 +8,9 @@ func ExampleDrawBresenhamLine() {
 	for y := 0; y < dst.Bounds().Dy(); y++ {
 		for x := 0; x < dst.Bounds().Dx(); x++ {
 			if dst.Index(x, y) == 0 {
-				Printf("▓")
+				Printf("▓▓")
 			} else {
-				Printf("░")
+				Printf("░░")
 			}
 		}
 		Printf("\n")
@@ -18,11 +18,11 @@ func ExampleDrawBresenhamLine() {
 
 	// Output:
 	//
-	//░░░░░░░░░░
-	//░▓▓░░░░░░░
-	//░░░▓▓▓▓░░░
-	//░░░░░░░▓▓░
-	//░░░░░░░░░░
+	// ░░░░░░░░░░░░░░░░░░░░
+	// ░░▓▓▓▓░░░░░░░░░░░░░░
+	// ░░░░░░▓▓▓▓▓▓▓▓░░░░░░
+	// ░░░░░░░░░░░░░░▓▓▓▓░░
+	// ░░░░░░░░░░░░░░░░░░░░
 	//
 }
 
@@ -34,9 +34,9 @@ func ExampleDrawBresenhamLine_steep() {
 	for y := 0; y < dst.Bounds().Dy(); y++ {
 		for x := 0; x < dst.Bounds().Dx(); x++ {
 			if dst.Index(x, y) == 0 {
-				Printf("▓")
+				Printf("▓▓")
 			} else {
-				Printf("░")
+				Printf("░░")
 			}
 		}
 		Printf("\n")
@@ -44,10 +44,10 @@ func ExampleDrawBresenhamLine_steep() {
 
 	// Output:
 	//
-	//░░░░░░░░░░
-	//░░░░░░▓░░░
-	//░░░░░░▓░░░
-	//░░░░░░░▓░░
-	//░░░░░░░░░░
+	// ░░░░░░░░░░░░░░░░░░░░
+	// ░░░░░░░░░░░░▓▓░░░░░░
+	// ░░░░░░░░░░░░▓▓░░░░░░
+	// ░░░░░░░░░░░░░░▓▓░░░░
+	// ░░░░░░░░░░░░░░░░░░░░
 	//
 }
