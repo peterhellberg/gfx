@@ -312,13 +312,13 @@ when experimenting with graphical effects, so I've included `gfx.Log`,
 
 ## Math
 
-I have included a few functions that call functions in math.
+I have included a few functions that call functions in the `math` package.
 
 There is also `gfx.Sign`, `gfx.Clamp` and `gfx.Lerp` functions for `float64`.
 
 ## Cmplx
 
-I have included a few functions that call functions in cmplx.
+I have included a few functions that call functions in the `cmplx` package.
 
 ## Reading files
 
