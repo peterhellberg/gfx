@@ -294,25 +294,47 @@ most of them are found in the [Lospec Palette List](https://lospec.com/palette-l
 | `gfx.PaletteFamicube`      |     64 | ![famicube](https://lospec.com/palette-list/famicube-32x.png)
 | `gfx.PaletteSplendor128`   |    128 | ![aap-splendor128](https://lospec.com/palette-list/aap-splendor128-32x.png)
 
-### Errors
+## Errors
 
 The `gfx.Error` type is a string that implements the `error` interface.
 
 > If you are using [Ebiten](https://github.com/hajimehoshi/ebiten) then you can return the provided `gfx.ErrDone` error to exit its run loop.
 
-### HTTP
+## HTTP
 
 You can use `gfx.GetPNG` to download and decode a PNG given an URL.
 
-### Log
+## Log
 
 I find that it is fairly common for me to do some logging driven development
 when experimenting with graphical effects, so I've included `gfx.Log`,
 `gfx.Dump`, `gfx.Printf` and `gfx.Sprintf` in this package.
 
-### Resizing images
+## Math
+
+I have included a few functions that call functions in math.
+
+There is also `gfx.Sign`, `gfx.Clamp` and `gfx.Lerp` functions for `float64`.
+
+## Cmplx
+
+I have included a few functions that call functions in cmplx.
+
+## Reading files
+
+It is fairly common to read files in my experiments, so I've included `gfx.ReadFile` and `gfx.ReadJSON` in this package.
+
+## Resizing images
 
 You can use `gfx.ResizeImage` to resize an image. (nearest neighbor, mainly useful for pixelated graphics)
+
+## Noise
+
+Different types of noise is often used in procedural generation.
+
+### SimplexNoise
+
+SimplexNoise is a speed-improved simplex noise algorithm for 2D, 3D and 4D.
 
 ## License (MIT)
 
