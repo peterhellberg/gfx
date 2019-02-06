@@ -15,14 +15,6 @@ var (
 	_ TrianglesPicture  = (*TrianglesData)(nil)
 )
 
-// Vertex holds Position, Color, Picture and Intensity.
-type Vertex struct {
-	Position  Vec
-	Color     color.NRGBA
-	Picture   Vec
-	Intensity float64
-}
-
 // MakeTrianglesData creates Vertexes of length len initialized with default property values.
 //
 // Prefer this function to make(Vertexes, len), because make zeros them, while this function
