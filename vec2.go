@@ -16,8 +16,8 @@ import (
 // Use various methods to manipulate them:
 //
 //   w := u.Add(v)
-//   fmt.Println(w)        // Vec(9, -1)
-//   fmt.Println(u.Sub(v)) // Vec(-7, 5)
+//   fmt.Println(w)        // gfx.V(9, -1)
+//   fmt.Println(u.Sub(v)) // gfx.V(-7, 5)
 //   u = gfx.V(2, 3)
 //   v = gfx.V(8, 1)
 //   if u.X < 0 {
@@ -38,7 +38,10 @@ func V(x, y float64) Vec {
 
 // IV returns a new 2d vector based on the given int x, y pair.
 func IV(x, y int) Vec {
-	return Vec{float64(x), float64(y)}
+	return Vec{
+		float64(x),
+		float64(y),
+	}
 }
 
 // PV returns a new 2D vector based on the given image.Point.
@@ -112,12 +115,18 @@ func (u Vec) Mod(v Vec) Vec {
 
 // Scaled returns the vector u multiplied by c.
 func (u Vec) Scaled(c float64) Vec {
-	return Vec{u.X * c, u.Y * c}
+	return Vec{
+		u.X * c,
+		u.Y * c,
+	}
 }
 
 // ScaledXY returns the vector u multiplied by the vector v component-wise.
 func (u Vec) ScaledXY(v Vec) Vec {
-	return Vec{u.X * v.X, u.Y * v.Y}
+	return Vec{
+		u.X * v.X,
+		u.Y * v.Y,
+	}
 }
 
 // Len returns the length of the vector u.
@@ -135,22 +144,32 @@ func (u Vec) Unit() Vec {
 	if u.X == 0 && u.Y == 0 {
 		return Vec{1, 0}
 	}
+
 	return u.Scaled(1 / u.Len())
 }
 
 // Abs returns the absolute vector of the vector u.
 func (u Vec) Abs() Vec {
-	return Vec{math.Abs(u.X), math.Abs(u.Y)}
+	return Vec{
+		math.Abs(u.X),
+		math.Abs(u.Y),
+	}
 }
 
 // Max returns the maximum vector of u and v.
 func (u Vec) Max(v Vec) Vec {
-	return Vec{math.Max(u.X, v.X), math.Max(u.Y, v.Y)}
+	return Vec{
+		math.Max(u.X, v.X),
+		math.Max(u.Y, v.Y),
+	}
 }
 
 // Min returns the minimum vector of u and v.
 func (u Vec) Min(v Vec) Vec {
-	return Vec{math.Min(u.X, v.X), math.Min(u.Y, v.Y)}
+	return Vec{
+		math.Min(u.X, v.X),
+		math.Min(u.Y, v.Y),
+	}
 }
 
 // Rotated returns the vector u rotated by the given angle in radians.
@@ -165,7 +184,10 @@ func (u Vec) Rotated(angle float64) Vec {
 
 // Normal returns a vector normal to u. Equivalent to u.Rotated(math.Pi / 2), but faster.
 func (u Vec) Normal() Vec {
-	return Vec{-u.Y, u.X}
+	return Vec{
+		-u.Y,
+		u.X,
+	}
 }
 
 // Dot returns the dot product of vectors u and v.
@@ -183,6 +205,7 @@ func (u Vec) Cross(v Vec) float64 {
 // Behaviour is undefined if v is a zero vector.
 func (u Vec) Project(v Vec) Vec {
 	len := u.Dot(v) / v.Len()
+
 	return v.Unit().Scaled(len)
 }
 
@@ -190,7 +213,7 @@ func (u Vec) Project(v Vec) Vec {
 // vector.
 //
 //   u := gfx.V(10.5, -1.5)
-//   v := u.Map(math.Floor)   // v is Vec(10, -2), both components of u floored
+//   v := u.Map(math.Floor)   // v is gfx.V(10, -2), both components of u floored
 func (u Vec) Map(f func(float64) float64) Vec {
 	return Vec{
 		f(u.X),
