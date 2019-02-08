@@ -59,6 +59,11 @@ func DrawImageRectangle(dst draw.Image, r image.Rectangle, c color.Color) {
 	draw.Draw(dst, r, &image.Uniform{c}, image.ZP, draw.Over)
 }
 
+// DrawRect draws a gfx.Rect of the given color on the image.
+func DrawRect(dst draw.Image, r Rect, c color.Color) {
+	DrawImageRectangle(dst, r.Bounds(), c)
+}
+
 // DrawPolygon filled or as line polygons if the thickness is >= 1.
 func DrawPolygon(dst draw.Image, p Polygon, thickness float64, c color.Color) {
 	n := len(p)
