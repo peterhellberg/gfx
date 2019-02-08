@@ -221,6 +221,11 @@ func (u Vec) Map(f func(float64) float64) Vec {
 	}
 }
 
+// Vec3 converts the vector into a Vec3.
+func (u Vec) Vec3(z float64) Vec3 {
+	return Vec3{u.X, u.Y, z}
+}
+
 // Pt returns the image.Point for the vector.
 func (u Vec) Pt() image.Point {
 	return image.Pt(int(u.X), int(u.Y))
