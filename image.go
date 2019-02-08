@@ -75,6 +75,13 @@ func SetPoint(dst draw.Image, p image.Point, c color.Color) {
 	dst.Set(p.X, p.Y, c)
 }
 
+// SetVec to the given color.
+func SetVec(dst draw.Image, v Vec, c color.Color) {
+	pt := v.Pt()
+
+	dst.Set(pt.X, pt.Y, c)
+}
+
 // EachPixel calls the provided function for each pixel in the provided rectangle.
 func EachPixel(m image.Image, r image.Rectangle, fn func(x, y int)) {
 	r = r.Intersect(m.Bounds())
