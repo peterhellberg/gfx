@@ -15,7 +15,6 @@ func NewBox(min, max Vec3) Box {
 }
 
 // B returns a new Box with given the Min and Max coordinates.
-//
 func B(minX, minY, minZ, maxX, maxY, maxZ float64) Box {
 	return NewBox(
 		V3(minX, minY, minZ),
