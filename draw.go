@@ -6,9 +6,19 @@ import (
 	"image/draw"
 )
 
-// DrawOver draws src over dst.
-func DrawOver(dst draw.Image, r image.Rectangle, src image.Image, sp image.Point) {
-	draw.Draw(dst, r, src, sp, draw.Over)
+// Draw draws src on dst, at the zero point using draw.Src.
+func Draw(dst draw.Image, r image.Rectangle, src image.Image) {
+	draw.Draw(dst, r, src, ZP, draw.Src)
+}
+
+// DrawColor draws an image.Rectangle of uniform color on dst.
+func DrawColor(dst draw.Image, r image.Rectangle, c color.Color) {
+	draw.Draw(dst, r, NewUniform(c), ZP, draw.Src)
+}
+
+// DrawColorOver draws an image.Rectangle of uniform color over dst.
+func DrawColorOver(dst draw.Image, r image.Rectangle, c color.Color) {
+	draw.Draw(dst, r, NewUniform(c), ZP, draw.Over)
 }
 
 // DrawSrc draws src on dst.
@@ -16,8 +26,13 @@ func DrawSrc(dst draw.Image, r image.Rectangle, src image.Image, sp image.Point)
 	draw.Draw(dst, r, src, sp, draw.Src)
 }
 
-// DrawOverPalettedImage draws a PalettedImage over a PalettedDrawImage.
-func DrawOverPalettedImage(dst PalettedDrawImage, r image.Rectangle, src PalettedImage) {
+// DrawOver draws src over dst.
+func DrawOver(dst draw.Image, r image.Rectangle, src image.Image, sp image.Point) {
+	draw.Draw(dst, r, src, sp, draw.Over)
+}
+
+// DrawPalettedImage draws a PalettedImage over a PalettedDrawImage.
+func DrawPalettedImage(dst PalettedDrawImage, r image.Rectangle, src PalettedImage) {
 	w, h, m := r.Dx(), r.Dy(), r.Min
 
 	for x := m.X; x != w; x++ {
@@ -29,9 +44,9 @@ func DrawOverPalettedImage(dst PalettedDrawImage, r image.Rectangle, src Palette
 	}
 }
 
-// DrawLayerOverPaletted draws a *Layer over a *Paletted.
-// (slightly faster than using the generic DrawOverPalettedImage)
-func DrawLayerOverPaletted(dst *Paletted, r image.Rectangle, src *Layer) {
+// DrawPalettedLayer draws a *Layer over a *Paletted.
+// (slightly faster than using the generic DrawPalettedImage)
+func DrawPalettedLayer(dst *Paletted, r image.Rectangle, src *Layer) {
 	w, h, m := r.Dx(), r.Dy(), r.Min
 
 	for x := m.X; x != w; x++ {
@@ -47,21 +62,11 @@ func DrawLayerOverPaletted(dst *Paletted, r image.Rectangle, src *Layer) {
 // A thickness of <= 1 is drawn using DrawBresenhamLine.
 func DrawLine(dst draw.Image, from, to Vec, thickness float64, c color.Color) {
 	if thickness <= 1 {
-		DrawBresenhamLine(dst, from, to, c)
+		DrawLineBresenham(dst, from, to, c)
 		return
 	}
 
 	polylineFromTo(from, to, thickness).Fill(dst, c)
-}
-
-// DrawImageRectangle draws a rectangle of the given color on the image.
-func DrawImageRectangle(dst draw.Image, r image.Rectangle, c color.Color) {
-	draw.Draw(dst, r, &image.Uniform{c}, image.ZP, draw.Over)
-}
-
-// DrawRect draws a gfx.Rect of the given color on the image.
-func DrawRect(dst draw.Image, r Rect, c color.Color) {
-	DrawImageRectangle(dst, r.Bounds(), c)
 }
 
 // DrawPolygon filled or as line polygons if the thickness is >= 1.
@@ -96,7 +101,7 @@ func DrawPolyline(dst draw.Image, pl Polyline, thickness float64, c color.Color)
 // DrawCircle draws a circle with radius and thickness. (filled if thickness == 0)
 func DrawCircle(dst draw.Image, u Vec, radius, thickness float64, c color.Color) {
 	if thickness == 0 {
-		DrawFilledCircle(dst, u, radius, c)
+		DrawCircleFilled(dst, u, radius, c)
 		return
 	}
 
@@ -113,8 +118,8 @@ func DrawCircle(dst draw.Image, u Vec, radius, thickness float64, c color.Color)
 	})
 }
 
-// DrawFilledCircle draws a filled circle.
-func DrawFilledCircle(dst draw.Image, u Vec, radius float64, c color.Color) {
+// DrawCircleFilled draws a filled circle.
+func DrawCircleFilled(dst draw.Image, u Vec, radius float64, c color.Color) {
 	bounds := IR(int(u.X-radius), int(u.Y-radius), int(u.X+radius), int(u.Y+radius))
 
 	EachPixel(dst, bounds, func(x, y int) {
@@ -126,8 +131,8 @@ func DrawFilledCircle(dst draw.Image, u Vec, radius float64, c color.Color) {
 	})
 }
 
-// DrawFastFilledCircle draws a (crude) filled circle.
-func DrawFastFilledCircle(dst draw.Image, u Vec, radius float64, c color.Color) {
+// DrawCicleFast draws a (crude) filled circle.
+func DrawCicleFast(dst draw.Image, u Vec, radius float64, c color.Color) {
 	ir := int(radius)
 	r2 := ir * ir
 	pt := u.Pt()

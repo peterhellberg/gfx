@@ -23,14 +23,14 @@ func TestDrawOverPalettedImage(t *testing.T) {
 	src := newTestLayer()
 	dst := NewPaletted(8, 16, PaletteEN4)
 
-	DrawOverPalettedImage(dst, dst.Bounds(), src)
+	DrawPalettedImage(dst, dst.Bounds(), src)
 }
 
 func TestDrawLayerOverPaletted(t *testing.T) {
 	src := newTestLayer()
 	dst := NewPaletted(8, 16, PaletteEN4)
 
-	DrawLayerOverPaletted(dst, dst.Bounds(), src)
+	DrawPalettedLayer(dst, dst.Bounds(), src)
 }
 
 func TestDrawLine(t *testing.T) {
@@ -40,10 +40,10 @@ func TestDrawLine(t *testing.T) {
 	DrawLine(dst, V(4, 4), V(24, 12), 1, ColorGreen)
 }
 
-func TestDrawImageRectangle(t *testing.T) {
+func TestDrawColor(t *testing.T) {
 	dst := NewImage(32, 32)
 
-	DrawImageRectangle(dst, IR(5, 5, 15, 20), ColorGreen)
+	DrawColor(dst, IR(5, 5, 15, 20), ColorGreen)
 }
 
 func TestDrawPolygon(t *testing.T) {
@@ -79,13 +79,13 @@ func TestDrawCircle(t *testing.T) {
 func TestDrawFilledCircle(t *testing.T) {
 	dst := NewImage(32, 32)
 
-	DrawFilledCircle(dst, V(16, 16), 8, ColorMagenta)
+	DrawCircleFilled(dst, V(16, 16), 8, ColorMagenta)
 }
 
 func TestDrawFastFilledCircle(t *testing.T) {
 	dst := NewImage(32, 32)
 
-	DrawFastFilledCircle(dst, V(16, 16), 8, ColorMagenta)
+	DrawCicleFast(dst, V(16, 16), 8, ColorMagenta)
 }
 
 func TestDrawPointCircle(t *testing.T) {

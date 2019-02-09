@@ -56,7 +56,7 @@ func Mix(m draw.Image, x, y int, c color.Color) {
 	case 0xFFFF:
 		m.Set(x, y, c)
 	default:
-		DrawOver(m, IR(x, y, x+1, y+1), image.NewUniform(c), ZP)
+		DrawColor(m, IR(x, y, x+1, y+1), c)
 	}
 }
 

@@ -3,6 +3,8 @@ package gfx
 import (
 	"fmt"
 	"image"
+	"image/color"
+	"image/draw"
 	"math"
 )
 
@@ -172,4 +174,19 @@ func (r Rect) Bounds() image.Rectangle {
 		Min: r.Min.Pt(),
 		Max: r.Max.Pt(),
 	}
+}
+
+// Draw draws Rect to src over dst, at the zero point.
+func (r Rect) Draw(dst draw.Image, src image.Image) {
+	draw.Draw(dst, r.Bounds(), src, ZP, draw.Src)
+}
+
+// DrawColor draws Rect with a uniform color on dst.
+func (r Rect) DrawColor(dst draw.Image, c color.Color) {
+	draw.Draw(dst, r.Bounds(), NewUniform(c), ZP, draw.Src)
+}
+
+// DrawColorOver draws Rect with a uniform color over dst.
+func (r Rect) DrawColorOver(dst draw.Image, c color.Color) {
+	draw.Draw(dst, r.Bounds(), NewUniform(c), ZP, draw.Over)
 }

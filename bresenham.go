@@ -5,10 +5,10 @@ import (
 	"image/draw"
 )
 
-// DrawBresenhamLine draws a line using Bresenham's line algorithm.
+// DrawLineBresenham draws a line using Bresenham's line algorithm.
 //
 // http://en.wikipedia.org/wiki/Bresenham's_line_algorithm
-func DrawBresenhamLine(dst draw.Image, from, to Vec, c color.Color) {
+func DrawLineBresenham(dst draw.Image, from, to Vec, c color.Color) {
 	x0, y0 := from.XY()
 	x1, y1 := to.XY()
 
