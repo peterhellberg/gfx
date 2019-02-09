@@ -1,5 +1,18 @@
 package gfx
 
+// Blocks is a slice of blocks.
+type Blocks []Block
+
+// Add appends a Block to the slice.
+func (bs *Blocks) Add(b Block) {
+	*bs = append(*bs, b)
+}
+
+// AddNewBlock creates a new Block and appends it to the slice.
+func (bs *Blocks) AddNewBlock(pos, size Vec3, ic BlockColor) {
+	bs.Add(NewBlock(pos, size, ic))
+}
+
 // Block has a position, size and color.
 type Block struct {
 	Pos   Vec3
@@ -10,6 +23,11 @@ type Block struct {
 // NewBlock creates a new Block.
 func NewBlock(pos, size Vec3, ic BlockColor) Block {
 	return Block{Pos: pos, Size: size, Color: ic}
+}
+
+// Box creates a box for the Block.
+func (b Block) Box() Box {
+	return NewBox(b.Pos, b.Pos.Add(b.Size))
 }
 
 // Polygons returns the shape, top, left and right polygons with coordinates based on origin.
