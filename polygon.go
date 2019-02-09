@@ -61,17 +61,20 @@ func (p Polygon) EachPixel(m image.Image, fn func(x, y int)) {
 	}
 
 	EachPixel(m, p.Bounds(), func(x, y int) {
-		if V(float64(x), float64(y)).In(p) {
+		if IV(x, y).In(p) {
 			fn(x, y)
 		}
 	})
 }
 
 // Fill polygon on the image with the given color.
-func (p Polygon) Fill(dst draw.Image, c color.Color) {
+func (p Polygon) Fill(dst draw.Image, c color.Color) (drawCount int) {
 	p.EachPixel(dst, func(x, y int) {
 		Mix(dst, x, y, c)
+		drawCount++
 	})
+
+	return drawCount
 }
 
 // In returns true if the vector is inside the given polygon.
