@@ -124,9 +124,9 @@ func TestTriangleBounds(t *testing.T) {
 
 func ExampleT() {
 	t := T(
-		Vx(1, 2, ColorRed),
-		Vx(3, 4, ColorGreen, V(1, 1)),
-		Vx(5, 6, ColorBlue, 0.5),
+		Vx(V(1, 2), ColorRed),
+		Vx(V(3, 4), ColorGreen, V(1, 1)),
+		Vx(V(5, 6), ColorBlue, 0.5),
 	)
 
 	Log("%v\n%v\n%v", t[0], t[1], t[2])

@@ -1,7 +1,7 @@
 package gfx
 
 func ExampleVx() {
-	vx := Vx(6, 122, ColorWhite, V(1, 1), 0.5)
+	vx := Vx(V(6, 122), ColorWhite, V(1, 1), 0.5)
 
 	Dump(vx)
 

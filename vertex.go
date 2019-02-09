@@ -10,11 +10,9 @@ type Vertex struct {
 	Intensity float64
 }
 
-// Vx returns a new vertex with the given coordinates.
-func Vx(x, y float64, args ...interface{}) Vertex {
-	vx := Vertex{
-		Position: V(x, y),
-	}
+// NewVertex returns a new vertex with the given position.
+func NewVertex(pos Vec, args ...interface{}) Vertex {
+	vx := Vertex{Position: pos}
 
 	for _, a := range args {
 		switch v := a.(type) {
@@ -28,4 +26,9 @@ func Vx(x, y float64, args ...interface{}) Vertex {
 	}
 
 	return vx
+}
+
+// Vx returns a new vertex with the given coordinates.
+func Vx(pos Vec, args ...interface{}) Vertex {
+	return NewVertex(pos, args...)
 }
