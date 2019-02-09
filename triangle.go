@@ -3,6 +3,7 @@ package gfx
 import (
 	"image"
 	"image/color"
+	"image/draw"
 	"math"
 )
 
@@ -106,4 +107,69 @@ func (t Triangle) Centroid() Vec {
 		(a.X+b.X+c.X)/3,
 		(a.Y+b.Y+c.Y)/3,
 	)
+}
+
+// TriangleFunc is a function type that is called by Triangle.EachPixel
+type TriangleFunc func(u Vec, t Triangle)
+
+// EachPixel calls the given TriangleFunc for each pixel in the triangle.
+func (t Triangle) EachPixel(tf TriangleFunc) {
+	b := t.Bounds()
+
+	for x := b.Min.X; x < b.Max.X; x++ {
+		for y := b.Min.Y; y < b.Max.Y; y++ {
+			if u := IV(x, y); t.Contains(u) {
+				tf(u, t)
+			}
+		}
+	}
+}
+
+// Draw the first color in the triangle to dst.
+func (t Triangle) Draw(dst draw.Image) (drawCount int) {
+	a, _, _ := t.Colors()
+
+	return t.DrawColor(dst, a)
+}
+
+// DrawColor draws the triangle on dst using the given color.
+func (t Triangle) DrawColor(dst draw.Image, c color.Color) (drawCount int) {
+	b := t.Bounds()
+
+	var lefts []Vec
+	var rights []Vec
+
+	var invalid = V(-math.MaxInt64, 0)
+
+	for y := b.Min.Y; y < b.Max.Y; y++ {
+		var left, right = invalid, invalid
+
+		for x := b.Min.X; x < b.Max.X; x++ {
+			if u := IV(x, y); t.Contains(u) {
+				left = u
+				break
+			}
+		}
+
+		for x := b.Max.X; x > b.Min.X; x-- {
+			if u := IV(x, y); t.Contains(u) {
+				right = u
+				break
+			}
+		}
+
+		if left != invalid && right != invalid {
+			lefts = append(lefts, left)
+			rights = append(rights, right)
+		}
+	}
+
+	for i := 0; i < len(lefts); i++ {
+		r := NewRect(lefts[i], rights[i].AddXY(0, 1)).Bounds()
+
+		DrawColor(dst, r, c)
+		drawCount++
+	}
+
+	return drawCount
 }
