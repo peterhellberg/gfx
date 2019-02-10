@@ -211,7 +211,51 @@ func ExampleVecMap() {
 	// gfx.V(1, 3)
 }
 
-func ExampleRect() {
+func ExampleVecVec3() {
+	Dump(
+		V(1, 2).Vec3(3),
+		V(4, 5).Vec3(6),
+	)
+
+	// Output:
+	// gfx.V3(1, 2, 3)
+	// gfx.V3(4, 5, 6)
+}
+
+func ExampleVecPt() {
+	Dump(
+		V(1, 2).Pt(),
+		V(3, 4).Pt(),
+	)
+
+	// Output:
+	// (1,2)
+	// (3,4)
+}
+
+func ExampleVecR() {
+	Dump(
+		V(1, 2).R(V(3, 4)),
+		V(5, 2).R(V(3, 4)),
+	)
+
+	// Output:
+	// gfx.R(1, 2, 3, 4)
+	// gfx.R(5, 2, 3, 4)
+}
+
+func ExampleVecB() {
+	Dump(
+		V(1, 2).B(V(3, 4)),
+		V(5, 2).B(V(3, 4)),
+	)
+
+	// Output:
+	// (1,2)-(3,4)
+	// (5,2)-(3,4)
+}
+
+func ExampleVecRect() {
 	Dump(
 		V(10, 10).Rect(-1, -2, 3, 4),
 		V(3, 4).Rect(1.5, 2.2, 3.3, 4.5),
@@ -222,7 +266,7 @@ func ExampleRect() {
 	// gfx.R(4.5, 6.2, 6.3, 8.5)
 }
 
-func ExampleBounds() {
+func ExampleVecBounds() {
 	Dump(
 		V(10, 10).Bounds(-1, -2, 3, 4),
 		V(3, 4).Bounds(1.5, 2.2, 3.3, 4.5),
@@ -253,7 +297,6 @@ func ExampleVecLerp() {
 }
 
 func ExampleCentroid() {
-
 	Dump(
 		Centroid(V(1, 1), V(6, 1), V(3, 4)),
 		Centroid(V(0, 0), V(10, 0), V(5, 10)),
