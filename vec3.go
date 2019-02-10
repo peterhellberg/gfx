@@ -44,6 +44,11 @@ func (u Vec3) Eq(v Vec3) bool {
 	return u.X == v.X && u.Y == v.Y && u.Z == v.Z
 }
 
+// Vec returns a Vec with X, Y coordinates.
+func (u Vec3) Vec() Vec {
+	return V(u.X, u.Y)
+}
+
 // Add returns the sum of vectors u and v.
 func (u Vec3) Add(v Vec3) Vec3 {
 	return Vec3{
