@@ -20,7 +20,7 @@ type Rect struct {
 	Min, Max Vec
 }
 
-// NewRect creates a new Rect
+// NewRect creates a new Rect.
 func NewRect(min, max Vec) Rect {
 	return Rect{
 		Min: min,
@@ -28,7 +28,7 @@ func NewRect(min, max Vec) Rect {
 	}
 }
 
-// R returns a new Rect with given the Min and Max coordinates.
+// R returns a new Rect given the Min and Max coordinates.
 //
 // Note that the returned rectangle is not automatically normalized.
 func R(minX, minY, maxX, maxY float64) Rect {
