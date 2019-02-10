@@ -1,18 +1,5 @@
 package gfx
 
-// Blocks is a slice of blocks.
-type Blocks []Block
-
-// Add appends a Block to the slice.
-func (bs *Blocks) Add(b Block) {
-	*bs = append(*bs, b)
-}
-
-// AddNewBlock creates a new Block and appends it to the slice.
-func (bs *Blocks) AddNewBlock(pos, size Vec3, ic BlockColor) {
-	bs.Add(NewBlock(pos, size, ic))
-}
-
 // Block has a position, size and color.
 type Block struct {
 	Pos   Vec3
