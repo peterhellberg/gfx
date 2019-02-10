@@ -241,7 +241,7 @@ func main() {
 }
 ```
 
-![gfx-example-blocks](gfx-example-blocks/gfx-example-blocks.png)
+![gfx-example-blocks](examples/gfx-example-blocks/gfx-example-blocks.png)
 
 ## Animation
 
