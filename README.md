@@ -145,6 +145,7 @@ func main() {
 
 Triangles can be drawn to an image using a `*gfx.DrawTarget`.
 
+[embedmd]:# (examples/gfx-example-triangles/gfx-example-triangles.go)
 ```go
 package main
 
