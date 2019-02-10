@@ -26,5 +26,5 @@ func main() {
 		a.AddPalettedImage(gfx.NewScaledPalettedImage(t, 20))
 	}
 
-	a.SaveGIF("/tmp/gfx-readme-examples-animation.gif")
+	a.SaveGIF("gfx-example-animation.gif")
 }

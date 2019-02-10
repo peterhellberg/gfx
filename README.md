@@ -247,6 +247,7 @@ func main() {
 
 There is rudimentary support for making animations using `gfx.Animation`, the animations can then be encoded into GIF.
 
+[embedmd]:# (examples/gfx-example-animation/gfx-example-animation.go)
 ```go
 package main
 
@@ -276,11 +277,11 @@ func main() {
 		a.AddPalettedImage(gfx.NewScaledPalettedImage(t, 20))
 	}
 
-	a.SaveGIF("/tmp/gfx-readme-examples-animation.gif")
+	a.SaveGIF("gfx-example-animation.gif")
 }
 ```
 
-![gfx-readme-examples-animation](https://user-images.githubusercontent.com/565124/51402952-437ad300-1b4f-11e9-89f3-292f69f38429.gif)
+![gfx-example-animation](examples/gfx-example-animation/gfx-example-animation.gif)
 
 ## Colors
 
