@@ -17,7 +17,7 @@ func NewImage(w, h int, colors ...color.Color) *image.NRGBA {
 	m := NewNRGBA(IR(0, 0, w, h))
 
 	if len(colors) > 0 {
-		DrawSrc(m, m.Bounds(), NewUniform(colors[0]), ZP)
+		DrawColor(m, m.Bounds(), colors[0])
 	}
 
 	return m
