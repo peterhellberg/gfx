@@ -232,8 +232,10 @@ func (u Vec) Pt() image.Point {
 }
 
 // R creates a new Rect for the vectors u and v.
+//
+// Note that the returned rectangle is not automatically normalized.
 func (u Vec) R(v Vec) Rect {
-	return NewRect(u.Min(v), u.Max(v))
+	return NewRect(u, v)
 }
 
 // B creates a new image.Rectangle for the vectors u and v.
