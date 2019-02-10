@@ -49,7 +49,7 @@ gfx.Matrix is a 2x3 affine matrix that can be used for all kinds of spatial tran
 				gfx.DrawPolygon(m, p.Project(matrix), 0, en4.Color(2))
 				gfx.DrawPolygon(m, p.Project(matrix.Scaled(c, 0.5)), 0, en4.Color(1))
 
-				gfx.DrawFilledCircle(m, c, 5, en4.Color(0))
+				gfx.DrawCircleFilled(m, c, 5, en4.Color(0))
 
 				a.AddPalettedImage(m)
 			}
@@ -65,7 +65,7 @@ I've included Bresenham's line algorithm in this package.
 
 Bresenham's line algorithm
 
-gfx.DrawBresenhamLine draws a line using Bresenham's line algorithm.
+gfx.DrawLineBresenham draws a line using Bresenham's line algorithm.
 
 		package main
 
@@ -74,9 +74,9 @@ gfx.DrawBresenhamLine draws a line using Bresenham's line algorithm.
 		func main() {
 			m := gfx.NewImage(64, 64, gfx.ColorWhite)
 
-			gfx.DrawBresenhamLine(m, gfx.V(10, 10), gfx.V(54, 54), gfx.ColorRed)
-			gfx.DrawBresenhamLine(m, gfx.V(10, 20), gfx.V(10, 54), gfx.ColorGreen)
-			gfx.DrawBresenhamLine(m, gfx.V(20, 10), gfx.V(54, 10), gfx.ColorBlue)
+			gfx.DrawLineBresenham(m, gfx.V(10, 10), gfx.V(54, 54), gfx.ColorRed)
+			gfx.DrawLineBresenham(m, gfx.V(10, 20), gfx.V(10, 54), gfx.ColorGreen)
+			gfx.DrawLineBresenham(m, gfx.V(20, 10), gfx.V(54, 10), gfx.ColorBlue)
 
 			s := gfx.NewScaledImage(m, 4)
 
@@ -177,7 +177,6 @@ https://www.cse.wustl.edu/~taoju/research/TurtlesforCADRevised.pdf
 					t.Forward(392 - float64(i))
 					t.Turn(121)
 				}
-
 			}).Draw(m)
 
 			gfx.SavePNG("/tmp/gfx-readme-examples-turtle.png", m)
