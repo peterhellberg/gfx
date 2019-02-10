@@ -205,6 +205,44 @@ func main() {
 
 ![gfx-readme-examples-turtle](https://user-images.githubusercontent.com/565124/51402174-0ad9fa00-1b4d-11e9-95b9-f5617979f34e.png)
 
+## Blocks
+
+You can draw (isometric) blocks using the `gfx.Blocks` and `gfx.Block` types.
+
+[embedmd]:# (examples/gfx-example-blocks/gfx-example-blocks.go)
+```go
+package main
+
+import "github.com/peterhellberg/gfx"
+
+func main() {
+	var (
+		p      = append(gfx.PaletteGo, gfx.ColorTransparent)
+		dst    = gfx.NewPaletted(898, 430, p, gfx.ColorTransparent)
+		rect   = gfx.BoundsToRect(dst.Bounds())
+		origin = rect.Center().ScaledXY(gfx.V(1.2, -2.5)).Vec3(0.7)
+		blocks gfx.Blocks
+	)
+
+	for i, bc := range gfx.BlockColorsGo {
+		var (
+			f    = float64(i) + 0.5
+			v    = f * 15
+			pos  = gfx.V3(290+(v*3), 8.5*v, -8*(f+2))
+			size = gfx.V3(90, 90, 90)
+		)
+
+		blocks.AddNewBlock(pos, size, bc)
+	}
+
+	blocks.DrawPolygons(dst, origin)
+
+	gfx.SavePNG("gfx-example-blocks.png", dst)
+}
+```
+
+![gfx-example-blocks](gfx-example-blocks/gfx-example-blocks.png)
+
 ## Animation
 
 There is rudimentary support for making animations using `gfx.Animation`, the animations can then be encoded into GIF.
