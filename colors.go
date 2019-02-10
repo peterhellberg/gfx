@@ -23,19 +23,20 @@ type BlockColor struct {
 	Dark   color.NRGBA
 }
 
-// Block colors based on PaletteTango.
+// Block colors, each containing a Light, Medium and Dark color.
 var (
-	BlockColorYellow = BlockColor{PaletteTango[0], PaletteTango[1], PaletteTango[2]}
-	BlockColorOrange = BlockColor{PaletteTango[3], PaletteTango[4], PaletteTango[5]}
-	BlockColorBrown  = BlockColor{PaletteTango[6], PaletteTango[7], PaletteTango[8]}
-	BlockColorGreen  = BlockColor{PaletteTango[9], PaletteTango[10], PaletteTango[11]}
-	BlockColorBlue   = BlockColor{PaletteTango[12], PaletteTango[13], PaletteTango[14]}
-	BlockColorPurple = BlockColor{PaletteTango[15], PaletteTango[16], PaletteTango[17]}
-	BlockColorRed    = BlockColor{PaletteTango[18], PaletteTango[19], PaletteTango[20]}
-	BlockColorWhite  = BlockColor{PaletteTango[21], PaletteTango[22], PaletteTango[23]}
-	BlockColorBlack  = BlockColor{PaletteTango[24], PaletteTango[25], PaletteTango[26]}
+	// Default block colors based on PaletteTango.
+	BlockColorYellow = BlockColor{Light: PaletteTango[0], Medium: PaletteTango[1], Dark: PaletteTango[2]}
+	BlockColorOrange = BlockColor{Light: PaletteTango[3], Medium: PaletteTango[4], Dark: PaletteTango[5]}
+	BlockColorBrown  = BlockColor{Light: PaletteTango[6], Medium: PaletteTango[7], Dark: PaletteTango[8]}
+	BlockColorGreen  = BlockColor{Light: PaletteTango[9], Medium: PaletteTango[10], Dark: PaletteTango[11]}
+	BlockColorBlue   = BlockColor{Light: PaletteTango[12], Medium: PaletteTango[13], Dark: PaletteTango[14]}
+	BlockColorPurple = BlockColor{Light: PaletteTango[15], Medium: PaletteTango[16], Dark: PaletteTango[17]}
+	BlockColorRed    = BlockColor{Light: PaletteTango[18], Medium: PaletteTango[19], Dark: PaletteTango[20]}
+	BlockColorWhite  = BlockColor{Light: PaletteTango[21], Medium: PaletteTango[22], Dark: PaletteTango[23]}
+	BlockColorBlack  = BlockColor{Light: PaletteTango[24], Medium: PaletteTango[25], Dark: PaletteTango[26]}
 
-	// BlockColors is a slice of all the default block colors.
+	// BlockColors is a slice of the default block colors.
 	BlockColors = []BlockColor{
 		BlockColorYellow,
 		BlockColorOrange,
@@ -46,6 +47,24 @@ var (
 		BlockColorRed,
 		BlockColorWhite,
 		BlockColorBlack,
+	}
+
+	// Block colors based on the Go color palette.
+	BlockColorGoGopherBlue = BlockColor{Dark: PaletteGo[0], Medium: PaletteGo[2], Light: PaletteGo[4]}
+	BlockColorGoLightBlue  = BlockColor{Dark: PaletteGo[9], Medium: PaletteGo[11], Light: PaletteGo[13]}
+	BlockColorGoAqua       = BlockColor{Dark: PaletteGo[18], Medium: PaletteGo[20], Light: PaletteGo[22]}
+	BlockColorGoFuchsia    = BlockColor{Dark: PaletteGo[27], Medium: PaletteGo[29], Light: PaletteGo[31]}
+	BlockColorGoBlack      = BlockColor{Dark: PaletteGo[36], Medium: PaletteGo[38], Light: PaletteGo[40]}
+	BlockColorGoYellow     = BlockColor{Dark: PaletteGo[45], Medium: PaletteGo[47], Light: PaletteGo[49]}
+
+	// BlockColorsGo is a slice of block colors based on the Go color palette.
+	BlockColorsGo = []BlockColor{
+		BlockColorGoGopherBlue,
+		BlockColorGoLightBlue,
+		BlockColorGoAqua,
+		BlockColorGoFuchsia,
+		BlockColorGoBlack,
+		BlockColorGoYellow,
 	}
 )
 
