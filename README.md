@@ -25,6 +25,7 @@ The geometry and transformation types is based on those found in <https://github
 
 `gfx.Matrix` is a 2x3 affine matrix that can be used for all kinds of spatial transforms, such as movement, scaling and rotations.
 
+[embedmd]:# (examples/gfx-example-matrix/gfx-example-matrix.go)
 ```go
 package main
 
@@ -70,6 +71,7 @@ func main() {
 
 `gfx.DrawLineBresenham` draws a line using [Bresenham's line algorithm](http://en.wikipedia.org/wiki/Bresenham's_line_algorithm).
 
+[embedmd]:# (examples/gfx-example-bresenham-line/gfx-example-bresenham-line.go)
 ```go
 package main
 
@@ -95,6 +97,7 @@ func main() {
 A `gfx.Polygon` is represented by a list of vectors.
 There is also `gfx.Polyline` which is a slice of polygons forming a line.
 
+[embedmd]:# (examples/gfx-example-polygon/gfx-example-polygon.go)
 ```go
 package main
 
@@ -177,6 +180,7 @@ func vx(x, y float64, n int) gfx.Vertex {
 
 <https://www.cse.wustl.edu/~taoju/research/TurtlesforCADRevised.pdf>
 
+[embedmd]:# (examples/gfx-example-turtle/gfx-example-turtle.go)
 ```go
 package main
 
