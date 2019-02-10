@@ -5,7 +5,7 @@ import (
 	"image/draw"
 )
 
-// NewResizedImage returns an image with the provided dimensions.
+// NewResizedImage returns a new image with the provided dimensions.
 func NewResizedImage(src image.Image, w, h int) *image.NRGBA {
 	dst := NewImage(w, h)
 
@@ -14,7 +14,16 @@ func NewResizedImage(src image.Image, w, h int) *image.NRGBA {
 	return dst
 }
 
-// NewScaledImage returns an image scaled by the provided scaling factor.
+// NewResizedRGBA returns a new RGBA image with the provided dimensions.
+func NewResizedRGBA(src image.Image, r image.Rectangle) *image.RGBA {
+	dst := NewRGBA(r)
+
+	ResizeImage(dst, src)
+
+	return dst
+}
+
+// NewScaledImage returns a new image scaled by the provided scaling factor.
 func NewScaledImage(src image.Image, s float64) *image.NRGBA {
 	b := src.Bounds()
 
@@ -23,6 +32,17 @@ func NewScaledImage(src image.Image, s float64) *image.NRGBA {
 	}
 
 	return NewResizedImage(src, int(float64(b.Dx())*s), int(float64(b.Dy())*s))
+}
+
+// NewScaledRGBA returns a new RGBA image scaled by the provided scaling factor.
+func NewScaledRGBA(src image.Image, s float64) *image.RGBA {
+	b := src.Bounds()
+
+	if b.Empty() {
+		return &image.RGBA{}
+	}
+
+	return NewResizedRGBA(src, IR(0, 0, int(float64(b.Dx())*s), int(float64(b.Dy())*s)))
 }
 
 // ResizeImage using nearest neighbor scaling on dst from src.
