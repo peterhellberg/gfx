@@ -231,6 +231,16 @@ func (u Vec) Pt() image.Point {
 	return image.Pt(int(u.X), int(u.Y))
 }
 
+// R creates a new Rect for the vectors u and v.
+func (u Vec) R(v Vec) Rect {
+	return NewRect(u.Min(v), u.Max(v))
+}
+
+// B creates a new image.Rectangle for the vectors u and v.
+func (u Vec) B(v Vec) image.Rectangle {
+	return u.R(v).Bounds()
+}
+
 // Rect constructs a Rect around the vector based on the provided Left, Top, Right, Bottom values.
 func (u Vec) Rect(l, t, r, b float64) Rect {
 	return R(u.X+l, u.Y+t, u.X+r, u.Y+b)
