@@ -15,7 +15,7 @@ func main() {
 		vx(550, 70, n+8), vx(770, 150, n+9), vx(620, 236, n+10),
 	}).Draw()
 
-	gfx.SavePNG("gfx-triangles.png", m)
+	gfx.SavePNG("gfx-example-triangles.png", m)
 }
 
 func vx(x, y float64, n int) gfx.Vertex {
