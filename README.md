@@ -201,7 +201,7 @@ func main() {
 
 <https://www.cse.wustl.edu/~taoju/research/TurtlesforCADRevised.pdf>
 
-![gfx-readme-examples-turtle](https://user-images.githubusercontent.com/565124/51402174-0ad9fa00-1b4d-11e9-95b9-f5617979f34e.png)
+![gfx-example-turtle](examples/gfx-example-turtle/gfx-example-turtle.png)
 
 [embedmd]:# (examples/gfx-example-turtle/gfx-example-turtle.go)
 ```go
@@ -210,18 +210,23 @@ package main
 import "github.com/peterhellberg/gfx"
 
 func main() {
-	m := gfx.NewImage(512, 512, gfx.ColorWhite)
+	m := gfx.NewImage(1024, 256)
+	x := 74
+	n := 21
 
-	gfx.NewTurtle(gfx.V(148, 450), func(t *gfx.Turtle) {
-		t.Color = gfx.ColorWithAlpha(gfx.ColorMagenta, 64)
+	for j := 0; j < 4; j++ {
+		gfx.NewTurtle(gfx.IV(x, 225), func(t *gfx.Turtle) {
+			for i := 0; i < n; i++ {
+				t.Forward(196 - float64(i))
+				t.Turn(122)
+			}
+		}).Draw(m)
 
-		for i := 0; i < 224; i++ {
-			t.Forward(392 - float64(i))
-			t.Turn(121)
-		}
-	}).Draw(m)
+		x += 250
+		n = n * 2
+	}
 
-	gfx.SavePNG("/tmp/gfx-readme-examples-turtle.png", m)
+	gfx.SavePNG("gfx-example-turtle.png", m)
 }
 ```
 
