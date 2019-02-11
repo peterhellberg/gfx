@@ -107,7 +107,7 @@ func (td *TrianglesData) Position(i int) Vec {
 }
 
 // Color returns the color property of i-th vertex.
-func (td *TrianglesData) Color(i int) color.RGBA {
+func (td *TrianglesData) Color(i int) color.NRGBA {
 	return (*td)[i].Color
 }
 

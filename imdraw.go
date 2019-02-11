@@ -59,7 +59,7 @@ var _ BasicTarget = (*IMDraw)(nil)
 
 type point struct {
 	pos       Vec
-	col       color.RGBA
+	col       color.NRGBA
 	pic       Vec
 	in        float64
 	precision int
@@ -123,7 +123,7 @@ func (imd *IMDraw) Draw(t Target) {
 // the position.
 func (imd *IMDraw) Push(pts ...Vec) {
 	opts := point{
-		col:       imd.Color.(color.RGBA),
+		col:       imd.Color.(color.NRGBA),
 		pic:       imd.Picture,
 		in:        imd.Intensity,
 		precision: imd.Precision,
@@ -317,7 +317,7 @@ func (imd *IMDraw) outlineRectangle(thickness float64) {
 	for i := 0; i+1 < len(points); i++ {
 		a, b := points[i], points[i+1]
 		mid := a
-		mid.col = mixRGBA(a.col, b.col)
+		mid.col = mixNRGBA(a.col, b.col)
 		mid.in = (a.in + b.in) / 2
 
 		imd.pushPt(a.pos, a)
@@ -613,8 +613,8 @@ func (imd *IMDraw) polyline(thickness float64, closed bool) {
 	imd.restorePoints(points)
 }
 
-func mixRGBA(c1, c2 color.RGBA) color.RGBA {
-	return color.RGBA{
+func mixNRGBA(c1, c2 color.NRGBA) color.NRGBA {
+	return color.NRGBA{
 		c1.R/2 + c2.R/2,
 		c1.G/2 + c2.G/2,
 		c1.B/2 + c2.B/2,

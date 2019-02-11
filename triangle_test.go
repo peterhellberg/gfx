@@ -76,7 +76,7 @@ func TestTriangleColor(t *testing.T) {
 		{Position: V(5, 10), Color: c},
 	})
 
-	for v, want := range map[Vec]color.RGBA{
+	for v, want := range map[Vec]color.NRGBA{
 		V(0, 0): b,
 		V(1, 1): a,
 		V(2, 2): a,

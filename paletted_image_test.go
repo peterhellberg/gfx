@@ -44,10 +44,10 @@ func TestNewScaledPalettedImage(t *testing.T) {
 func TestPalettedColorModel(t *testing.T) {
 	m := NewPaletted(16, 16, PaletteEN4)
 
-	c := ColorRGBA(255, 0, 0, 255)
+	c := ColorNRGBA(255, 0, 0, 255)
 
-	got := m.ColorModel().Convert(c).(color.RGBA)
-	want := ColorRGBA(229, 176, 131, 255)
+	got := m.ColorModel().Convert(c).(color.NRGBA)
+	want := ColorNRGBA(229, 176, 131, 255)
 
 	if got != want {
 		t.Fatalf("m.ColorModel().Convert(c) = %v, want %v", got, want)

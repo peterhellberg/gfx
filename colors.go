@@ -4,8 +4,8 @@ import "image/color"
 
 // Standard colors transparent, opaque, black, white, red, green, blue, cyan, magenta, and yellow.
 var (
-	ColorTransparent = ColorRGBA(0, 0, 0, 0)
-	ColorOpaque      = ColorRGBA(0xFF, 0xFF, 0xFF, 0xFF)
+	ColorTransparent = ColorNRGBA(0, 0, 0, 0)
+	ColorOpaque      = ColorNRGBA(0xFF, 0xFF, 0xFF, 0xFF)
 	ColorBlack       = Palette1Bit.Color(0)
 	ColorWhite       = Palette1Bit.Color(1)
 	ColorRed         = Palette3Bit.Color(1)
@@ -16,7 +16,7 @@ var (
 	ColorYellow      = Palette3Bit.Color(6)
 
 	// ColorByName is a map of all the default colors by name.
-	ColorByName = map[string]color.RGBA{
+	ColorByName = map[string]color.NRGBA{
 		"Transparent": ColorTransparent,
 		"Opaque":      ColorOpaque,
 		"Black":       ColorBlack,
@@ -32,9 +32,9 @@ var (
 
 // BlockColor contains a Light, Medium and Dark color.
 type BlockColor struct {
-	Light  color.RGBA
-	Medium color.RGBA
-	Dark   color.RGBA
+	Light  color.NRGBA
+	Medium color.NRGBA
+	Dark   color.NRGBA
 }
 
 // Block colors, each containing a Light, Medium and Dark color.
@@ -106,8 +106,8 @@ var (
 
 // ColorWithAlpha creates a new color.RGBA based
 // on the provided color.Color and alpha arguments.
-func ColorWithAlpha(c color.Color, a uint8) color.RGBA {
-	nc := color.RGBAModel.Convert(c).(color.RGBA)
+func ColorWithAlpha(c color.Color, a uint8) color.NRGBA {
+	nc := color.NRGBAModel.Convert(c).(color.NRGBA)
 
 	nc.A = a
 

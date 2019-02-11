@@ -68,7 +68,7 @@ func TestPaletteConvert(t *testing.T) {
 		t.Fatalf("unexpected color")
 	}
 
-	c := PaletteEN4.Convert(ColorRGBA(255, 0, 0, 255)).(color.RGBA)
+	c := PaletteEN4.Convert(ColorNRGBA(255, 0, 0, 255)).(color.NRGBA)
 
 	if got, want := c.R, uint8(229); got != want {
 		t.Fatalf("c.R = %d, want %d", got, want)

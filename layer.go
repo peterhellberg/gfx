@@ -43,15 +43,15 @@ func NewLayer(tileset *Tileset, width int, data LayerData) *Layer {
 
 // At returns the color at (x, y).
 func (l *Layer) At(x, y int) color.Color {
-	return l.RGBAAt(x, y)
+	return l.NRGBAAt(x, y)
 }
 
-// RGBAAt returns the color.RGBA at (x, y).
-func (l *Layer) RGBAAt(x, y int) color.RGBA {
+// NRGBAAt returns the color.RGBA at (x, y).
+func (l *Layer) NRGBAAt(x, y int) color.NRGBA {
 	if i := l.TileIndexAt(x, y); i > -1 {
 		s := l.Tileset.Size
 
-		return l.Tileset.Tiles[i].RGBAAt(x%s.X, y%s.Y)
+		return l.Tileset.Tiles[i].NRGBAAt(x%s.X, y%s.Y)
 	}
 
 	return ColorTransparent
