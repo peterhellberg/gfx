@@ -9,6 +9,112 @@ Convenience package for dealing with graphics in my pixel drawing experiments.
 
 #### :warning: NO STABILITY GUARANTEES AS OF YET :warning:
 
+## Colors
+
+You can construct new colors using `gfx.ColorRGBA` and `gfx.ColorWithAlpha`.
+
+### Default colors
+
+There are a few default colors in this package, convenient when you just want to experiment,
+for more ambitious projects I suggest creating a `gfx.Palette` (or even use one of the included palettes).
+
+
+| Variable               | Color
+|------------------------|---------------------------------------------------------
+| `gfx.ColorBlack`       | ![gfx.ColorBlack](examples/gfx-colors/gfx-ColorBlack.png)
+| `gfx.ColorWhite`       | ![gfx.ColorWhite](examples/gfx-colors/gfx-ColorWhite.png)
+| `gfx.ColorTransparent` | ![gfx.ColorTransparent](examples/gfx-colors/gfx-ColorTransparent.png)
+| `gfx.ColorOpaque`      | ![gfx.ColorOpaque](examples/gfx-colors/gfx-ColorOpaque.png)
+| `gfx.ColorRed`         | ![gfx.ColorRed](examples/gfx-colors/gfx-ColorRed.png)
+| `gfx.ColorGreen`       | ![gfx.ColorGreen](examples/gfx-colors/gfx-ColorGreen.png)
+| `gfx.ColorBlue`        | ![gfx.ColorBlue](examples/gfx-colors/gfx-ColorBlue.png)
+| `gfx.ColorCyan`        | ![gfx.ColorCyan](examples/gfx-colors/gfx-ColorCyan.png)
+| `gfx.ColorMagenta`     | ![gfx.ColorMagenta](examples/gfx-colors/gfx-ColorMagenta.png)
+| `gfx.ColorYellow`      | ![gfx.ColorYellow](examples/gfx-colors/gfx-ColorYellow.png)
+
+### Block colors
+
+Each `gfx.BlockColor` consists of a `Dark`, `Medium` and `Light` shade of the same color.
+
+
+| Variable                     | Block Color
+|------------------------------|---------------------------------------------------------
+| `gfx.BlockColorYellow`       | ![gfx.BlockColorYellow](examples/gfx-colors/gfx-BlockColorYellow.png)
+| `gfx.BlockColorOrange`       | ![gfx.BlockColorOrange](examples/gfx-colors/gfx-BlockColorOrange.png)
+| `gfx.BlockColorBrown`        | ![gfx.BlockColorBrown](examples/gfx-colors/gfx-BlockColorBrown.png)
+| `gfx.BlockColorGreen`        | ![gfx.BlockColorGreen](examples/gfx-colors/gfx-BlockColorGreen.png)
+| `gfx.BlockColorBlue`         | ![gfx.BlockColorBlue](examples/gfx-colors/gfx-BlockColorBlue.png)
+| `gfx.BlockColorPurple`       | ![gfx.BlockColorPurple](examples/gfx-colors/gfx-BlockColorPurple.png)
+| `gfx.BlockColorRed`          | ![gfx.BlockColorRed](examples/gfx-colors/gfx-BlockColorRed.png)
+| `gfx.BlockColorWhite`        | ![gfx.BlockColorWhite](examples/gfx-colors/gfx-BlockColorWhite.png)
+| `gfx.BlockColorBlack`        | ![gfx.BlockColorBlack](examples/gfx-colors/gfx-BlockColorBlack.png)
+| `gfx.BlockColorGoGopherBlue` | ![gfx.BlockColorGoGopherBlue](examples/gfx-colors/gfx-BlockColorGoGopherBlue.png)
+| `gfx.BlockColorGoLightBlue`  | ![gfx.BlockColorGoLightBlue](examples/gfx-colors/gfx-BlockColorGoLightBlue.png)
+| `gfx.BlockColorGoAqua`       | ![gfx.BlockColorGoAqua](examples/gfx-colors/gfx-BlockColorGoAqua.png)
+| `gfx.BlockColorGoFuchsia`    | ![gfx.BlockColorGoFuchsia](examples/gfx-colors/gfx-BlockColorGoFuchsia.png)
+| `gfx.BlockColorGoBlack`      | ![gfx.BlockColorGoBlack](examples/gfx-colors/gfx-BlockColorGoBlack.png)
+| `gfx.BlockColorGoYellow`     | ![gfx.BlockColorGoYellow](examples/gfx-colors/gfx-BlockColorGoYellow.png)
+
+
+### Palettes
+
+There are a number of palettes in the `gfx` package,
+most of them are found in the [Lospec Palette List](https://lospec.com/palette-list/).
+
+
+| Variable                   | Colors | Lospec Palette
+|----------------------------|-------:| -----------------------------------------------------
+| `gfx.Palette1Bit`          |      2 | ![Palette1Bit](examples/gfx-palettes/gfx-Palette1Bit.png)
+| `gfx.Palette2BitGrayScale` |      4 | ![Palette2BitGrayScale](examples/gfx-palettes/gfx-Palette2BitGrayScale.png)
+| `gfx.PaletteEN4`           |      4 | ![PaletteEN4](examples/gfx-palettes/gfx-PaletteEN4.png)
+| `gfx.PaletteARQ4`          |      4 | ![PaletteARQ4](examples/gfx-palettes/gfx-PaletteARQ4.png)
+| `gfx.PaletteInk`           |      5 | ![PaletteInk](examples/gfx-palettes/gfx-PaletteInk.png)
+| `gfx.Palette3Bit`          |      8 | ![Palette3Bit](examples/gfx-palettes/gfx-Palette3Bit.png)
+| `gfx.PaletteEDG8`          |      8 | ![PaletteEDG8](examples/gfx-palettes/gfx-PaletteEDG8.png)
+| `gfx.PaletteAmmo8`         |      8 | ![PaletteAmmo8](examples/gfx-palettes/gfx-PaletteAmmo8.png)
+| `gfx.PaletteNYX8`          |      8 | ![PaletteNYX8](examples/gfx-palettes/gfx-PaletteNYX8.png)
+| `gfx.Palette15PDX`         |     15 | ![Palette15PDX](examples/gfx-palettes/gfx-Palette15PDX.png)
+| `gfx.PaletteCGA`           |     16 | ![PaletteCGA](examples/gfx-palettes/gfx-PaletteCGA.png)
+| `gfx.PalettePICO8`         |     16 | ![PalettePICO8](examples/gfx-palettes/gfx-PalettePICO8.png)
+| `gfx.PaletteNight16`       |     16 | ![PaletteNight16](examples/gfx-palettes/gfx-PaletteNight16.png)
+| `gfx.PaletteAAP16`         |     16 | ![PaletteAAP16](examples/gfx-palettes/gfx-PaletteAAP16.png)
+| `gfx.PaletteArne16`        |     16 | ![PaletteArne16](examples/gfx-palettes/gfx-PaletteArne16.png)
+| `gfx.PaletteEDG16`         |     16 | ![PaletteEDG16](examples/gfx-palettes/gfx-PaletteEDG16.png)
+| `gfx.Palette20PDX`         |     20 | ![Palette20PDX](examples/gfx-palettes/gfx-Palette20PDX.png)
+| `gfx.PaletteTango`         |     27 | ![PaletteTango](examples/gfx-palettes/gfx-PaletteTango.png)
+| `gfx.PaletteEDG32`         |     32 | ![PaletteEDG32](examples/gfx-palettes/gfx-PaletteEDG32.png)
+| `gfx.PaletteEDG36`         |     36 | ![PaletteEDG36](examples/gfx-palettes/gfx-PaletteEDG36.png)
+| `gfx.PaletteEDG64`         |     64 | ![PaletteEDG64](examples/gfx-palettes/gfx-PaletteEDG64.png)
+| `gfx.PaletteAAP64`         |     64 | ![PaletteAAP64](examples/gfx-palettes/gfx-PaletteAAP64.png)
+| `gfx.PaletteFamicube`      |     64 | ![PaletteFamicube](examples/gfx-palettes/gfx-PaletteFamicube.png)
+| `gfx.PaletteSplendor128`   |    128 | ![PaletteSplendor128](examples/gfx-palettes/gfx-PaletteSplendor128.png)
+
+The palette images were generated like this:
+
+[embedmd]:# (examples/gfx-palettes/gfx-palettes.go)
+```go
+package main
+
+import "github.com/peterhellberg/gfx"
+
+func main() {
+	for size, paletteLookup := range gfx.PalettesByNumberOfColors {
+		for name, palette := range paletteLookup {
+			dst := gfx.NewImage(size, 1)
+
+			for x, c := range palette {
+				dst.Set(x, 0, c)
+			}
+
+			filename := gfx.Sprintf("gfx-Palette%s.png", name)
+
+			gfx.SavePNG(filename, gfx.NewResizedImage(dst, 640, 32))
+		}
+	}
+}
+```
+
+
 ## Geometry and Transformation
 
 The (2D) geometry and transformation types are based on those found in <https://github.com/faiface/pixel> (but indended for use without Pixel)
@@ -294,111 +400,6 @@ func main() {
 ```
 
 ![gfx-example-animation](examples/gfx-example-animation/gfx-example-animation.gif)
-
-## Colors
-
-You can construct new colors using `gfx.ColorRGBA` and `gfx.ColorWithAlpha`.
-
-### Default colors
-
-There are a few default colors in this package, convenient when you just want to experiment,
-for more ambitious projects I suggest creating a `gfx.Palette` (or even use one of the included palettes).
-
-
-| Variable               | Color
-|------------------------|---------------------------------------------------------
-| `gfx.ColorBlack`       | ![gfx.ColorBlack](examples/gfx-colors/gfx-ColorBlack.png)
-| `gfx.ColorWhite`       | ![gfx.ColorWhite](examples/gfx-colors/gfx-ColorWhite.png)
-| `gfx.ColorTransparent` | ![gfx.ColorTransparent](examples/gfx-colors/gfx-ColorTransparent.png)
-| `gfx.ColorOpaque`      | ![gfx.ColorOpaque](examples/gfx-colors/gfx-ColorOpaque.png)
-| `gfx.ColorRed`         | ![gfx.ColorRed](examples/gfx-colors/gfx-ColorRed.png)
-| `gfx.ColorGreen`       | ![gfx.ColorGreen](examples/gfx-colors/gfx-ColorGreen.png)
-| `gfx.ColorBlue`        | ![gfx.ColorBlue](examples/gfx-colors/gfx-ColorBlue.png)
-| `gfx.ColorCyan`        | ![gfx.ColorCyan](examples/gfx-colors/gfx-ColorCyan.png)
-| `gfx.ColorMagenta`     | ![gfx.ColorMagenta](examples/gfx-colors/gfx-ColorMagenta.png)
-| `gfx.ColorYellow`      | ![gfx.ColorYellow](examples/gfx-colors/gfx-ColorYellow.png)
-
-### Block colors
-
-Each `gfx.BlockColor` consists of a `Dark`, `Medium` and `Light` shade of the same color.
-
-
-| Variable                     | Block Color
-|------------------------------|---------------------------------------------------------
-| `gfx.BlockColorYellow`       | ![gfx.BlockColorYellow](examples/gfx-colors/gfx-BlockColorYellow.png)
-| `gfx.BlockColorOrange`       | ![gfx.BlockColorOrange](examples/gfx-colors/gfx-BlockColorOrange.png)
-| `gfx.BlockColorBrown`        | ![gfx.BlockColorBrown](examples/gfx-colors/gfx-BlockColorBrown.png)
-| `gfx.BlockColorGreen`        | ![gfx.BlockColorGreen](examples/gfx-colors/gfx-BlockColorGreen.png)
-| `gfx.BlockColorBlue`         | ![gfx.BlockColorBlue](examples/gfx-colors/gfx-BlockColorBlue.png)
-| `gfx.BlockColorPurple`       | ![gfx.BlockColorPurple](examples/gfx-colors/gfx-BlockColorPurple.png)
-| `gfx.BlockColorRed`          | ![gfx.BlockColorRed](examples/gfx-colors/gfx-BlockColorRed.png)
-| `gfx.BlockColorWhite`        | ![gfx.BlockColorWhite](examples/gfx-colors/gfx-BlockColorWhite.png)
-| `gfx.BlockColorBlack`        | ![gfx.BlockColorBlack](examples/gfx-colors/gfx-BlockColorBlack.png)
-| `gfx.BlockColorGoGopherBlue` | ![gfx.BlockColorGoGopherBlue](examples/gfx-colors/gfx-BlockColorGoGopherBlue.png)
-| `gfx.BlockColorGoLightBlue`  | ![gfx.BlockColorGoLightBlue](examples/gfx-colors/gfx-BlockColorGoLightBlue.png)
-| `gfx.BlockColorGoAqua`       | ![gfx.BlockColorGoAqua](examples/gfx-colors/gfx-BlockColorGoAqua.png)
-| `gfx.BlockColorGoFuchsia`    | ![gfx.BlockColorGoFuchsia](examples/gfx-colors/gfx-BlockColorGoFuchsia.png)
-| `gfx.BlockColorGoBlack`      | ![gfx.BlockColorGoBlack](examples/gfx-colors/gfx-BlockColorGoBlack.png)
-| `gfx.BlockColorGoYellow`     | ![gfx.BlockColorGoYellow](examples/gfx-colors/gfx-BlockColorGoYellow.png)
-
-
-### Palettes
-
-There are a number of palettes in the `gfx` package,
-most of them are found in the [Lospec Palette List](https://lospec.com/palette-list/).
-
-
-| Variable                   | Colors | Lospec Palette
-|----------------------------|-------:| -----------------------------------------------------
-| `gfx.Palette1Bit`          |      2 | ![Palette1Bit](examples/gfx-palettes/gfx-Palette1Bit.png)
-| `gfx.Palette2BitGrayScale` |      4 | ![Palette2BitGrayScale](examples/gfx-palettes/gfx-Palette2BitGrayScale.png)
-| `gfx.PaletteEN4`           |      4 | ![PaletteEN4](examples/gfx-palettes/gfx-PaletteEN4.png)
-| `gfx.PaletteARQ4`          |      4 | ![PaletteARQ4](examples/gfx-palettes/gfx-PaletteARQ4.png)
-| `gfx.PaletteInk`           |      5 | ![PaletteInk](examples/gfx-palettes/gfx-PaletteInk.png)
-| `gfx.Palette3Bit`          |      8 | ![Palette3Bit](examples/gfx-palettes/gfx-Palette3Bit.png)
-| `gfx.PaletteEDG8`          |      8 | ![PaletteEDG8](examples/gfx-palettes/gfx-PaletteEDG8.png)
-| `gfx.PaletteAmmo8`         |      8 | ![PaletteAmmo8](examples/gfx-palettes/gfx-PaletteAmmo8.png)
-| `gfx.PaletteNYX8`          |      8 | ![PaletteNYX8](examples/gfx-palettes/gfx-PaletteNYX8.png)
-| `gfx.Palette15PDX`         |     15 | ![Palette15PDX](examples/gfx-palettes/gfx-Palette15PDX.png)
-| `gfx.PaletteCGA`           |     16 | ![PaletteCGA](examples/gfx-palettes/gfx-PaletteCGA.png)
-| `gfx.PalettePICO8`         |     16 | ![PalettePICO8](examples/gfx-palettes/gfx-PalettePICO8.png)
-| `gfx.PaletteNight16`       |     16 | ![PaletteNight16](examples/gfx-palettes/gfx-PaletteNight16.png)
-| `gfx.PaletteAAP16`         |     16 | ![PaletteAAP16](examples/gfx-palettes/gfx-PaletteAAP16.png)
-| `gfx.PaletteArne16`        |     16 | ![PaletteArne16](examples/gfx-palettes/gfx-PaletteArne16.png)
-| `gfx.PaletteEDG16`         |     16 | ![PaletteEDG16](examples/gfx-palettes/gfx-PaletteEDG16.png)
-| `gfx.Palette20PDX`         |     20 | ![Palette20PDX](examples/gfx-palettes/gfx-Palette20PDX.png)
-| `gfx.PaletteTango`         |     27 | ![PaletteTango](examples/gfx-palettes/gfx-PaletteTango.png)
-| `gfx.PaletteEDG32`         |     32 | ![PaletteEDG32](examples/gfx-palettes/gfx-PaletteEDG32.png)
-| `gfx.PaletteEDG36`         |     36 | ![PaletteEDG36](examples/gfx-palettes/gfx-PaletteEDG36.png)
-| `gfx.PaletteEDG64`         |     64 | ![PaletteEDG64](examples/gfx-palettes/gfx-PaletteEDG64.png)
-| `gfx.PaletteAAP64`         |     64 | ![PaletteAAP64](examples/gfx-palettes/gfx-PaletteAAP64.png)
-| `gfx.PaletteFamicube`      |     64 | ![PaletteFamicube](examples/gfx-palettes/gfx-PaletteFamicube.png)
-| `gfx.PaletteSplendor128`   |    128 | ![PaletteSplendor128](examples/gfx-palettes/gfx-PaletteSplendor128.png)
-
-The palette images were generated like this:
-
-[embedmd]:# (examples/gfx-palettes/gfx-palettes.go)
-```go
-package main
-
-import "github.com/peterhellberg/gfx"
-
-func main() {
-	for size, paletteLookup := range gfx.PalettesByNumberOfColors {
-		for name, palette := range paletteLookup {
-			dst := gfx.NewImage(size, 1)
-
-			for x, c := range palette {
-				dst.Set(x, 0, c)
-			}
-
-			filename := gfx.Sprintf("gfx-Palette%s.png", name)
-
-			gfx.SavePNG(filename, gfx.NewResizedImage(dst, 640, 32))
-		}
-	}
-}
-```
 
 ## Errors
 
