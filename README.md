@@ -108,7 +108,7 @@ func main() {
 
 			filename := gfx.Sprintf("gfx-Palette%s.png", name)
 
-			gfx.SavePNG(filename, gfx.NewResizedImage(dst, 640, 32))
+			gfx.SavePNG(filename, gfx.NewResizedImage(dst, 1120, 96))
 		}
 	}
 }
@@ -182,6 +182,36 @@ func main() {
 #### Box
 
 `gfx.Box` is a 3D box. It is defined by two `gfx.Vec3`, Min and Max
+
+## Signed Distance Functions
+
+The `gfx.SignedDistance` type allows you to use basic [signed distance functions](http://jamie-wong.com/2016/07/15/ray-marching-signed-distance-functions/) (and operations) to produce some interesting graphics.
+
+[embedmd]:# (examples/gfx-example-sdf/gfx-example-sdf.go)
+```go
+package main
+
+import "github.com/peterhellberg/gfx"
+
+func main() {
+	c := gfx.PaletteEDG36.Color
+	m := gfx.NewImage(768, 256, c(5))
+
+	gfx.EachPixel(m, m.Bounds(), func(x, y int) {
+		sd := gfx.SignedDistance{gfx.IV(x, y)}
+
+		if d := sd.OpRepeat(gfx.V(128, 128), func(sd gfx.SignedDistance) float64 {
+			return sd.OpSubtraction(sd.Circle(50), sd.Line(gfx.V(0, 0), gfx.V(64, 64)))
+		}); d < 40 {
+			m.Set(x, y, c(int(gfx.MathAbs(d/5))))
+		}
+	})
+
+	gfx.SavePNG("gfx-example-sdf.png", m)
+}
+```
+
+![gfx-example-sdf](examples/gfx-example-sdf/gfx-example-sdf.png)
 
 ## Line drawing algorithms
 
