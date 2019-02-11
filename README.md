@@ -325,21 +325,21 @@ Each `gfx.BlockColor` consists of a `Dark`, `Medium` and `Light` shade of the sa
 
 | Variable                     | Block Color
 |------------------------------|---------------------------------------------------------
-| `gfx.BlockColorYellow`       | ![gfx.BlockColorYellow](examples/go-colors/gfx-BlockColorYellow.png)
-| `gfx.BlockColorOrange`       | ![gfx.BlockColorOrange](examples/go-colors/gfx-BlockColorOrange.png)
-| `gfx.BlockColorBrown`        | ![gfx.BlockColorBrown](examples/go-colors/gfx-BlockColorBrown.png)
-| `gfx.BlockColorGreen`        | ![gfx.BlockColorGreen](examples/go-colors/gfx-BlockColorGreen.png)
-| `gfx.BlockColorBlue`         | ![gfx.BlockColorBlue](examples/go-colors/gfx-BlockColorBlue.png)
-| `gfx.BlockColorPurple`       | ![gfx.BlockColorPurple](examples/go-colors/gfx-BlockColorPurple.png)
-| `gfx.BlockColorRed`          | ![gfx.BlockColorRed](examples/go-colors/gfx-BlockColorRed.png)
-| `gfx.BlockColorWhite`        | ![gfx.BlockColorWhite](examples/go-colors/gfx-BlockColorWhite.png)
-| `gfx.BlockColorBlack`        | ![gfx.BlockColorBlack](examples/go-colors/gfx-BlockColorBlack.png)
-| `gfx.BlockColorGoGopherBlue` | ![gfx.BlockColorGoGopherBlue](examples/go-colors/gfx-BlockColorGoGopherBlue.png)
-| `gfx.BlockColorGoLightBlue`  | ![gfx.BlockColorGoLightBlue](examples/go-colors/gfx-BlockColorGoLightBlue.png)
-| `gfx.BlockColorGoAqua`       | ![gfx.BlockColorGoAqua](examples/go-colors/gfx-BlockColorGoAqua.png)
-| `gfx.BlockColorGoFuchsia`    | ![gfx.BlockColorGoFuchsia](examples/go-colors/gfx-BlockColorGoFuchsia.png)
-| `gfx.BlockColorGoBlack`      | ![gfx.BlockColorGoBlack](examples/go-colors/gfx-BlockColorGoBlack.png)
-| `gfx.BlockColorGoYellow`     | ![gfx.BlockColorGoYellow](examples/go-colors/gfx-BlockColorGoYellow.png)
+| `gfx.BlockColorYellow`       | ![gfx.BlockColorYellow](examples/gfx-colors/gfx-BlockColorYellow.png)
+| `gfx.BlockColorOrange`       | ![gfx.BlockColorOrange](examples/gfx-colors/gfx-BlockColorOrange.png)
+| `gfx.BlockColorBrown`        | ![gfx.BlockColorBrown](examples/gfx-colors/gfx-BlockColorBrown.png)
+| `gfx.BlockColorGreen`        | ![gfx.BlockColorGreen](examples/gfx-colors/gfx-BlockColorGreen.png)
+| `gfx.BlockColorBlue`         | ![gfx.BlockColorBlue](examples/gfx-colors/gfx-BlockColorBlue.png)
+| `gfx.BlockColorPurple`       | ![gfx.BlockColorPurple](examples/gfx-colors/gfx-BlockColorPurple.png)
+| `gfx.BlockColorRed`          | ![gfx.BlockColorRed](examples/gfx-colors/gfx-BlockColorRed.png)
+| `gfx.BlockColorWhite`        | ![gfx.BlockColorWhite](examples/gfx-colors/gfx-BlockColorWhite.png)
+| `gfx.BlockColorBlack`        | ![gfx.BlockColorBlack](examples/gfx-colors/gfx-BlockColorBlack.png)
+| `gfx.BlockColorGoGopherBlue` | ![gfx.BlockColorGoGopherBlue](examples/gfx-colors/gfx-BlockColorGoGopherBlue.png)
+| `gfx.BlockColorGoLightBlue`  | ![gfx.BlockColorGoLightBlue](examples/gfx-colors/gfx-BlockColorGoLightBlue.png)
+| `gfx.BlockColorGoAqua`       | ![gfx.BlockColorGoAqua](examples/gfx-colors/gfx-BlockColorGoAqua.png)
+| `gfx.BlockColorGoFuchsia`    | ![gfx.BlockColorGoFuchsia](examples/gfx-colors/gfx-BlockColorGoFuchsia.png)
+| `gfx.BlockColorGoBlack`      | ![gfx.BlockColorGoBlack](examples/gfx-colors/gfx-BlockColorGoBlack.png)
+| `gfx.BlockColorGoYellow`     | ![gfx.BlockColorGoYellow](examples/gfx-colors/gfx-BlockColorGoYellow.png)
 
 
 ### Palettes
