@@ -5,7 +5,7 @@ import "image/color"
 // Vertex holds Position, Color, Picture and Intensity.
 type Vertex struct {
 	Position  Vec
-	Color     color.NRGBA
+	Color     color.RGBA
 	Picture   Vec
 	Intensity float64
 }
@@ -16,7 +16,7 @@ func NewVertex(pos Vec, args ...interface{}) Vertex {
 
 	for _, a := range args {
 		switch v := a.(type) {
-		case color.NRGBA:
+		case color.RGBA:
 			vx.Color = v
 		case Vec:
 			vx.Picture = v

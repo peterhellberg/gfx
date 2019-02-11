@@ -19,7 +19,7 @@ func NewScaledImage(src image.Image, s float64) image.Image {
 	b := src.Bounds()
 
 	if b.Empty() {
-		return &image.NRGBA{}
+		return &image.RGBA{}
 	}
 
 	return NewResizedImage(src, int(float64(b.Dx())*s), int(float64(b.Dy())*s))

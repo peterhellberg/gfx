@@ -57,15 +57,15 @@ func TestLayerAt(t *testing.T) {
 	}
 }
 
-func TestLayerNRGBAAt(t *testing.T) {
+func TestLayerRGBAAt(t *testing.T) {
 	l := newTestLayer()
 
-	if got, want := l.NRGBAAt(-1, 100), ColorTransparent; got != want {
-		t.Fatalf("l.NRGBAAt(-1, 100) = %v, want %v", got, want)
+	if got, want := l.RGBAAt(-1, 100), ColorTransparent; got != want {
+		t.Fatalf("l.RGBAAt(-1, 100) = %v, want %v", got, want)
 	}
 
-	if got, want := l.NRGBAAt(2, 2), ColorNRGBA(66, 110, 93, 255); got != want {
-		t.Fatalf("l.NRGBAAt(2, 2) = %v, want %v", got, want)
+	if got, want := l.RGBAAt(2, 2), ColorRGBA(66, 110, 93, 255); got != want {
+		t.Fatalf("l.RGBAAt(2, 2) = %v, want %v", got, want)
 	}
 }
 
@@ -98,7 +98,7 @@ func TestLayerBounds(t *testing.T) {
 func TestLayerColorModel(t *testing.T) {
 	l := newTestLayer()
 
-	if l.ColorModel() != color.NRGBAModel {
+	if l.ColorModel() != color.RGBAModel {
 		t.Fatalf("unexpected color model")
 	}
 }

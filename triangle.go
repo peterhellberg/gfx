@@ -36,7 +36,7 @@ func (t Triangle) Positions() (Vec, Vec, Vec) {
 }
 
 // Colors returns the three colors.
-func (t Triangle) Colors() (color.NRGBA, color.NRGBA, color.NRGBA) {
+func (t Triangle) Colors() (color.RGBA, color.RGBA, color.RGBA) {
 	return t[0].Color, t[1].Color, t[2].Color
 }
 

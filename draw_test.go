@@ -5,7 +5,7 @@ import "testing"
 func TestDrawOver(t *testing.T) {
 	src := NewImage(3, 3)
 
-	src.SetNRGBA(1, 1, ColorNRGBA(75, 0, 130, 64))
+	src.SetRGBA(1, 1, ColorRGBA(75, 0, 130, 64))
 
 	dst := NewImage(3, 3, ColorMagenta)
 
@@ -13,7 +13,7 @@ func TestDrawOver(t *testing.T) {
 }
 
 func TestDrawSrc(t *testing.T) {
-	src := NewImage(3, 3, ColorNRGBA(0, 255, 0, 64))
+	src := NewImage(3, 3, ColorRGBA(0, 255, 0, 64))
 	dst := NewImage(3, 3, ColorMagenta)
 
 	DrawSrc(dst, dst.Bounds(), src, ZP)

@@ -220,7 +220,7 @@ There is rudimentary support for making animations using gfx.Animation, the anim
 
 Colors
 
-You can construct new colors using gfx.ColorNRGBA and gfx.ColorWithAlpha.
+You can construct new colors using gfx.ColorRGBA and gfx.ColorWithAlpha.
 
 Default colors
 

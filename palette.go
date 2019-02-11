@@ -9,15 +9,15 @@ import (
 )
 
 // Palette is a slice of colors.
-type Palette []color.NRGBA
+type Palette []color.RGBA
 
 // Color returns the color at index n.
-func (p Palette) Color(n int) color.NRGBA {
+func (p Palette) Color(n int) color.RGBA {
 	if n >= 0 && n < p.Len() {
 		return p[n]
 	}
 
-	return color.NRGBA{}
+	return color.RGBA{}
 }
 
 // Len returns the number of colors in the palette.
@@ -26,7 +26,7 @@ func (p Palette) Len() int {
 }
 
 // Random color from the palette.
-func (p Palette) Random() color.NRGBA {
+func (p Palette) Random() color.RGBA {
 	return p[rand.Intn(p.Len())]
 }
 
@@ -42,7 +42,7 @@ func (p Palette) Tile(src image.Image) *Paletted {
 // Convert returns the palette color closest to c in Euclidean R,G,B space.
 func (p Palette) Convert(c color.Color) color.Color {
 	if len(p) == 0 {
-		return color.NRGBA{}
+		return color.RGBA{}
 	}
 
 	return p[p.Index(c)]

@@ -64,11 +64,11 @@ func TestPaletteTile(t *testing.T) {
 func TestPaletteConvert(t *testing.T) {
 	p := Palette{}
 
-	if p.Convert(ColorMagenta).(color.NRGBA).R != 0 {
+	if p.Convert(ColorMagenta).(color.RGBA).R != 0 {
 		t.Fatalf("unexpected color")
 	}
 
-	c := PaletteEN4.Convert(ColorNRGBA(255, 0, 0, 255)).(color.NRGBA)
+	c := PaletteEN4.Convert(ColorRGBA(255, 0, 0, 255)).(color.RGBA)
 
 	if got, want := c.R, uint8(229); got != want {
 		t.Fatalf("c.R = %d, want %d", got, want)

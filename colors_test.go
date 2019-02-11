@@ -6,7 +6,7 @@ import (
 )
 
 func TestColorWithAlpha(t *testing.T) {
-	c := ColorWithAlpha(ColorNRGBA(255, 0, 0, 255), 128)
+	c := ColorWithAlpha(ColorRGBA(255, 0, 0, 255), 128)
 
 	if got, want := c.A, uint8(128); got != want {
 		t.Fatalf("c.A = %d, want %d", got, want)

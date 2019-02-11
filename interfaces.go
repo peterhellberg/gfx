@@ -85,7 +85,7 @@ type TrianglesPosition interface {
 // TrianglesColor specifies Triangles with Color property.
 type TrianglesColor interface {
 	Triangles
-	Color(i int) color.NRGBA
+	Color(i int) color.RGBA
 }
 
 // TrianglesPicture specifies Triangles with Picture propery.
@@ -125,7 +125,7 @@ type TargetPicture interface {
 // Positions outside the Picture's Bounds must return full transparent (Alpha(0)).
 type PictureColor interface {
 	Picture
-	Color(at Vec) color.NRGBA
+	Color(at Vec) color.RGBA
 }
 
 // Float64Scaler can scale a float64 to another float64.

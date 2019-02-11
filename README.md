@@ -297,7 +297,7 @@ func main() {
 
 ## Colors
 
-You can construct new colors using `gfx.ColorNRGBA` and `gfx.ColorWithAlpha`.
+You can construct new colors using `gfx.ColorRGBA` and `gfx.ColorWithAlpha`.
 
 ### Default colors
 
