@@ -14,6 +14,20 @@ var (
 	ColorCyan        = Palette3Bit.Color(4)
 	ColorMagenta     = Palette3Bit.Color(5)
 	ColorYellow      = Palette3Bit.Color(6)
+
+	// ColorByName is a map of all the default colors by name.
+	ColorByName = map[string]color.NRGBA{
+		"Transparent": ColorTransparent,
+		"Opaque":      ColorOpaque,
+		"Black":       ColorBlack,
+		"White":       ColorWhite,
+		"Red":         ColorRed,
+		"Green":       ColorGreen,
+		"Blue":        ColorBlue,
+		"Cyan":        ColorCyan,
+		"Magenta":     ColorMagenta,
+		"Yellow":      ColorYellow,
+	}
 )
 
 // BlockColor contains a Light, Medium and Dark color.
@@ -65,6 +79,28 @@ var (
 		BlockColorGoFuchsia,
 		BlockColorGoBlack,
 		BlockColorGoYellow,
+	}
+
+	// BlockColorByName is a map of block colors by name.
+	BlockColorByName = map[string]BlockColor{
+		// Default block colors.
+		"Yellow": BlockColorYellow,
+		"Orange": BlockColorOrange,
+		"Brown":  BlockColorBrown,
+		"Green":  BlockColorGreen,
+		"Blue":   BlockColorBlue,
+		"Purple": BlockColorPurple,
+		"Red":    BlockColorRed,
+		"White":  BlockColorWhite,
+		"Black":  BlockColorBlack,
+
+		// Go palette block colors.
+		"GoGopherBlue": BlockColorGoGopherBlue,
+		"GoLightBlue":  BlockColorGoLightBlue,
+		"GoAqua":       BlockColorGoAqua,
+		"GoFuchsia":    BlockColorGoFuchsia,
+		"GoBlack":      BlockColorGoBlack,
+		"GoYellow":     BlockColorGoYellow,
 	}
 )
 
