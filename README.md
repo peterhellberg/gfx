@@ -23,17 +23,16 @@ var p = gfx.PaletteFamicube
 
 func main() {
 	n := 50
-
-	dst := gfx.NewPaletted(320, 448, p, p.Color(n+7))
-
-	t := gfx.NewDrawTarget(dst)
+	m := gfx.NewPaletted(800, 270, p, p.Color(n+7))
+	t := gfx.NewDrawTarget(m)
 
 	t.MakeTriangles(&gfx.TrianglesData{
-		vx(64, 6, n+1), vx(6, 122, n+2), vx(302, 122, n+3),
-		vx(6, 150, n+4), vx(150, 150, n+5), vx(120, 436, n+6),
+		vx(64, 16, n+1), vx(6, 142, n+2), vx(302, 142, n+3),
+		vx(300, 142, n+4), vx(450, 50, n+5), vx(590, 236, n+6),
+		vx(550, 70, n+8), vx(770, 150, n+9), vx(620, 236, n+10),
 	}).Draw()
 
-	gfx.SavePNG("/tmp/gfx-triangles.png", dst)
+	gfx.SavePNG("gfx-triangles.png", m)
 }
 
 func vx(x, y float64, n int) gfx.Vertex {
@@ -41,7 +40,7 @@ func vx(x, y float64, n int) gfx.Vertex {
 }
 ```
 
-![gfx-readme-examples-triangles](https://user-images.githubusercontent.com/565124/51729680-fe85fd80-2074-11e9-9079-05b3ef415441.png)
+![gfx-triangles](examples/gfx-triangles/gfx-triangles.png)
 
 
 ## Polygons
