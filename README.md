@@ -13,6 +13,8 @@ Convenience package for dealing with graphics in my pixel drawing experiments.
 
 Triangles can be drawn to an image using a `*gfx.DrawTarget`.
 
+![gfx-triangles](examples/gfx-example-triangles/gfx-example-triangles.png)
+
 [embedmd]:# (examples/gfx-example-triangles/gfx-example-triangles.go)
 ```go
 package main
@@ -40,13 +42,13 @@ func vx(x, y float64, n int) gfx.Vertex {
 }
 ```
 
-![gfx-triangles](examples/gfx-example-triangles/gfx-example-triangles.png)
-
 
 ## Polygons
 
 A `gfx.Polygon` is represented by a list of vectors.
 There is also `gfx.Polyline` which is a slice of polygons forming a line.
+
+![gfx-example-polygon](examples/gfx-example-polygon/gfx-example-polygon.png)
 
 [embedmd]:# (examples/gfx-example-polygon/gfx-example-polygon.go)
 ```go
@@ -84,12 +86,12 @@ func main() {
 }
 ```
 
-![gfx-example-polygon](examples/gfx-example-polygon/gfx-example-polygon.png)
-
 
 ## Blocks
 
 You can draw (isometric) blocks using the `gfx.Blocks` and `gfx.Block` types.
+
+![gfx-example-blocks](examples/gfx-example-blocks/gfx-example-blocks.png)
 
 [embedmd]:# (examples/gfx-example-blocks/gfx-example-blocks.go)
 ```go
@@ -123,12 +125,11 @@ func main() {
 }
 ```
 
-![gfx-example-blocks](examples/gfx-example-blocks/gfx-example-blocks.png)
-
-
 ## Signed Distance Functions
 
 The `gfx.SignedDistance` type allows you to use basic [signed distance functions](http://jamie-wong.com/2016/07/15/ray-marching-signed-distance-functions/) (and operations) to produce some interesting graphics.
+
+![gfx-example-sdf](examples/gfx-example-sdf/gfx-example-sdf.png)
 
 [embedmd]:# (examples/gfx-example-sdf/gfx-example-sdf.go)
 ```go
@@ -154,12 +155,12 @@ func main() {
 }
 ```
 
-![gfx-example-sdf](examples/gfx-example-sdf/gfx-example-sdf.png)
-
 
 ## Animation
 
 There is rudimentary support for making animations using `gfx.Animation`, the animations can then be encoded into GIF.
+
+![gfx-example-animation](examples/gfx-example-animation/gfx-example-animation.gif)
 
 [embedmd]:# (examples/gfx-example-animation/gfx-example-animation.go)
 ```go
@@ -195,14 +196,13 @@ func main() {
 }
 ```
 
-![gfx-example-animation](examples/gfx-example-animation/gfx-example-animation.gif)
-
-
 ## :turtle: drawing
 
 `gfx.Turtle` is a small Turtle inspired drawing type. (`Resize`, `Turn`, `Move`, `Forward`, `Draw`)
 
 <https://www.cse.wustl.edu/~taoju/research/TurtlesforCADRevised.pdf>
+
+![gfx-readme-examples-turtle](https://user-images.githubusercontent.com/565124/51402174-0ad9fa00-1b4d-11e9-95b9-f5617979f34e.png)
 
 [embedmd]:# (examples/gfx-example-turtle/gfx-example-turtle.go)
 ```go
@@ -226,13 +226,13 @@ func main() {
 }
 ```
 
-![gfx-readme-examples-turtle](https://user-images.githubusercontent.com/565124/51402174-0ad9fa00-1b4d-11e9-95b9-f5617979f34e.png)
-
 ## Line drawing algorithms
 
 ### Bresenham's line algorithm
 
 `gfx.DrawLineBresenham` draws a line using [Bresenham's line algorithm](http://en.wikipedia.org/wiki/Bresenham's_line_algorithm).
+
+![gfx-example-bresenham-line](examples/gfx-example-bresenham-line/gfx-example-bresenham-line.png)
 
 [embedmd]:# (examples/gfx-example-bresenham-line/gfx-example-bresenham-line.go)
 ```go
@@ -259,8 +259,6 @@ func main() {
 }
 ```
 
-![gfx-example-bresenham-line](examples/gfx-example-bresenham-line/gfx-example-bresenham-line.png)
-
 ## Geometry and Transformation
 
 The (2D) geometry and transformation types are based on those found in <https://github.com/faiface/pixel> (but indended for use without Pixel)
@@ -278,6 +276,8 @@ The (2D) geometry and transformation types are based on those found in <https://
 #### Matrix
 
 `gfx.Matrix` is a 2x3 affine matrix that can be used for all kinds of spatial transforms, such as movement, scaling and rotations.
+
+![gfx-readme-examples-matrix](https://user-images.githubusercontent.com/565124/51478881-f8e69a00-1d8c-11e9-92c5-270c767dfc06.gif)
 
 [embedmd]:# (examples/gfx-example-matrix/gfx-example-matrix.go)
 ```go
@@ -316,8 +316,6 @@ func main() {
 	a.SaveGIF("/tmp/gfx-readme-examples-matrix.gif")
 }
 ```
-
-![gfx-readme-examples-matrix](https://user-images.githubusercontent.com/565124/51478881-f8e69a00-1d8c-11e9-92c5-270c767dfc06.gif)
 
 ### 3D types
 
