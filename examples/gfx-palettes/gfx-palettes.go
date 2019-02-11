@@ -13,7 +13,7 @@ func main() {
 
 			filename := gfx.Sprintf("gfx-Palette%s.png", name)
 
-			gfx.SavePNG(filename, gfx.NewResizedImage(dst, 640, 32))
+			gfx.SavePNG(filename, gfx.NewResizedImage(dst, 1120, 96))
 		}
 	}
 }
