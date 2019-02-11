@@ -313,7 +313,7 @@ most of them are found in the [Lospec Palette List](https://lospec.com/palette-l
 
 | Variable                   | Colors | Lospec Palette
 |----------------------------|-------:| -----------------------------------------------------
-| `gfx.Palette1Bit`          |      2 |
+| `gfx.Palette1Bit`          |      2 | ![Palette1Bit](examples/gfx-palettes/gfx-Palette1Bit.png)
 | `gfx.Palette2BitGrayScale` |      4 | ![2-bit-grayscale](https://lospec.com/palette-list/2-bit-grayscale-32x.png)
 | `gfx.PaletteEN4`           |      4 | ![en4](https://lospec.com/palette-list/en4-32x.png)
 | `gfx.PaletteARQ4`          |      4 | ![arq4](https://lospec.com/palette-list/arq4-32x.png)
@@ -330,12 +330,38 @@ most of them are found in the [Lospec Palette List](https://lospec.com/palette-l
 | `gfx.PaletteArne16`        |     16 | ![arne-16](https://lospec.com/palette-list/arne-16-32x.png)
 | `gfx.PaletteEDG16`         |     16 | ![endesega-16](https://lospec.com/palette-list/endesga-16-32x.png)
 | `gfx.Palette20PDX`         |     20 | ![20p-dx](https://lospec.com/palette-list/20p-dx-32x.png)
+| `gfx.PaletteTango`         |     27 | ![tango]()
 | `gfx.PaletteEDG32`         |     32 | ![endesega-32](https://lospec.com/palette-list/endesga-32-32x.png)
 | `gfx.PaletteEDG36`         |     36 | ![endesega-36](https://lospec.com/palette-list/endesga-36-32x.png)
 | `gfx.PaletteEDG64`         |     64 | ![endesega-64](https://lospec.com/palette-list/endesga-64-32x.png)
 | `gfx.PaletteAAP64`         |     64 | ![aap-64](https://lospec.com/palette-list/aap-64-32x.png)
 | `gfx.PaletteFamicube`      |     64 | ![famicube](https://lospec.com/palette-list/famicube-32x.png)
 | `gfx.PaletteSplendor128`   |    128 | ![aap-splendor128](https://lospec.com/palette-list/aap-splendor128-32x.png)
+
+The palette images were generated like this:
+
+[embedmd]:# (examples/gfx-palettes/gfx-palettes.go)
+```go
+package main
+
+import "github.com/peterhellberg/gfx"
+
+func main() {
+	for size, paletteLookup := range gfx.PalettesByNumberOfColors {
+		for name, palette := range paletteLookup {
+			dst := gfx.NewImage(size, 1)
+
+			for x, c := range palette {
+				dst.Set(x, 0, c)
+			}
+
+			filename := gfx.Sprintf("gfx-Palette%s.png", name)
+
+			gfx.SavePNG(filename, gfx.NewResizedImage(dst, 640, 32))
+		}
+	}
+}
+```
 
 ## Errors
 
