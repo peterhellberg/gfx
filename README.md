@@ -307,21 +307,46 @@ for more ambitious projects I suggest creating a `gfx.Palette` (or even use one 
 
 | Variable               | Color
 |------------------------|---------------------------------------------------------
-| `gfx.ColorBlack`       | ![gfx.ColorBlack](https://fakeimg.pl/128x32/000000?text=+)
-| `gfx.ColorWhite`       | ![gfx.ColorWhite](https://fakeimg.pl/128x32/FFFFFF?text=+)
-| `gfx.ColorTransparent` | ![gfx.ColorTransparent](https://fakeimg.pl/128x32/000000,0/?text=+)
-| `gfx.ColorOpaque`      | ![gfx.ColorOpaque](https://fakeimg.pl/128x32/FFFFFF?text=+)
-| `gfx.ColorRed`         | ![gfx.ColorRed](https://fakeimg.pl/128x32/FF0000?text=+)
-| `gfx.ColorGreen`       | ![gfx.ColorGreen](https://fakeimg.pl/128x32/00FF00?text=+)
-| `gfx.ColorBlue`        | ![gfx.ColorBlue](https://fakeimg.pl/128x32/0000FF?text=+)
-| `gfx.ColorCyan`        | ![gfx.ColorCyan](https://fakeimg.pl/128x32/00FFFF?text=+)
-| `gfx.ColorMagenta`     | ![gfx.ColorMagenta](https://fakeimg.pl/128x32/FF00FF?text=+)
-| `gfx.ColorYellow`      | ![gfx.ColorYellow](https://fakeimg.pl/128x32/FFFF00?text=+)
+| `gfx.ColorBlack`       | ![gfx.ColorBlack](examples/gfx-colors/gfx-ColorBlack.png)
+| `gfx.ColorWhite`       | ![gfx.ColorWhite](examples/gfx-colors/gfx-ColorWhite.png)
+| `gfx.ColorTransparent` | ![gfx.ColorTransparent](examples/gfx-colors/gfx-ColorTransparent.png)
+| `gfx.ColorOpaque`      | ![gfx.ColorOpaque](examples/gfx-colors/gfx-ColorOpaque.png)
+| `gfx.ColorRed`         | ![gfx.ColorRed](examples/gfx-colors/gfx-ColorRed.png)
+| `gfx.ColorGreen`       | ![gfx.ColorGreen](examples/gfx-colors/gfx-ColorGreen.png)
+| `gfx.ColorBlue`        | ![gfx.ColorBlue](examples/gfx-colors/gfx-ColorBlue.png)
+| `gfx.ColorCyan`        | ![gfx.ColorCyan](examples/gfx-colors/gfx-ColorCyan.png)
+| `gfx.ColorMagenta`     | ![gfx.ColorMagenta](examples/gfx-colors/gfx-ColorMagenta.png)
+| `gfx.ColorYellow`      | ![gfx.ColorYellow](examples/gfx-colors/gfx-ColorYellow.png)
+
+### Block colors
+
+Each `gfx.BlockColor` consists of a `Dark`, `Medium` and `Light` shade of the same color.
+
+
+| Variable                     | Block Color
+|------------------------------|---------------------------------------------------------
+| `gfx.BlockColorYellow`       | ![gfx.BlockColorYellow](examples/go-colors/gfx-BlockColorYellow.png)
+| `gfx.BlockColorOrange`       | ![gfx.BlockColorOrange](examples/go-colors/gfx-BlockColorOrange.png)
+| `gfx.BlockColorBrown`        | ![gfx.BlockColorBrown](examples/go-colors/gfx-BlockColorBrown.png)
+| `gfx.BlockColorGreen`        | ![gfx.BlockColorGreen](examples/go-colors/gfx-BlockColorGreen.png)
+| `gfx.BlockColorBlue`         | ![gfx.BlockColorBlue](examples/go-colors/gfx-BlockColorBlue.png)
+| `gfx.BlockColorPurple`       | ![gfx.BlockColorPurple](examples/go-colors/gfx-BlockColorPurple.png)
+| `gfx.BlockColorRed`          | ![gfx.BlockColorRed](examples/go-colors/gfx-BlockColorRed.png)
+| `gfx.BlockColorWhite`        | ![gfx.BlockColorWhite](examples/go-colors/gfx-BlockColorWhite.png)
+| `gfx.BlockColorBlack`        | ![gfx.BlockColorBlack](examples/go-colors/gfx-BlockColorBlack.png)
+| `gfx.BlockColorGoGopherBlue` | ![gfx.BlockColorGoGopherBlue](examples/go-colors/gfx-BlockColorGoGopherBlue.png)
+| `gfx.BlockColorGoLightBlue`  | ![gfx.BlockColorGoLightBlue](examples/go-colors/gfx-BlockColorGoLightBlue.png)
+| `gfx.BlockColorGoAqua`       | ![gfx.BlockColorGoAqua](examples/go-colors/gfx-BlockColorGoAqua.png)
+| `gfx.BlockColorGoFuchsia`    | ![gfx.BlockColorGoFuchsia](examples/go-colors/gfx-BlockColorGoFuchsia.png)
+| `gfx.BlockColorGoBlack`      | ![gfx.BlockColorGoBlack](examples/go-colors/gfx-BlockColorGoBlack.png)
+| `gfx.BlockColorGoYellow`     | ![gfx.BlockColorGoYellow](examples/go-colors/gfx-BlockColorGoYellow.png)
+
 
 ### Palettes
 
 There are a number of palettes in the `gfx` package,
 most of them are found in the [Lospec Palette List](https://lospec.com/palette-list/).
+
 
 | Variable                   | Colors | Lospec Palette
 |----------------------------|-------:| -----------------------------------------------------
