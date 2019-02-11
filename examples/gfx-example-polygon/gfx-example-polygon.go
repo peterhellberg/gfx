@@ -5,24 +5,18 @@ import "github.com/peterhellberg/gfx"
 var edg32 = gfx.PaletteEDG32
 
 func main() {
-	m := gfx.NewImage(512, 512)
-
+	m := gfx.NewNRGBA(gfx.IR(0, 0, 1024, 256))
 	p := gfx.Polygon{
-		{40, 40},
-		{240, 60},
-		{440, 460},
-		{160, 360},
-		{180, 140},
+		{80, 40},
+		{440, 60},
+		{700, 200},
+		{250, 230},
+		{310, 140},
 	}
-
-	p.Fill(m, edg32.Color(7))
-
-	pc := p.Rect().Center()
 
 	p.EachPixel(m, func(x, y int) {
 		pv := gfx.IV(x, y)
-
-		l := pv.To(pc).Len()
+		l := pv.To(p.Rect().Center()).Len()
 
 		gfx.Mix(m, x, y, edg32.Color(int(l/18)%32))
 	})
@@ -34,5 +28,5 @@ func main() {
 		gfx.DrawCircle(m, v, 16, 1, c)
 	}
 
-	gfx.SavePNG("/tmp/gfx-readme-examples-polygon.png", m)
+	gfx.SavePNG("gfx-example-polygon.png", m)
 }
