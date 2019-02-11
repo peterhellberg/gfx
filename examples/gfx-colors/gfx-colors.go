@@ -7,7 +7,7 @@ func main() {
 		dst := gfx.NewImage(1, 1, c)
 		filename := gfx.Sprintf("gfx-Color%s.png", name)
 
-		gfx.SavePNG(filename, gfx.NewResizedImage(dst, 640, 64))
+		gfx.SavePNG(filename, gfx.NewResizedImage(dst, 666, 48))
 	}
 
 	for name, bc := range gfx.BlockColorByName {
@@ -19,6 +19,6 @@ func main() {
 
 		filename := gfx.Sprintf("gfx-BlockColor%s.png", name)
 
-		gfx.SavePNG(filename, gfx.NewResizedImage(dst, 640, 64))
+		gfx.SavePNG(filename, gfx.NewResizedImage(dst, 619, 48))
 	}
 }
