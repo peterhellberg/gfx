@@ -40,7 +40,7 @@ func vx(x, y float64, n int) gfx.Vertex {
 }
 ```
 
-![gfx-triangles](examples/gfx-triangles/gfx-triangles.png)
+![gfx-triangles](examples/gfx-example-triangles/gfx-example-triangles.png)
 
 
 ## Polygons
