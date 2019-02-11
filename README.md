@@ -11,17 +11,19 @@ Convenience package for dealing with graphics in my pixel drawing experiments.
 
 ## Geometry and Transformation
 
-The geometry and transformation types is based on those found in <https://github.com/faiface/pixel> (but indended for use without Pixel)
+The (2D) geometry and transformation types are based on those found in <https://github.com/faiface/pixel> (but indended for use without Pixel)
 
-### Vec
+### 2D types
 
-`gfx.Vec` is a 2D vector type with X and Y coordinates.
+#### Vec
 
-### Rect
+`gfx.Vec` is a 2D vector type with X and Y components.
 
-`gfx.Rect` is a 2D rectangle aligned with the axes of the coordinate system. It is defined by two points, Min and Max.
+#### Rect
 
-### Matrix
+`gfx.Rect` is a 2D rectangle aligned with the axes of the coordinate system. It is defined by two `gfx.Vec`, Min and Max.
+
+#### Matrix
 
 `gfx.Matrix` is a 2x3 affine matrix that can be used for all kinds of spatial transforms, such as movement, scaling and rotations.
 
@@ -64,6 +66,16 @@ func main() {
 ```
 
 ![gfx-readme-examples-matrix](https://user-images.githubusercontent.com/565124/51478881-f8e69a00-1d8c-11e9-92c5-270c767dfc06.gif)
+
+### 3D types
+
+#### Vec3
+
+`gfx.Vec3` is a 3D vector type with X, Y and Z components.
+
+#### Box
+
+`gfx.Box` is a 3D box. It is defined by two `gfx.Vec3`, Min and Max
 
 ## Line drawing algorithms
 
