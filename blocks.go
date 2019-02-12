@@ -8,9 +8,11 @@ import (
 // Blocks is a slice of blocks.
 type Blocks []Block
 
-// Add appends a Block to the slice.
-func (blocks *Blocks) Add(b Block) {
-	*blocks = append(*blocks, b)
+// Add appends one or more blocks to the slice of Blocks.
+func (blocks *Blocks) Add(bs ...Block) {
+	if len(bs) > 0 {
+		*blocks = append(*blocks, bs...)
+	}
 }
 
 // AddNewBlock creates a new Block and appends it to the slice.
