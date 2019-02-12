@@ -1,5 +1,7 @@
 package gfx
 
+import "image/draw"
+
 // Block has a position, size and color.
 type Block struct {
 	Pos   Vec3
@@ -67,11 +69,44 @@ func (b Block) TrianglesData(origin Vec3) *TrianglesData {
 	}
 }
 
+// Triangles for the Block
+func (b Block) Triangles(origin Vec3) []Triangle {
+	c, l, m, d := b.Corners(origin), b.Color.Light, b.Color.Medium, b.Color.Dark
+
+	return []Triangle{
+		T(Vx(c.FrontUp.AddXY(3, -2), d), Vx(c.LeftDown.AddXY(0, 0.9)), Vx(c.LeftUp.AddXY(0, -0.4))),
+		T(Vx(c.FrontUp.AddXY(0, -2.4), d), Vx(c.FrontDown), Vx(c.LeftDown.AddXY(0, -0.7))),
+		T(Vx(c.FrontUp.AddXY(-1.1, -2.4), m), Vx(c.FrontDown.AddXY(-1.1, 0)), Vx(c.RightDown)),
+		T(Vx(c.FrontUp.AddXY(-2, -1), m), Vx(c.RightUp.AddXY(0, -1.1)), Vx(c.RightDown.AddXY(0, 2))),
+		T(Vx(c.FrontUp.AddXY(0.6, 0), l), Vx(c.BackUp.AddXY(0.6, 0)), Vx(c.LeftUp.AddXY(0.6, 0.6))),
+		T(Vx(c.FrontUp.AddXY(-0.6, 0), l), Vx(c.BackUp.AddXY(-0.6, 0)), Vx(c.RightUp)),
+	}
+}
+
+// Draw block on dst at origin.
+func (b Block) Draw(dst draw.Image, origin Vec3) {
+	DrawTriangles(dst, b.Triangles(origin))
+}
+
+// DrawRectangles for block on dst at origin.
+func (b Block) DrawRectangles(dst draw.Image, origin Vec3) {
+	_, top, left, right := b.Polygons(origin)
+
+	DrawColor(dst, top.Bounds().Inset(top.Bounds().Dy()/4), b.Color.Light)
+	DrawColor(dst, right.Bounds(), b.Color.Medium)
+	DrawColor(dst, left.Bounds(), b.Color.Dark)
+}
+
 // Polygons returns the shape, top, left and right polygons with coordinates based on origin.
 func (b Block) Polygons(origin Vec3) (shape, top, left, right Polygon) {
 	vs := b.Corners(origin)
 
 	return vs.Shape(), vs.Top(), vs.Left(), vs.Right()
+}
+
+// Rect for the block.
+func (b Block) Rect(origin Vec3) Rect {
+	return b.Corners(origin).Rect()
 }
 
 // Shape returns the shape Polygon
@@ -110,6 +145,11 @@ type BlockCorners struct {
 	BackUp    Vec
 	BackDown  Vec
 	FrontUp   Vec
+}
+
+// Rect for the Block corners.
+func (bc BlockCorners) Rect() Rect {
+	return R(bc.LeftUp.X, bc.BackUp.Y, bc.RightUp.X, bc.FrontDown.Y)
 }
 
 // Shape Polygon.
