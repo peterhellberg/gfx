@@ -69,6 +69,13 @@ func DrawLine(dst draw.Image, from, to Vec, thickness float64, c color.Color) {
 	polylineFromTo(from, to, thickness).Fill(dst, c)
 }
 
+// DrawTriangles draw triangles on dst.
+func DrawTriangles(dst draw.Image, triangles []Triangle) {
+	for _, t := range triangles {
+		t.Draw(dst)
+	}
+}
+
 // DrawPolygon filled or as line polygons if the thickness is >= 1.
 func DrawPolygon(dst draw.Image, p Polygon, thickness float64, c color.Color) {
 	n := len(p)
