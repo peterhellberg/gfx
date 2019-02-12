@@ -1,6 +1,9 @@
 package gfx
 
-import "image/draw"
+import (
+	"image/draw"
+	"sort"
+)
 
 // Blocks is a slice of blocks.
 type Blocks []Block
@@ -25,4 +28,11 @@ func (blocks Blocks) DrawPolygons(dst draw.Image, origin Vec3) {
 		left.Fill(dst, block.Color.Dark)
 		top.Fill(dst, block.Color.Light)
 	}
+}
+
+// Sort blocks to be drawn starting from max X, max Y and min Z.
+func (blocks Blocks) Sort() {
+	sort.Slice(blocks, func(i, j int) bool {
+		return blocks[i].Behind(blocks[j])
+	})
 }

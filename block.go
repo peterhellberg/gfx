@@ -17,6 +17,11 @@ func (b Block) Box() Box {
 	return NewBox(b.Pos, b.Pos.Add(b.Size))
 }
 
+// Behind checks if the box for b is in front of the box for a.
+func (b Block) Behind(a Block) bool {
+	return b.Box().Behind(a.Box())
+}
+
 // TrianglesData creates triangles data for the Block.
 func (b Block) TrianglesData(origin Vec3) *TrianglesData {
 	sv, c := b.Corners(origin), b.Color
