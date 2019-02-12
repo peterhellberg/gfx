@@ -60,19 +60,33 @@ func (p Polygon) EachPixel(m image.Image, fn func(x, y int)) {
 		return
 	}
 
-	EachPixel(m, p.Bounds(), func(x, y int) {
-		if IV(x, y).In(p) {
-			fn(x, y)
+	b := p.Bounds()
+
+	for x := b.Min.X; x < b.Max.X; x++ {
+		for y := b.Min.Y; y < b.Max.Y; y++ {
+			if IV(x, y).In(p) {
+				fn(x, y)
+			}
 		}
-	})
+	}
 }
 
 // Fill polygon on the image with the given color.
 func (p Polygon) Fill(dst draw.Image, c color.Color) (drawCount int) {
-	p.EachPixel(dst, func(x, y int) {
-		Mix(dst, x, y, c)
-		drawCount++
-	})
+	if len(p) < 3 {
+		return
+	}
+
+	b := p.Bounds()
+
+	for x := b.Min.X; x < b.Max.X; x++ {
+		for y := b.Min.Y; y < b.Max.Y; y++ {
+			if IV(x, y).In(p) {
+				Mix(dst, x, y, c)
+				drawCount++
+			}
+		}
+	}
 
 	return drawCount
 }
