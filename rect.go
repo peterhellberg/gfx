@@ -45,6 +45,17 @@ func BoundsCenter(ir image.Rectangle) Vec {
 	return BoundsToRect(ir).Center()
 }
 
+// BoundsCenterOrigin returns the center origin for the given image.Rectangle and z value.
+func BoundsCenterOrigin(ir image.Rectangle, v Vec, z float64) Vec3 {
+	return BoundsToRect(ir).CenterOrigin(v, z)
+}
+
+// CenterOrigin returns a Vec3 based on Rect.Center()
+// scaled by v, and its Z component set to the provided z.
+func (r Rect) CenterOrigin(v Vec, z float64) Vec3 {
+	return r.Center().ScaledXY(v).Vec3(z)
+}
+
 // String returns the string representation of the Rect.
 //
 //   r := gfx.R(100, 50, 200, 300)
