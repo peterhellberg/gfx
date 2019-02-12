@@ -33,8 +33,17 @@ func (blocks Blocks) Draw(dst draw.Image, origin Vec3) {
 // DrawRectangles for all blocks.
 func (blocks Blocks) DrawRectangles(dst draw.Image, origin Vec3) {
 	for _, block := range blocks {
-		if shape := block.Shape(origin); shape.Bounds().Overlaps(dst.Bounds()) {
+		if block.Rect(origin).Bounds().Overlaps(dst.Bounds()) {
 			block.DrawRectangles(dst, origin)
+		}
+	}
+}
+
+// DrawBounds for all blocks.
+func (blocks Blocks) DrawBounds(dst draw.Image, origin Vec3) {
+	for _, block := range blocks {
+		if block.Rect(origin).Bounds().Overlaps(dst.Bounds()) {
+			block.DrawBounds(dst, origin)
 		}
 	}
 }

@@ -97,6 +97,11 @@ func (b Block) DrawRectangles(dst draw.Image, origin Vec3) {
 	DrawColor(dst, left.Bounds(), b.Color.Dark)
 }
 
+// DrawBounds for block on dst at origin.
+func (b Block) DrawBounds(dst draw.Image, origin Vec3) {
+	DrawColor(dst, b.Rect(origin).Bounds(), b.Color.Medium)
+}
+
 // Polygons returns the shape, top, left and right polygons with coordinates based on origin.
 func (b Block) Polygons(origin Vec3) (shape, top, left, right Polygon) {
 	vs := b.Corners(origin)
