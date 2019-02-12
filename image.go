@@ -117,6 +117,16 @@ func EncodePNG(w io.Writer, src image.Image) error {
 	return png.Encode(w, src)
 }
 
+// MustOpenPNG decodes a PNG using the provided file name. Panics on error.
+func MustOpenPNG(fn string) image.Image {
+	m, err := OpenPNG(fn)
+	if err != nil {
+		panic(err)
+	}
+
+	return m
+}
+
 // OpenPNG decodes a PNG using the provided file name.
 func OpenPNG(fn string) (image.Image, error) {
 	r, err := os.Open(fn)
