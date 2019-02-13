@@ -23,7 +23,6 @@ func (blocks *Blocks) AddNewBlock(pos, size Vec3, ic BlockColor) {
 // Draw all blocks.
 func (blocks Blocks) Draw(dst draw.Image, origin Vec3) {
 	for _, block := range blocks {
-
 		if block.Rect(origin).Bounds().Overlaps(dst.Bounds()) {
 			block.Draw(dst, origin)
 		}
