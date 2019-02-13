@@ -118,7 +118,7 @@ func main() {
 		blocks.AddNewBlock(pos, size, bc)
 	}
 
-	blocks.DrawPolygons(dst, origin)
+	blocks.Draw(dst, origin)
 
 	gfx.SavePNG("gfx-example-blocks.png", dst)
 }
