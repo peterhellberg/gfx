@@ -74,18 +74,27 @@ func (b Block) Triangles(origin Vec3) []Triangle {
 	c, l, m, d := b.Corners(origin), b.Color.Light, b.Color.Medium, b.Color.Dark
 
 	return []Triangle{
-		T(Vx(c.FrontUp.AddXY(3, -2), d), Vx(c.LeftDown.AddXY(0, 0.9)), Vx(c.LeftUp.AddXY(0, -0.4))),
-		T(Vx(c.FrontUp.AddXY(0, -2.4), d), Vx(c.FrontDown), Vx(c.LeftDown.AddXY(0, -0.7))),
-		T(Vx(c.FrontUp.AddXY(-1.1, -2.4), m), Vx(c.FrontDown.AddXY(-1.1, 0)), Vx(c.RightDown)),
-		T(Vx(c.FrontUp.AddXY(-2, -1), m), Vx(c.RightUp.AddXY(0, -1.1)), Vx(c.RightDown.AddXY(0, 2))),
-		T(Vx(c.FrontUp.AddXY(0.6, 0), l), Vx(c.BackUp.AddXY(0.6, 0)), Vx(c.LeftUp.AddXY(0.6, 0.6))),
-		T(Vx(c.FrontUp.AddXY(-0.6, 0), l), Vx(c.BackUp.AddXY(-0.6, 0)), Vx(c.RightUp)),
+		T(Vx(c.FrontUp, d), Vx(c.LeftDown), Vx(c.LeftUp)),
+		T(Vx(c.FrontUp, d), Vx(c.FrontDown), Vx(c.LeftDown)),
+		T(Vx(c.FrontUp, m), Vx(c.FrontDown), Vx(c.RightDown)),
+		T(Vx(c.FrontUp, m), Vx(c.RightUp), Vx(c.RightDown)),
+		T(Vx(c.FrontUp, l), Vx(c.BackUp), Vx(c.LeftUp)),
+		T(Vx(c.FrontUp, l), Vx(c.BackUp), Vx(c.RightUp)),
 	}
 }
 
 // Draw block on dst at origin.
 func (b Block) Draw(dst draw.Image, origin Vec3) {
 	DrawTriangles(dst, b.Triangles(origin))
+}
+
+// DrawPolygons for block on dst at origin.
+func (b Block) DrawPolygons(dst draw.Image, origin Vec3) {
+	shape, top, left, _ := b.Polygons(origin)
+
+	shape.Fill(dst, b.Color.Medium)
+	left.Fill(dst, b.Color.Dark)
+	top.Fill(dst, b.Color.Light)
 }
 
 // DrawRectangles for block on dst at origin.
