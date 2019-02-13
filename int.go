@@ -26,3 +26,18 @@ func IntMax(x, y int) int {
 
 	return y
 }
+
+// IntClamp returns x clamped to the interval [min, max].
+//
+// If x is less than min, min is returned.
+// If x is more than max, max is returned. Otherwise, x is returned.
+func IntClamp(x, min, max int) int {
+	switch {
+	case x < min:
+		return min
+	case x > max:
+		return max
+	default:
+		return x
+	}
+}
