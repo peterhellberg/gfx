@@ -82,6 +82,45 @@ func ExampleMathCos() {
 	// -0.9899924966004454
 }
 
+func ExampleMathCeil() {
+	Dump(
+		MathCeil(0.2),
+		MathCeil(1.4),
+		MathCeil(2.6),
+	)
+
+	// Output:
+	// 1
+	// 2
+	// 3
+}
+
+func ExampleMathFloor() {
+	Dump(
+		MathFloor(0.2),
+		MathFloor(1.4),
+		MathFloor(2.6),
+	)
+
+	// Output:
+	// 0
+	// 1
+	// 2
+}
+
+func ExampleMathHypot() {
+	Dump(
+		MathHypot(15, 8),
+		MathHypot(5, 12),
+		MathHypot(3, 4),
+	)
+
+	// Output:
+	// 17
+	// 13
+	// 5
+}
+
 func ExampleSign() {
 	Dump(
 		Sign(-2),

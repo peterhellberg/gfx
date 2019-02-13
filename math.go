@@ -37,6 +37,21 @@ func MathCos(x float64) float64 {
 	return math.Cos(x)
 }
 
+// MathCeil returns the least integer value greater than or equal to x.
+func MathCeil(x float64) float64 {
+	return math.Ceil(x)
+}
+
+// MathFloor returns the greatest integer value less than or equal to x.
+func MathFloor(x float64) float64 {
+	return math.Floor(x)
+}
+
+// MathHypot returns Sqrt(p*p + q*q), taking care to avoid unnecessary overflow and underflow.
+func MathHypot(p, q float64) float64 {
+	return math.Hypot(p, q)
+}
+
 // Sign returns -1 for values < 0, 0 for 0, and 1 for values > 0.
 func Sign(x float64) float64 {
 	switch {
