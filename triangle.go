@@ -136,9 +136,7 @@ func (t Triangle) Draw(dst draw.Image) (drawCount int) {
 func (t Triangle) DrawColor(dst draw.Image, c color.Color) (drawCount int) {
 	b := t.Bounds()
 
-	var lefts []Vec
-	var rights []Vec
-
+	var lefts, rights []Vec
 	var invalid = V(-math.MaxInt64, 0)
 
 	for y := b.Min.Y; y < b.Max.Y; y++ {
@@ -164,12 +162,24 @@ func (t Triangle) DrawColor(dst draw.Image, c color.Color) (drawCount int) {
 		}
 	}
 
+	uc := NewUniform(c)
+
 	for i := 0; i < len(lefts); i++ {
 		r := NewRect(lefts[i], rights[i].AddXY(0, 1)).Bounds()
 
-		DrawColor(dst, r, c)
+		draw.Draw(dst, r, uc, ZP, draw.Src)
+
 		drawCount++
 	}
 
 	return drawCount
+}
+
+// DrawWireframe draws the triangle as a wireframe on dst.
+func (t Triangle) DrawWireframe(dst draw.Image, c color.Color) (drawCount int) {
+	DrawLineBresenham(dst, t[0].Position, t[1].Position, c)
+	DrawLineBresenham(dst, t[1].Position, t[2].Position, c)
+	DrawLineBresenham(dst, t[0].Position, t[2].Position, c)
+
+	return 3
 }

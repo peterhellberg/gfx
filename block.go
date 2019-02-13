@@ -92,14 +92,38 @@ func (b Block) Draw(dst draw.Image, origin Vec3) {
 func (b Block) DrawRectangles(dst draw.Image, origin Vec3) {
 	_, top, left, right := b.Polygons(origin)
 
-	DrawColor(dst, top.Bounds().Inset(top.Bounds().Dy()/4), b.Color.Light)
-	DrawColor(dst, right.Bounds(), b.Color.Medium)
-	DrawColor(dst, left.Bounds(), b.Color.Dark)
+	t := top.Bounds()
+	l := left.Bounds()
+	r := right.Bounds()
+
+	tx6 := t.Dx() / 6
+	ty2 := t.Dy() / 4
+
+	DrawColor(dst, IR(l.Min.X, l.Min.Y, l.Max.X, l.Max.Y-ty2), b.Color.Dark)
+	DrawColor(dst, IR(r.Min.X, r.Min.Y, r.Max.X, r.Max.Y-ty2), b.Color.Medium)
+	DrawColor(dst, IR(t.Min.X+tx6, t.Min.Y+ty2, t.Max.X-tx6, t.Max.Y), b.Color.Light)
 }
 
 // DrawBounds for block on dst at origin.
 func (b Block) DrawBounds(dst draw.Image, origin Vec3) {
-	DrawColor(dst, b.Rect(origin).Bounds(), b.Color.Medium)
+	r := b.Rect(origin)
+
+	if r.Area() < 20 {
+		DrawColor(dst, r.Bounds(), b.Color.Medium)
+		return
+	}
+
+	rw6 := r.W() / 6
+
+	DrawColor(dst, IR(int(r.Min.X), int(r.Min.Y), int(r.Max.X), int(r.Max.Y-rw6)), b.Color.Light)
+
+	DrawLineBresenham(dst, r.Min, V(r.Max.X, r.Min.Y), b.Color.Medium)
+	DrawLineBresenham(dst, r.Min, V(r.Min.X, r.Max.Y-rw6), b.Color.Dark)
+}
+
+// DrawWireframe block on dst at origin.
+func (b Block) DrawWireframe(dst draw.Image, origin Vec3) {
+	DrawTrianglesWireframe(dst, b.Triangles(origin))
 }
 
 // Polygons returns the shape, top, left and right polygons with coordinates based on origin.

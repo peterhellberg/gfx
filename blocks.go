@@ -47,6 +47,15 @@ func (blocks Blocks) DrawBounds(dst draw.Image, origin Vec3) {
 	}
 }
 
+// DrawWireframes for all blocks.
+func (blocks Blocks) DrawWireframes(dst draw.Image, origin Vec3) {
+	for _, block := range blocks {
+		if block.Rect(origin).Bounds().Overlaps(dst.Bounds()) {
+			block.DrawWireframe(dst, origin)
+		}
+	}
+}
+
 // Sort blocks to be drawn starting from max X, max Y and min Z.
 func (blocks Blocks) Sort() {
 	sort.Slice(blocks, func(i, j int) bool {

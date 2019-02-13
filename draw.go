@@ -69,10 +69,17 @@ func DrawLine(dst draw.Image, from, to Vec, thickness float64, c color.Color) {
 	polylineFromTo(from, to, thickness).Fill(dst, c)
 }
 
-// DrawTriangles draw triangles on dst.
+// DrawTriangles draws triangles on dst.
 func DrawTriangles(dst draw.Image, triangles []Triangle) {
 	for _, t := range triangles {
 		t.Draw(dst)
+	}
+}
+
+// DrawTrianglesWireframe draws triangles on dst.
+func DrawTrianglesWireframe(dst draw.Image, triangles []Triangle) {
+	for _, t := range triangles {
+		t.DrawWireframe(dst, t.Color(V(0, 0)))
 	}
 }
 
