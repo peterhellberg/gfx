@@ -29,6 +29,16 @@ func (blocks Blocks) Draw(dst draw.Image, origin Vec3) {
 	}
 }
 
+// DrawPolygons draws all of the blocks on the dst image.
+// (using the shape, top and left polygons at the given origin)
+func (blocks Blocks) DrawPolygons(dst draw.Image, origin Vec3) {
+	for _, block := range blocks {
+		if block.Rect(origin).Bounds().Overlaps(dst.Bounds()) {
+			block.DrawPolygons(dst, origin)
+		}
+	}
+}
+
 // DrawRectangles for all blocks.
 func (blocks Blocks) DrawRectangles(dst draw.Image, origin Vec3) {
 	for _, block := range blocks {
