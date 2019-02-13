@@ -76,20 +76,22 @@ func SetPoint(dst draw.Image, p image.Point, c color.Color) {
 }
 
 // SetVec to the given color.
-func SetVec(dst draw.Image, v Vec, c color.Color) {
-	pt := v.Pt()
+func SetVec(dst draw.Image, u Vec, c color.Color) {
+	pt := u.Pt()
 
 	dst.Set(pt.X, pt.Y, c)
 }
 
+// EachImageVec calls the provided function for each Vec
+// in the provided image in the given direction.
+//
+// gfx.V(1,1) to call the function on each pixel starting from the top left.
+func EachImageVec(src image.Image, dir Vec, fn func(u Vec)) {
+	BoundsToRect(src.Bounds()).EachVec(dir, fn)
+}
+
 // EachPixel calls the provided function for each pixel in the provided rectangle.
-func EachPixel(m image.Image, r image.Rectangle, fn func(x, y int)) {
-	r = r.Intersect(m.Bounds())
-
-	if r.Empty() {
-		return
-	}
-
+func EachPixel(r image.Rectangle, fn func(x, y int)) {
 	for x := r.Min.X; x < r.Max.X; x++ {
 		for y := r.Min.Y; y < r.Max.Y; y++ {
 			fn(x, y)

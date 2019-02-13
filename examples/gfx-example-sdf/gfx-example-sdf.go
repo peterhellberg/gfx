@@ -6,7 +6,7 @@ func main() {
 	c := gfx.PaletteEDG36.Color
 	m := gfx.NewImage(1024, 256, c(5))
 
-	gfx.EachPixel(m, m.Bounds(), func(x, y int) {
+	gfx.EachPixel(m.Bounds(), func(x, y int) {
 		sd := gfx.SignedDistance{gfx.IV(x, y)}
 
 		if d := sd.OpRepeat(gfx.V(128, 128), func(sd gfx.SignedDistance) float64 {

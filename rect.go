@@ -201,3 +201,41 @@ func (r Rect) DrawColor(dst draw.Image, c color.Color) {
 func (r Rect) DrawColorOver(dst draw.Image, c color.Color) {
 	draw.Draw(dst, r.Bounds(), NewUniform(c), ZP, draw.Over)
 }
+
+// EachVec calls the provided function for each vec in the given direction.
+func (r Rect) EachVec(dir Vec, fn func(p Vec)) {
+	if dir.X == 0 {
+		dir.X = 1
+	}
+
+	if dir.Y == 0 {
+		dir.Y = 1
+	}
+
+	switch {
+	case dir.X > 0 && dir.Y < 0:
+		for y := r.Max.Y - 1; y >= r.Min.Y; y += dir.Y {
+			for x := r.Min.X; x < r.Max.X; x += dir.X {
+				fn(V(x, y))
+			}
+		}
+	case dir.X < 0 && dir.Y < 0:
+		for y := r.Max.Y - 1; y >= r.Min.Y; y += dir.Y {
+			for x := r.Max.X - 1; x >= r.Min.X; x += dir.X {
+				fn(V(x, y))
+			}
+		}
+	case dir.X < 0 && dir.Y > 0:
+		for y := r.Min.Y; y < r.Max.Y; y += dir.Y {
+			for x := r.Max.X - 1; x >= r.Min.X; x += dir.X {
+				fn(V(x, y))
+			}
+		}
+	default:
+		for y := r.Min.Y; y < r.Max.Y; y += dir.Y {
+			for x := r.Min.X; x < r.Max.X; x += dir.X {
+				fn(V(x, y))
+			}
+		}
+	}
+}

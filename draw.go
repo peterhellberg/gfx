@@ -128,7 +128,7 @@ func DrawCircle(dst draw.Image, u Vec, radius, thickness float64, c color.Color)
 
 	bounds := IR(int(u.X-radius), int(u.Y-radius), int(u.X+radius), int(u.Y+radius))
 
-	EachPixel(dst, bounds, func(x, y int) {
+	EachPixel(dst.Bounds().Intersect(bounds), func(x, y int) {
 		v := V(float64(x), float64(y))
 
 		l := u.To(v).Len() + 0.5
@@ -143,7 +143,7 @@ func DrawCircle(dst draw.Image, u Vec, radius, thickness float64, c color.Color)
 func DrawCircleFilled(dst draw.Image, u Vec, radius float64, c color.Color) {
 	bounds := IR(int(u.X-radius), int(u.Y-radius), int(u.X+radius), int(u.Y+radius))
 
-	EachPixel(dst, bounds, func(x, y int) {
+	EachPixel(dst.Bounds().Intersect(bounds), func(x, y int) {
 		v := V(float64(x), float64(y))
 
 		if u.To(v).Len() < radius {
