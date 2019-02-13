@@ -76,6 +76,13 @@ func DrawTriangles(dst draw.Image, triangles []Triangle) {
 	}
 }
 
+// DrawTrianglesOver draws triangles over dst.
+func DrawTrianglesOver(dst draw.Image, triangles []Triangle) {
+	for _, t := range triangles {
+		t.DrawOver(dst)
+	}
+}
+
 // DrawTrianglesWireframe draws triangles on dst.
 func DrawTrianglesWireframe(dst draw.Image, triangles []Triangle) {
 	for _, t := range triangles {

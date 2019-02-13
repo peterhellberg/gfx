@@ -132,8 +132,24 @@ func (t Triangle) Draw(dst draw.Image) (drawCount int) {
 	return t.DrawColor(dst, a)
 }
 
+// DrawOver draws the first color in the triangle over dst.
+func (t Triangle) DrawOver(dst draw.Image) (drawCount int) {
+	a, _, _ := t.Colors()
+
+	return t.DrawColorOver(dst, a)
+}
+
 // DrawColor draws the triangle on dst using the given color.
 func (t Triangle) DrawColor(dst draw.Image, c color.Color) (drawCount int) {
+	return t.drawColor(dst, c, draw.Src)
+}
+
+// DrawColorOver draws the triangle over dst using the given color.
+func (t Triangle) DrawColorOver(dst draw.Image, c color.Color) (drawCount int) {
+	return t.drawColor(dst, c, draw.Over)
+}
+
+func (t Triangle) drawColor(dst draw.Image, c color.Color, op draw.Op) (drawCount int) {
 	b := t.Bounds()
 
 	var lefts, rights []Vec
@@ -167,7 +183,7 @@ func (t Triangle) DrawColor(dst draw.Image, c color.Color) (drawCount int) {
 	for i := 0; i < len(lefts); i++ {
 		r := NewRect(lefts[i], rights[i].AddXY(0, 1)).Bounds()
 
-		draw.Draw(dst, r, uc, ZP, draw.Src)
+		draw.Draw(dst, r, uc, ZP, op)
 
 		drawCount++
 	}

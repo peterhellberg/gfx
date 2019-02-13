@@ -88,6 +88,11 @@ func (b Block) Draw(dst draw.Image, origin Vec3) {
 	DrawTriangles(dst, b.Triangles(origin))
 }
 
+// DrawOver draws block over dst at origin.
+func (b Block) DrawOver(dst draw.Image, origin Vec3) {
+	DrawTrianglesOver(dst, b.Triangles(origin))
+}
+
 // DrawPolygons for block on dst at origin.
 func (b Block) DrawPolygons(dst draw.Image, origin Vec3) {
 	shape, top, left, _ := b.Polygons(origin)
