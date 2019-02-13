@@ -177,9 +177,26 @@ func (t Triangle) DrawColor(dst draw.Image, c color.Color) (drawCount int) {
 
 // DrawWireframe draws the triangle as a wireframe on dst.
 func (t Triangle) DrawWireframe(dst draw.Image, c color.Color) (drawCount int) {
-	DrawLineBresenham(dst, t[0].Position, t[1].Position, c)
-	DrawLineBresenham(dst, t[1].Position, t[2].Position, c)
-	DrawLineBresenham(dst, t[0].Position, t[2].Position, c)
+	if l := t[0].Position.To(t[1].Position).Len(); l > 25 {
+		DrawLine(dst, t[0].Position.AddXY(-1, -1), t[1].Position.AddXY(-1, -1), l/50, ColorWithAlpha(c, 128))
+		drawCount++
+	}
 
-	return 3
+	if l := t[1].Position.To(t[2].Position).Len(); l > 25 {
+		DrawLine(dst, t[1].Position.AddXY(-1, -1), t[2].Position.AddXY(-1, -1), l/50, ColorWithAlpha(c, 128))
+		drawCount++
+	}
+
+	if l := t[0].Position.To(t[2].Position).Len(); l > 25 {
+		DrawLine(dst, t[0].Position.AddXY(-1, -1), t[2].Position.AddXY(-1, -1), l/50, ColorWithAlpha(c, 128))
+		drawCount++
+	}
+
+	DrawLine(dst, t[0].Position, t[1].Position, 1, c)
+	DrawLine(dst, t[1].Position, t[2].Position, 1, c)
+	DrawLine(dst, t[0].Position, t[2].Position, 1, c)
+
+	drawCount += 3
+
+	return
 }
