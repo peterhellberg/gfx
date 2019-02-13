@@ -33,6 +33,17 @@ func NewRGBA(r image.Rectangle) *image.RGBA {
 	return image.NewRGBA(r)
 }
 
+// NewGray returns a new Gray image with the given bounds.
+func NewGray(r image.Rectangle) *image.Gray {
+	return image.NewGray(r)
+}
+
+// NewGray16 returns a new Gray16 image with the given bounds.
+// (For example useful for height maps)
+func NewGray16(r image.Rectangle) *image.Gray16 {
+	return image.NewGray16(r)
+}
+
 // NewUniform creates a new uniform image of the given color.
 func NewUniform(c color.Color) *image.Uniform {
 	return image.NewUniform(c)

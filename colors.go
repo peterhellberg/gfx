@@ -124,6 +124,16 @@ func ColorNRGBA(r, g, b, a uint8) color.NRGBA {
 	return color.NRGBA{r, g, b, a}
 }
 
+// ColorGray construcs a color.Gray.
+func ColorGray(y uint8) color.Gray {
+	return color.Gray{y}
+}
+
+// ColorGray16 construcs a color.Gray16.
+func ColorGray16(y uint16) color.Gray16 {
+	return color.Gray16{y}
+}
+
 // LerpColors performs linear interpolation between two colors.
 func LerpColors(c0, c1 color.Color, t float64) color.Color {
 	switch {
