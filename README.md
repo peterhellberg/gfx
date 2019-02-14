@@ -455,7 +455,9 @@ func main() {
 
 ## Colors
 
-You can construct new colors using `gfx.ColorRGBA` and `gfx.ColorWithAlpha`.
+You can construct new colors using `gfx.ColorRGBA`, `gfx.ColorNRGBA`, `gfx.ColorGray`, `gfx.ColorGray16` and `gfx.ColorWithAlpha`.
+
+There is also a `gfx.LerpColors` function that performs linear interpolation between two colors.
 
 ### Default colors
 
@@ -559,6 +561,7 @@ func main() {
 ```
 
 
+<img src="https://data.gopher.se/gopher/viking-gopher.svg" align="right" width="230" height="230">
 
 ## License (MIT)
 
@@ -574,8 +577,6 @@ Copyright (c) 2019 [Peter Hellberg](https://c7.se)
 >
 > The above copyright notice and this permission notice shall be
 > included in all copies or substantial portions of the Software.
-
-<img src="https://data.gopher.se/gopher/viking-gopher.svg" align="right" width="230" height="230">
 
 > THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
 > EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
