@@ -7,7 +7,7 @@
 
 Convenience package for dealing with graphics in my pixel drawing experiments.
 
-#### :warning: NO STABILITY GUARANTEES AS OF YET :warning:
+#### :warning: NO STABILITY GUARANTEES :warning:
 
 ## Triangles
 
