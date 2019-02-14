@@ -1,4 +1,4 @@
-// +build js
+// +build js,wasm
 
 package gfx
 
@@ -14,4 +14,20 @@ var JS = JavaScript{
 type JavaScript struct {
 	Global       func() js.Value
 	TypedArrayOf func(interface{}) js.TypedArray
+}
+
+func (j JavaScript) Document() js.Value {
+	return j.Global().Get("document")
+}
+
+// Body returns the js.Value for document.body
+// The (first) optional innerHTML argument can be used to set body.innerHTML.
+func (j JavaScript) Body(innerHTML ...string) js.Value {
+	body := j.Document().Get("body")
+
+	if len(innerHTML) > 0 {
+		return body.Set("innerHTML", innerHTML[0])
+	}
+
+	return body
 }
