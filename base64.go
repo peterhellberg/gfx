@@ -15,3 +15,9 @@ func Base64EncodedPNG(src image.Image) string {
 
 	return base64.StdEncoding.EncodeToString(buf.Bytes())
 }
+
+// Base64ImgTag returns a HTML tag for an img
+// with its src set to a base64 encoded PNG.
+func Base64ImgTag(src image.Image) string {
+	return `<img src="data:image/png;base64,` + Base64EncodedPNG(src) + `">`
+}
