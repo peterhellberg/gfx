@@ -26,7 +26,7 @@ func (j JavaScript) Body(innerHTML ...string) js.Value {
 	body := j.Document().Get("body")
 
 	if len(innerHTML) > 0 {
-		return body.Set("innerHTML", innerHTML[0])
+		body.Set("innerHTML", innerHTML[0])
 	}
 
 	return body
