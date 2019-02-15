@@ -4,12 +4,11 @@ import (
 	"image"
 	"image/color"
 	"image/draw"
+	"image/gif"
+	"image/jpeg"
 	"image/png"
 	"io"
 	"os"
-
-	_ "image/gif"
-	_ "image/jpeg"
 )
 
 // ZP is the zero image.Point.
@@ -143,7 +142,7 @@ func MustOpenImage(fn string) image.Image {
 	return m
 }
 
-// OpenPNG decodes a PNG using the provided file name.
+// OpenImage decodes an image using the provided file name.
 func OpenImage(fn string) (image.Image, error) {
 	r, err := os.Open(fn)
 	if err != nil {
@@ -165,3 +164,10 @@ func DecodeImage(r io.Reader) (image.Image, error) {
 
 	return m, err
 }
+
+// Assign all image decode functions to _.
+var (
+	_ = gif.Decode
+	_ = jpeg.Decode
+	_ = png.Decode
+)
