@@ -7,6 +7,9 @@ import (
 	"image/png"
 	"io"
 	"os"
+
+	_ "image/gif"
+	_ "image/jpeg"
 )
 
 // ZP is the zero image.Point.
@@ -130,9 +133,9 @@ func EncodePNG(w io.Writer, src image.Image) error {
 	return png.Encode(w, src)
 }
 
-// MustOpenPNG decodes a PNG using the provided file name. Panics on error.
-func MustOpenPNG(fn string) image.Image {
-	m, err := OpenPNG(fn)
+// MustOpenImage decodes an image using the provided file name. Panics on error.
+func MustOpenImage(fn string) image.Image {
+	m, err := OpenImage(fn)
 	if err != nil {
 		panic(err)
 	}
@@ -141,17 +144,24 @@ func MustOpenPNG(fn string) image.Image {
 }
 
 // OpenPNG decodes a PNG using the provided file name.
-func OpenPNG(fn string) (image.Image, error) {
+func OpenImage(fn string) (image.Image, error) {
 	r, err := os.Open(fn)
 	if err != nil {
 		return nil, err
 	}
 	defer r.Close()
 
-	return DecodePNG(r)
+	return DecodeImage(r)
 }
 
 // DecodePNG decodes a PNG from the provided io.Reader.
 func DecodePNG(r io.Reader) (image.Image, error) {
 	return png.Decode(r)
+}
+
+// DecodeImage decodes an image from the provided io.Reader.
+func DecodeImage(r io.Reader) (image.Image, error) {
+	m, _, err := image.Decode(r)
+
+	return m, err
 }
