@@ -141,7 +141,7 @@ func DrawCircle(dst draw.Image, u Vec, radius, thickness float64, c color.Color)
 
 // DrawCircleFilled draws a filled circle.
 func DrawCircleFilled(dst draw.Image, u Vec, radius float64, c color.Color) {
-	bounds := IR(int(u.X-radius), int(u.Y-radius), int(u.X+radius), int(u.Y+radius))
+	bounds := IR(int(u.X-radius+1), int(u.Y-radius+1), int(u.X+radius+1), int(u.Y+radius+1))
 
 	EachPixel(dst.Bounds().Intersect(bounds), func(x, y int) {
 		v := V(float64(x), float64(y))
