@@ -91,6 +91,13 @@ func (p Polygon) Fill(dst draw.Image, c color.Color) (drawCount int) {
 	return drawCount
 }
 
+// Outline draws an outline of the polygon on dst.
+func (p Polygon) Outline(dst draw.Image, thickness float64, c color.Color) {
+	for i := 1; i < len(p); i++ {
+		DrawLine(dst, p[i-1], p[i], thickness, c)
+	}
+}
+
 // In returns true if the vector is inside the given polygon.
 func (u Vec) In(p Polygon) bool {
 	if len(p) < 3 {
