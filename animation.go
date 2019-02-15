@@ -33,6 +33,12 @@ func (a *Animation) AddPalettedImage(frame PalettedImage) {
 	a.Palettes = append(a.Palettes, frame.ColorPalette())
 }
 
+// AddFrame adds a frame to the animation.
+func (a *Animation) AddFrame(frame image.Image, palette color.Palette) {
+	a.Frames = append(a.Frames, frame)
+	a.Palettes = append(a.Palettes, palette)
+}
+
 // SaveGIF saves the animation to a GIF using the provided file name.
 func (a *Animation) SaveGIF(fn string) error {
 	w, err := os.Create(fn)
