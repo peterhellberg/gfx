@@ -37,6 +37,11 @@ func MathCos(x float64) float64 {
 	return math.Cos(x)
 }
 
+// MathTan returns the tangent of the radian argument x.
+func MathTan(x float64) float64 {
+	return math.Tan(x)
+}
+
 // MathCeil returns the least integer value greater than or equal to x.
 func MathCeil(x float64) float64 {
 	return math.Ceil(x)
@@ -50,6 +55,16 @@ func MathFloor(x float64) float64 {
 // MathHypot returns Sqrt(p*p + q*q), taking care to avoid unnecessary overflow and underflow.
 func MathHypot(p, q float64) float64 {
 	return math.Hypot(p, q)
+}
+
+// MathPow returns x**y, the base-x exponential of y.
+func MathPow(x, y float64) float64 {
+	return math.Pow(x, y)
+}
+
+// MathLog returns the natural logarithm of x.
+func MathLog(x float64) float64 {
+	return math.Log(x)
 }
 
 // Sign returns -1 for values < 0, 0 for 0, and 1 for values > 0.
