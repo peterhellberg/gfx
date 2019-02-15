@@ -32,9 +32,24 @@ func MathSin(x float64) float64 {
 	return math.Sin(x)
 }
 
+// MathSinh returns the hyperbolic sine of x.
+func MathSinh(x float64) float64 {
+	return math.Sinh(x)
+}
+
 // MathCos returns the cosine of the radian argument x.
 func MathCos(x float64) float64 {
 	return math.Cos(x)
+}
+
+// MathCosh returns the hyperbolic cosine of x.
+func MathCosh(x float64) float64 {
+	return math.Cosh(x)
+}
+
+// MathAtan returns the arctangent, in radians, of x.
+func MathAtan(x float64) float64 {
+	return math.Atan(x)
 }
 
 // MathTan returns the tangent of the radian argument x.
