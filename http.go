@@ -11,9 +11,14 @@ var DefaultClient = &http.Client{
 	Timeout: 30 * time.Second,
 }
 
+// Get performs a HTTP GET request using the DefaultClient.
+func Get(rawurl string) (*http.Response, error) {
+	return DefaultClient.Get(rawurl)
+}
+
 // GetPNG retrieves a remote PNG using DefaultClient
 func GetPNG(rawurl string) (image.Image, error) {
-	resp, err := DefaultClient.Get(rawurl)
+	resp, err := Get(rawurl)
 	if err != nil {
 		return nil, err
 	}
