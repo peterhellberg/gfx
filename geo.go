@@ -199,9 +199,15 @@ func (gt GeoTile) GetImage(format string) (image.Image, error) {
 
 // Draw the tile on dst.
 func (gt GeoTile) Draw(dst draw.Image, gp GeoPoint, src image.Image) {
+
+	Draw(dst, gt.Bounds(dst, gp, src.Bounds().Dx()), src)
+}
+
+// Bounds returns an image.Rectangle for the GeoTile based on the dst, gp and tileSize.
+func (gt GeoTile) Bounds(dst image.Image, gp GeoPoint, tileSize int) image.Rectangle {
 	c := BoundsCenter(dst.Bounds())
 
-	Draw(dst, dst.Bounds().Add(c.Pt()).Sub(gp.In(gt, src.Bounds().Dx()).Pt()), src)
+	return dst.Bounds().Add(c.Pt()).Sub(gp.In(gt, tileSize).Pt())
 }
 
 // GeoTileServer represents a tile server.
