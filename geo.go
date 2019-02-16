@@ -206,13 +206,12 @@ func (gt GeoTile) Draw(dst draw.Image, gp GeoPoint, src image.Image) {
 
 // GeoTileServer represents a tile server.
 type GeoTileServer struct {
-	TileSize int
-	Format   string
+	Format string
 }
 
-// GTS creates a GEoTileServer.
-func GTS(tileSize int, format string) GeoTileServer {
-	return GeoTileServer{TileSize: tileSize, Format: format}
+// GTS creates a GeoTileServer.
+func GTS(format string) GeoTileServer {
+	return GeoTileServer{Format: format}
 }
 
 // GetImage for the given GeoTile from the tile server.
