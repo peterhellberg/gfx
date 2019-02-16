@@ -82,6 +82,11 @@ func MathLog(x float64) float64 {
 	return math.Log(x)
 }
 
+// MathRound returns the nearest integer, rounding half away from zero.
+func MathRound(x float64) float64 {
+	return math.Round(x)
+}
+
 // Sign returns -1 for values < 0, 0 for 0, and 1 for values > 0.
 func Sign(x float64) float64 {
 	switch {
