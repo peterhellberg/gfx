@@ -6,6 +6,7 @@ import (
 	"image/draw"
 	"math"
 	"math/rand"
+	"sort"
 )
 
 // Palette is a slice of colors.
@@ -23,6 +24,18 @@ func (p Palette) Color(n int) color.NRGBA {
 // Len returns the number of colors in the palette.
 func (p Palette) Len() int {
 	return len(p)
+}
+
+// Sort palette.
+func (p Palette) Sort(less func(i, j int) bool) {
+	sort.Slice(p, less)
+}
+
+// SortByHue sorts based on (HSV) Hue.
+func (p Palette) SortByHue() {
+	p.Sort(func(i, j int) bool {
+		return ColorToHSV(p[i]).Hue > ColorToHSV(p[i]).Hue
+	})
 }
 
 // Random color from the palette.
