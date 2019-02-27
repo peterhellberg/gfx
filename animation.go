@@ -63,6 +63,7 @@ func (a *Animation) EncodeGIF(w io.Writer) error {
 
 	var frames []*image.Paletted
 	var delays []int
+	var disposal []byte
 
 	for i, src := range a.Frames {
 		dst := image.NewPaletted(src.Bounds(), a.Palettes[i])
@@ -71,11 +72,13 @@ func (a *Animation) EncodeGIF(w io.Writer) error {
 
 		frames = append(frames, dst)
 		delays = append(delays, a.Delay)
+		disposal = append(disposal, gif.DisposalBackground)
 	}
 
 	return gif.EncodeAll(w, &gif.GIF{
 		Image:     frames,
 		Delay:     delays,
 		LoopCount: a.LoopCount,
+		Disposal:  disposal,
 	})
 }
