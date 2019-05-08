@@ -1,3 +1,3 @@
-module github.com/xyproto/gfx
+module github.com/peterhellberg/gfx
 
 go 1.12
