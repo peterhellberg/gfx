@@ -136,7 +136,11 @@ func (c Circle) IntersectRect(r Rect) Vec {
 	// Checks if the c.Center is not in the diagonal quadrants of the rectangle
 	if (r.Min.X <= c.Center.X && c.Center.X <= r.Max.X) || (r.Min.Y <= c.Center.Y && c.Center.Y <= r.Max.Y) {
 		// 'grow' the Rect by c.Radius in each orthagonal
-		grown := Rect{Min: r.Min.Sub(V(c.Radius, c.Radius)), Max: r.Max.Add(V(c.Radius, c.Radius))}
+		grown := Rect{
+			Min: r.Min.Sub(V(c.Radius, c.Radius)),
+			Max: r.Max.Add(V(c.Radius, c.Radius)),
+		}
+
 		if !grown.Contains(c.Center) {
 			// c.Center not close enough to overlap, return zero-vector
 			return ZV
@@ -150,6 +154,7 @@ func (c Circle) IntersectRect(r Rect) Vec {
 		if rToC.X < 0 {
 			h = -h
 		}
+
 		if rToC.Y < 0 {
 			v = -v
 		}
@@ -163,42 +168,48 @@ func (c Circle) IntersectRect(r Rect) Vec {
 			// Vertical distance shorter
 			return V(0, v)
 		}
+
 		return V(h, 0)
-	} else {
-		// The center is in the diagonal quadrants
-
-		// Helper points to make code below easy to read.
-		rectTopLeft := V(r.Min.X, r.Max.Y)
-		rectBottomRight := V(r.Max.X, r.Min.Y)
-
-		// Check for overlap.
-		if !(c.Contains(r.Min) || c.Contains(r.Max) || c.Contains(rectTopLeft) || c.Contains(rectBottomRight)) {
-			// No overlap.
-			return ZV
-		}
-
-		var centerToCorner Vec
-		if c.Center.To(r.Min).Len() <= c.Radius {
-			// Closest to bottom-left
-			centerToCorner = c.Center.To(r.Min)
-		}
-		if c.Center.To(r.Max).Len() <= c.Radius {
-			// Closest to top-right
-			centerToCorner = c.Center.To(r.Max)
-		}
-		if c.Center.To(rectTopLeft).Len() <= c.Radius {
-			// Closest to top-left
-			centerToCorner = c.Center.To(rectTopLeft)
-		}
-		if c.Center.To(rectBottomRight).Len() <= c.Radius {
-			// Closest to bottom-right
-			centerToCorner = c.Center.To(rectBottomRight)
-		}
-
-		cornerToCircumferenceLen := c.Radius - centerToCorner.Len()
-
-		return centerToCorner.Unit().Scaled(cornerToCircumferenceLen)
 	}
+
+	// The center is in the diagonal quadrants
+
+	// Helper points to make code below easy to read.
+	rectTopLeft := V(r.Min.X, r.Max.Y)
+	rectBottomRight := V(r.Max.X, r.Min.Y)
+
+	// Check for overlap.
+	if !(c.Contains(r.Min) || c.Contains(r.Max) || c.Contains(rectTopLeft) || c.Contains(rectBottomRight)) {
+		// No overlap.
+		return ZV
+	}
+
+	var centerToCorner Vec
+
+	if c.Center.To(r.Min).Len() <= c.Radius {
+		// Closest to bottom-left
+		centerToCorner = c.Center.To(r.Min)
+	}
+
+	if c.Center.To(r.Max).Len() <= c.Radius {
+		// Closest to top-right
+		centerToCorner = c.Center.To(r.Max)
+	}
+
+	if c.Center.To(rectTopLeft).Len() <= c.Radius {
+		// Closest to top-left
+		centerToCorner = c.Center.To(rectTopLeft)
+	}
+
+	if c.Center.To(rectBottomRight).Len() <= c.Radius {
+		// Closest to bottom-right
+		centerToCorner = c.Center.To(rectBottomRight)
+	}
+
+	cornerToCircumferenceLen := c.Radius - centerToCorner.Len()
+
+	return centerToCorner.Unit().Scaled(cornerToCircumferenceLen)
+
 }
 
 // maxCircle will return the larger circle based on the radius.
