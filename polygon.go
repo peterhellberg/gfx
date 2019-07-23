@@ -7,6 +7,35 @@ import (
 	"math"
 )
 
+// DrawPolygon filled or as line polygons if the thickness is >= 1.
+func DrawPolygon(dst draw.Image, p Polygon, thickness float64, c color.Color) {
+	n := len(p)
+
+	if n < 3 {
+		return
+	}
+
+	switch {
+	case thickness < 1:
+		p.Fill(dst, c)
+	default:
+		for i := 0; i < n; i++ {
+			if i+1 == n {
+				polylineFromTo(p[n-1], p[0], thickness).Fill(dst, c)
+			} else {
+				polylineFromTo(p[i], p[i+1], thickness).Fill(dst, c)
+			}
+		}
+	}
+}
+
+// DrawPolyline draws a polyline with the given color and thickness.
+func DrawPolyline(dst draw.Image, pl Polyline, thickness float64, c color.Color) {
+	for _, p := range pl {
+		DrawPolygon(dst, p, thickness, c)
+	}
+}
+
 // Polygon is represented by a list of vectors.
 type Polygon []Vec
 

@@ -209,7 +209,17 @@ func (c Circle) IntersectRect(r Rect) Vec {
 	cornerToCircumferenceLen := c.Radius - centerToCorner.Len()
 
 	return centerToCorner.Unit().Scaled(cornerToCircumferenceLen)
+}
 
+// IntersectCircle returns a minimal required Vector, such that moving the circle by that vector would stop the Circle
+// and the Rect intersecting.  This function returns a zero-vector if the Circle and Rect do not overlap, and if only
+// the perimeters touch.
+//
+// This function will return a non-zero vector if:
+//  - The Rect contains the Circle, partially or fully
+//  - The Circle contains the Rect, partially of fully
+func (r Rect) IntersectCircle(c Circle) Vec {
+	return c.IntersectRect(r).Scaled(-1)
 }
 
 // maxCircle will return the larger circle based on the radius.
