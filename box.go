@@ -1,3 +1,5 @@
+// +build !tinygo
+
 package gfx
 
 // Box is a 3D cuboid with a min and max Vec3

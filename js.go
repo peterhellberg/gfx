@@ -1,3 +1,5 @@
+// +build !tinygo
+
 // +build js,wasm
 
 package gfx

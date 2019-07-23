@@ -1,3 +1,5 @@
+// +build !tinygo
+
 package gfx
 
 // SignedDistance holds 2D signed distance functions based on

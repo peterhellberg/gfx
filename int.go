@@ -1,3 +1,5 @@
+// +build !tinygo
+
 package gfx
 
 // IntAbs returns the absolute value of x.

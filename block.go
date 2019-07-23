@@ -1,3 +1,5 @@
+// +build !tinygo
+
 package gfx
 
 import "image/draw"

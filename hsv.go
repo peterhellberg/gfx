@@ -1,9 +1,18 @@
+// +build !tinygo
+
 package gfx
 
 import (
 	"image/color"
 	"math"
 )
+
+// SortByHue sorts based on (HSV) Hue.
+func (p Palette) SortByHue() {
+	p.Sort(func(i, j int) bool {
+		return ColorToHSV(p[i]).Hue > ColorToHSV(p[i]).Hue
+	})
+}
 
 // ColorToHSV converts a color into HSV.
 func ColorToHSV(c color.Color) HSV {

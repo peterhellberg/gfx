@@ -1,6 +1,11 @@
+// +build !tinygo
+
 package gfx
 
-import "math/cmplx"
+import (
+	"image/color"
+	"math/cmplx"
+)
 
 // CmplxSin returns the sine of x.
 func CmplxSin(x complex128) complex128 {
@@ -47,4 +52,15 @@ func CmplxSqrt(x complex128) complex128 {
 // The returned value is in the range [-Pi, Pi].
 func CmplxPhase(x complex128) float64 {
 	return cmplx.Phase(x)
+}
+
+// CmplxPhaseAt returns the color at the phase of the given complex128 value.
+func (p Palette) CmplxPhaseAt(z complex128) color.Color {
+	t := CmplxPhase(z)/Pi + 1
+
+	if t > 1 {
+		t = 2 - t
+	}
+
+	return p.At(t)
 }

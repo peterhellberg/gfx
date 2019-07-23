@@ -31,13 +31,6 @@ func (p Palette) Sort(less func(i, j int) bool) {
 	sort.Slice(p, less)
 }
 
-// SortByHue sorts based on (HSV) Hue.
-func (p Palette) SortByHue() {
-	p.Sort(func(i, j int) bool {
-		return ColorToHSV(p[i]).Hue > ColorToHSV(p[i]).Hue
-	})
-}
-
 // Random color from the palette.
 func (p Palette) Random() color.NRGBA {
 	return p[rand.Intn(p.Len())]
@@ -92,17 +85,6 @@ func (p Palette) AsColorPalette() color.Palette {
 	}
 
 	return cp
-}
-
-// CmplxPhaseAt returns the color at the phase of the given complex128 value.
-func (p Palette) CmplxPhaseAt(z complex128) color.Color {
-	t := CmplxPhase(z)/Pi + 1
-
-	if t > 1 {
-		t = 2 - t
-	}
-
-	return p.At(t)
 }
 
 // At returns the color at the given float64 value (range 0-1)
