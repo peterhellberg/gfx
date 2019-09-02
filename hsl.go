@@ -121,9 +121,9 @@ func floatRGB(c color.Color) (r, g, b float64) {
 }
 
 func maxRGB(r, g, b float64) float64 {
-	return MathMax(r, MathMax(g, b))
+	return math.Max(r, math.Max(g, b))
 }
 
 func minRGB(r, g, b float64) float64 {
-	return MathMin(r, MathMin(g, b))
+	return math.Min(r, math.Min(g, b))
 }

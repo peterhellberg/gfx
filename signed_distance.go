@@ -2,6 +2,8 @@
 
 package gfx
 
+import "math"
+
 // SignedDistance holds 2D signed distance functions based on
 // https://iquilezles.org/www/articles/distfunctions2d/distfunctions2d.htm
 type SignedDistance struct {
@@ -28,7 +30,7 @@ func (sd SignedDistance) Line(a, b Vec) float64 {
 func (sd SignedDistance) Rectangle(b Vec) float64 {
 	d := sd.Abs().Sub(b)
 
-	return d.Max(ZV).Len() + MathMin(MathMax(d.X, d.Y), 0)
+	return d.Max(ZV).Len() + math.Min(math.Max(d.X, d.Y), 0)
 }
 
 // Rhombus primitive
@@ -43,11 +45,11 @@ func (sd SignedDistance) Rhombus(b Vec) float64 {
 
 // EquilateralTriangle primitive
 func (sd SignedDistance) EquilateralTriangle(s float64) float64 {
-	k := MathSqrt(3)
+	k := math.Sqrt(3)
 
 	p := sd.Vec
 
-	p.X = MathAbs(p.X) - s
+	p.X = math.Abs(p.X) - s
 	p.Y = p.Y + s/k
 
 	if p.X+k*p.Y > 0.0 {
@@ -63,7 +65,7 @@ func (sd SignedDistance) EquilateralTriangle(s float64) float64 {
 func (sd SignedDistance) IsoscelesTriangle(q Vec) float64 {
 	p := sd.Vec
 
-	p.X = MathAbs(p.X)
+	p.X = math.Abs(p.X)
 
 	a := p.Sub(q.Scaled(Clamp(p.Dot(q)/q.Dot(q), 0.0, 1.0)))
 	b := p.Sub(q.ScaledXY(V(Clamp(p.X/q.X, 0.0, 1.0), 1.0)))
@@ -72,7 +74,7 @@ func (sd SignedDistance) IsoscelesTriangle(q Vec) float64 {
 
 	d := V(a.Dot(a), s*(p.X*q.Y-p.Y*q.X)).Min(V(b.Dot(b), s*(p.Y-q.Y)))
 
-	return -MathSqrt(d.X) * Sign(d.Y)
+	return -math.Sqrt(d.X) * Sign(d.Y)
 }
 
 // Rounded signed distance function shape
@@ -82,22 +84,22 @@ func (sd SignedDistance) Rounded(v, r float64) float64 {
 
 // Annular signed distance function shape
 func (sd SignedDistance) Annular(v, r float64) float64 {
-	return MathAbs(v) - r
+	return math.Abs(v) - r
 }
 
 // OpUnion basic boolean operation for union.
 func (sd SignedDistance) OpUnion(x, y float64) float64 {
-	return MathMin(x, y)
+	return math.Min(x, y)
 }
 
 // OpSubtraction basic boolean operation for subtraction.
 func (sd SignedDistance) OpSubtraction(x, y float64) float64 {
-	return MathMax(-x, y)
+	return math.Max(-x, y)
 }
 
 // OpIntersection basic boolean operation for intersection.
 func (sd SignedDistance) OpIntersection(x, y float64) float64 {
-	return MathMax(x, y)
+	return math.Max(x, y)
 }
 
 // OpSmoothUnion smooth operation for union.
@@ -123,22 +125,22 @@ func (sd SignedDistance) OpSmoothIntersection(x, y, k float64) float64 {
 
 // OpSymX symmetry operation for X.
 func (sd SignedDistance) OpSymX(sdf SignedDistanceFunc) float64 {
-	sd.X = MathAbs(sd.X)
+	sd.X = math.Abs(sd.X)
 
 	return sdf(sd)
 }
 
 // OpSymY symmetry operation for Y.
 func (sd SignedDistance) OpSymY(sdf SignedDistanceFunc) float64 {
-	sd.Y = MathAbs(sd.Y)
+	sd.Y = math.Abs(sd.Y)
 
 	return sdf(sd)
 }
 
 // OpSymXY symmetry operation for X and Y.
 func (sd SignedDistance) OpSymXY(sdf SignedDistanceFunc) float64 {
-	sd.X = MathAbs(sd.X)
-	sd.Y = MathAbs(sd.Y)
+	sd.X = math.Abs(sd.X)
+	sd.Y = math.Abs(sd.Y)
 
 	return sdf(sd)
 }

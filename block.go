@@ -2,7 +2,10 @@
 
 package gfx
 
-import "image/draw"
+import (
+	"image/draw"
+	"math"
+)
 
 // Block has a position, size and color.
 type Block struct {
@@ -300,7 +303,7 @@ func blockCorner(pos, origin Vec3) Vec {
 func spaceToIso(space Vec3) (h, v float64) {
 	x, y := space.X+space.Z, space.Y+space.Z
 
-	h = (x - y) * MathSqrt(3) / 2
+	h = (x - y) * math.Sqrt(3) / 2
 	v = (x + y) / 2
 
 	return h, v
