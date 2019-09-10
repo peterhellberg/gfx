@@ -194,17 +194,17 @@ func (t Triangle) drawColor(dst draw.Image, c color.Color, op draw.Op) (drawCoun
 // DrawWireframe draws the triangle as a wireframe on dst.
 func (t Triangle) DrawWireframe(dst draw.Image, c color.Color) (drawCount int) {
 	if l := t[0].Position.To(t[1].Position).Len(); l > 25 {
-		DrawLine(dst, t[0].Position.AddXY(-1, -1), t[1].Position.AddXY(-1, -1), l/50, ColorWithAlpha(c, 128))
+		DrawLine(dst, t[0].Position, t[1].Position, l/50, ColorWithAlpha(c, 128))
 		drawCount++
 	}
 
 	if l := t[1].Position.To(t[2].Position).Len(); l > 25 {
-		DrawLine(dst, t[1].Position.AddXY(-1, -1), t[2].Position.AddXY(-1, -1), l/50, ColorWithAlpha(c, 128))
+		DrawLine(dst, t[1].Position, t[2].Position, l/50, ColorWithAlpha(c, 128))
 		drawCount++
 	}
 
 	if l := t[0].Position.To(t[2].Position).Len(); l > 25 {
-		DrawLine(dst, t[0].Position.AddXY(-1, -1), t[2].Position.AddXY(-1, -1), l/50, ColorWithAlpha(c, 128))
+		DrawLine(dst, t[0].Position, t[2].Position, l/50, ColorWithAlpha(c, 128))
 		drawCount++
 	}
 
