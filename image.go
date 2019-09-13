@@ -173,7 +173,7 @@ func DecodeImage(r io.Reader) (image.Image, error) {
 
 // DecodeImageBytes decodes an image from the provided []byte.
 func DecodeImageBytes(b []byte) (image.Image, error) {
-	return DecodeImage(bytes.NewReader(data))
+	return DecodeImage(bytes.NewReader(b))
 }
 
 // Assign all image decode functions to _.
