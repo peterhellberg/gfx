@@ -1,6 +1,7 @@
 package gfx
 
 import (
+	"bytes"
 	"image"
 	"image/color"
 	"image/draw"
@@ -158,11 +159,21 @@ func DecodePNG(r io.Reader) (image.Image, error) {
 	return png.Decode(r)
 }
 
+// DecodePNGBytes decodes a PNG from the provided []byte.
+func DecodePNGBytes(b []byte) (image.Image, error) {
+	return DecodePNG(bytes.NewReader(b))
+}
+
 // DecodeImage decodes an image from the provided io.Reader.
 func DecodeImage(r io.Reader) (image.Image, error) {
 	m, _, err := image.Decode(r)
 
 	return m, err
+}
+
+// DecodeImageBytes decodes an image from the provided []byte.
+func DecodeImageBytes(b []byte) (image.Image, error) {
+	return DecodeImage(bytes.NewReader(data))
 }
 
 // Assign all image decode functions to _.
