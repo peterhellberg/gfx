@@ -8,14 +8,12 @@ import "syscall/js"
 
 // JS gives access to js.Global and js.TypedArrayOf
 var JS = JavaScript{
-	Global:       js.Global,
-	TypedArrayOf: js.TypedArrayOf,
+	Global: js.Global,
 }
 
 // JavaScript is a type that contains fields with Global and TypedArrayOf funcs.
 type JavaScript struct {
-	Global       func() js.Value
-	TypedArrayOf func(interface{}) js.TypedArray
+	Global func() js.Value
 }
 
 func (j JavaScript) Document() js.Value {
