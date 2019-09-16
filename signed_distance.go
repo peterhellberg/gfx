@@ -13,6 +13,48 @@ type SignedDistance struct {
 // SignedDistanceFunc is a func that takes a SignedDistance and returns a float64.
 type SignedDistanceFunc func(SignedDistance) float64
 
+// CircleFunc creates a SignedDistanceFunc for a circle with the given radius.
+func (SignedDistance) CircleFunc(r float64) SignedDistanceFunc {
+	return func(sd SignedDistance) float64 {
+		return sd.Circle(r)
+	}
+}
+
+// LineFunc cleates a SignedDistanceFunc for a line with the given start and end.
+func (SignedDistance) LineFunc(a, b Vec) SignedDistanceFunc {
+	return func(sd SignedDistance) float64 {
+		return sd.Line(a, b)
+	}
+}
+
+// RectangleFunc creates a SignedDistanceFunc for a rectangle with the given size.
+func (SignedDistance) RectangleFunc(b Vec) SignedDistanceFunc {
+	return func(sd SignedDistance) float64 {
+		return sd.Rectangle(b)
+	}
+}
+
+// RhombusFunc creates a SignedDistanceFunc for a rhombus with the given size.
+func (SignedDistance) RhombusFunc(b Vec) SignedDistanceFunc {
+	return func(sd SignedDistance) float64 {
+		return sd.Rhombus(b)
+	}
+}
+
+// EquilateralTriangleFunc creates a SignedDistanceFunc for an equilateral triangle with the given size.
+func (SignedDistance) EquilateralTriangleFunc(s float64) SignedDistanceFunc {
+	return func(sd SignedDistance) float64 {
+		return sd.EquilateralTriangle(s)
+	}
+}
+
+// IsoscelesTriangleFunc creates a SignedDistanceFunc for an isosceles triangle with the given size.
+func (SignedDistance) IsoscelesTriangleFunc(q Vec) SignedDistanceFunc {
+	return func(sd SignedDistance) float64 {
+		return sd.IsoscelesTriangle(q)
+	}
+}
+
 // Circle primitive
 func (sd SignedDistance) Circle(r float64) float64 {
 	return sd.Len() - r
@@ -150,6 +192,12 @@ func (sd SignedDistance) OpRepeat(c Vec, sdf SignedDistanceFunc) float64 {
 	q := sd.Mod(c).Sub(c.Scaled(0.5))
 
 	return sdf(SignedDistance{q})
+}
+
+// OpMoved moves result of sdf by the given delta.
+// (Relative to the identity matrix)
+func (sd SignedDistance) OpMoved(d Vec, sdf SignedDistanceFunc) float64 {
+	return sd.OpTx(IM.Moved(d), sdf)
 }
 
 // OpTx translates using the given matrix.
