@@ -1,10 +1,19 @@
 package gfx
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+)
 
 // Log to standard output.
 func Log(format string, a ...interface{}) {
 	fmt.Printf(format+"\n", a...)
+}
+
+// Fatal prints to os.Stderr, followed by a call to os.Exit(1).
+func Fatal(v ...interface{}) {
+	fmt.Fprintln(os.Stderr, v...)
+	os.Exit(1)
 }
 
 // Dump all of the arguments to standard output.
