@@ -8,7 +8,6 @@ import (
 	"image/draw"
 	"image/gif"
 	"io"
-	"os"
 )
 
 // DefaultAnimationDelay is the default animation delay, in 100ths of a second.
@@ -43,7 +42,7 @@ func (a *Animation) AddFrame(frame image.Image, palette color.Palette) {
 
 // SaveGIF saves the animation to a GIF using the provided file name.
 func (a *Animation) SaveGIF(fn string) error {
-	w, err := os.Create(fn)
+	w, err := CreateFile(fn)
 	if err != nil {
 		return err
 	}

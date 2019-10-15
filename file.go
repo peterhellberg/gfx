@@ -8,9 +8,19 @@ import (
 	"os"
 )
 
+// OpenFile opens the named file for reading.
+func OpenFile(fn string) (*os.File, error) {
+	return os.Open(fn)
+}
+
+// CreateFile creates or truncates the named file.
+func CreateFile(fn string) (*os.File, error) {
+	return os.Create(fn)
+}
+
 // ReadFile opens a file and calls the given ReadFunc.
 func ReadFile(fn string, rf ReadFunc) error {
-	f, err := os.Open(fn)
+	f, err := OpenFile(fn)
 	if err != nil {
 		return err
 	}

@@ -9,7 +9,6 @@ import (
 	"image/jpeg"
 	"image/png"
 	"io"
-	"os"
 )
 
 // ZP is the zero image.Point.
@@ -119,7 +118,7 @@ func SavePNG(fn string, src image.Image) error {
 		return Error("SavePNG: empty image provided")
 	}
 
-	w, err := os.Create(fn)
+	w, err := CreateFile(fn)
 	if err != nil {
 		return err
 	}
@@ -145,7 +144,7 @@ func MustOpenImage(fn string) image.Image {
 
 // OpenImage decodes an image using the provided file name.
 func OpenImage(fn string) (image.Image, error) {
-	r, err := os.Open(fn)
+	r, err := OpenFile(fn)
 	if err != nil {
 		return nil, err
 	}
