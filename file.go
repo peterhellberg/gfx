@@ -4,9 +4,46 @@ package gfx
 
 import (
 	"encoding/json"
+	"image"
 	"io"
 	"os"
 )
+
+// SavePNG saves an image using the provided file name.
+func SavePNG(fn string, src image.Image) error {
+	if src == nil || src.Bounds().Empty() {
+		return Error("SavePNG: empty image provided")
+	}
+
+	w, err := CreateFile(fn)
+	if err != nil {
+		return err
+	}
+	defer w.Close()
+
+	return EncodePNG(w, src)
+}
+
+// MustOpenImage decodes an image using the provided file name. Panics on error.
+func MustOpenImage(fn string) image.Image {
+	m, err := OpenImage(fn)
+	if err != nil {
+		panic(err)
+	}
+
+	return m
+}
+
+// OpenImage decodes an image using the provided file name.
+func OpenImage(fn string) (image.Image, error) {
+	r, err := OpenFile(fn)
+	if err != nil {
+		return nil, err
+	}
+	defer r.Close()
+
+	return DecodeImage(r)
+}
 
 // OpenFile opens the named file for reading.
 func OpenFile(fn string) (*os.File, error) {

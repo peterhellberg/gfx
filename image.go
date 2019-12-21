@@ -5,8 +5,6 @@ import (
 	"image"
 	"image/color"
 	"image/draw"
-	"image/gif"
-	"image/jpeg"
 	"image/png"
 	"io"
 )
@@ -112,45 +110,9 @@ func EachPixel(r image.Rectangle, fn func(x, y int)) {
 	}
 }
 
-// SavePNG saves an image using the provided file name.
-func SavePNG(fn string, src image.Image) error {
-	if src == nil || src.Bounds().Empty() {
-		return Error("SavePNG: empty image provided")
-	}
-
-	w, err := CreateFile(fn)
-	if err != nil {
-		return err
-	}
-	defer w.Close()
-
-	return EncodePNG(w, src)
-}
-
 // EncodePNG encodes an image as PNG to the provided io.Writer.
 func EncodePNG(w io.Writer, src image.Image) error {
 	return png.Encode(w, src)
-}
-
-// MustOpenImage decodes an image using the provided file name. Panics on error.
-func MustOpenImage(fn string) image.Image {
-	m, err := OpenImage(fn)
-	if err != nil {
-		panic(err)
-	}
-
-	return m
-}
-
-// OpenImage decodes an image using the provided file name.
-func OpenImage(fn string) (image.Image, error) {
-	r, err := OpenFile(fn)
-	if err != nil {
-		return nil, err
-	}
-	defer r.Close()
-
-	return DecodeImage(r)
 }
 
 // DecodePNG decodes a PNG from the provided io.Reader.
@@ -174,10 +136,3 @@ func DecodeImage(r io.Reader) (image.Image, error) {
 func DecodeImageBytes(b []byte) (image.Image, error) {
 	return DecodeImage(bytes.NewReader(b))
 }
-
-// Assign all image decode functions to _.
-var (
-	_ = gif.Decode
-	_ = jpeg.Decode
-	_ = png.Decode
-)
