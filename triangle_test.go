@@ -68,19 +68,19 @@ func TestTriangleColors(t *testing.T) {
 }
 
 func TestTriangleColor(t *testing.T) {
-	a, b, c := ColorRed, ColorGreen, ColorBlue
+	r, g, b := ColorRed, ColorGreen, ColorBlue
 
 	tri := NewTriangle(0, &TrianglesData{
-		{Position: V(0, 0), Color: a},
-		{Position: V(10, 0), Color: b},
-		{Position: V(5, 10), Color: c},
+		{Position: V(0, 0), Color: r},
+		{Position: V(10, 0), Color: g},
+		{Position: V(5, 10), Color: b},
 	})
 
 	for v, want := range map[Vec]color.NRGBA{
-		V(0, 0): b,
-		V(1, 1): a,
-		V(2, 2): a,
-		V(6, 6): c,
+		V(0, 0): g,
+		V(1, 1): r,
+		V(2, 2): r,
+		V(6, 6): b,
 	} {
 		if got := tri.Color(v); got != want {
 			t.Fatalf("tri.Color(%v) = %v, want %v", v, got, want)
