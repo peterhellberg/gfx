@@ -76,27 +76,22 @@ func (t Triangle) Color(u Vec) color.Color {
 func (t Triangle) Contains(u Vec) bool {
 	a, b, c := t.Positions()
 
-	vs1 := b.Sub(a)
-	vs2 := c.Sub(a)
-
-	q := u.Sub(a)
-
-	bs := q.Cross(vs2) / vs1.Cross(vs2)
-	bt := vs1.Cross(q) / vs1.Cross(vs2)
-
-	return bs >= -0.00001 && bt >= -0.00001 && bs+bt <= 1
+	return triangleContains(u, a, b, c)
 }
 
 func triangleContains(u, a, b, c Vec) bool {
-	vs1 := b.Sub(a)
-	vs2 := c.Sub(a)
+	A := 1.0 / 2.0 * (-b.Y*c.X + a.Y*(-b.X+c.X) + a.X*(b.Y-c.Y) + b.X*c.Y)
 
-	q := u.Sub(a)
+	sign := 1.0
 
-	bs := q.Cross(vs2) / vs1.Cross(vs2)
-	bt := vs1.Cross(q) / vs1.Cross(vs2)
+	if A < 0.0 {
+		sign = -1.0
+	}
 
-	return bs >= 0 && bt >= 0 && bs+bt <= 1
+	s := (a.Y*c.X - a.X*c.Y + (c.Y-a.Y)*u.X + (a.X-c.X)*u.Y) * sign
+	t := (a.X*b.Y - a.Y*b.X + (a.Y-b.Y)*u.X + (b.X-a.X)*u.Y) * sign
+
+	return s > 0 && t > 0 && (s+t) < 2*A*sign
 }
 
 // Centroid returns the centroid O of the triangle.
