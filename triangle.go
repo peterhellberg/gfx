@@ -84,7 +84,7 @@ func (t Triangle) Contains(u Vec) bool {
 	bs := q.Cross(vs2) / vs1.Cross(vs2)
 	bt := vs1.Cross(q) / vs1.Cross(vs2)
 
-	return bs >= -0.01 && bt >= -0.03 && bs+bt <= 1
+	return bs >= -0.00001 && bt >= -0.00001 && bs+bt <= 1
 }
 
 func triangleContains(u, a, b, c Vec) bool {
