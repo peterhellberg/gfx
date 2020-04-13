@@ -120,11 +120,20 @@ func (t Triangle) EachPixel(tf TriangleFunc) {
 	}
 }
 
-// Draw the first color in the triangle to dst.
+// Draw the triangle to dst.
 func (t Triangle) Draw(dst draw.Image) (drawCount int) {
-	a, _, _ := t.Colors()
+	b := t.Bounds()
 
-	return t.DrawColor(dst, a)
+	for x := b.Min.X; x < b.Max.X; x++ {
+		for y := b.Min.Y; y < b.Max.Y; y++ {
+			if u := IV(x, y); t.Contains(u) {
+				drawCount++
+				SetVec(dst, u, t.Color(u))
+			}
+		}
+	}
+
+	return drawCount
 }
 
 // DrawOver draws the first color in the triangle over dst.
