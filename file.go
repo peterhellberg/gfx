@@ -1,6 +1,3 @@
-//go:build !tinygo
-// +build !tinygo
-
 package gfx
 
 import (
