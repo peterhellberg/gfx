@@ -1,3 +1,3 @@
 module github.com/peterhellberg/gfx
 
-go 1.12
+go 1.17
