@@ -577,7 +577,7 @@ func main() {
 ```
 
 
-<img src="https://data.gopher.se/gopher/viking-gopher.svg" align="right" width="30%" height="300">
+<img src="https://assets.c7.se/svg/viking-gopher.svg" align="right" width="30%" height="300">
 
 ## License (MIT)
 
