@@ -1,6 +1,5 @@
-// +build !tinygo
-
-// +build js,wasm
+//go:build !tinygo && js && wasm
+// +build !tinygo,js,wasm
 
 package gfx
 
