@@ -129,6 +129,13 @@ func (u Vec) ScaledXY(v Vec) Vec {
 	}
 }
 
+func (u Vec) Div(c float64) Vec {
+	return Vec{
+		u.X / c,
+		u.Y / c,
+	}
+}
+
 // Len returns the length of the vector u.
 func (u Vec) Len() float64 {
 	return math.Hypot(u.X, u.Y)
