@@ -84,8 +84,8 @@ func ExampleVecAdd() {
 	)
 
 	// Output:
-	// gfx.V(3, 4)
-	// gfx.V(2, 1)
+	// gfx.V(3.00000000, 4.00000000)
+	// gfx.V(2.00000000, 1.00000000)
 }
 
 func ExampleVecAddXY() {
@@ -95,8 +95,8 @@ func ExampleVecAddXY() {
 	)
 
 	// Output:
-	// gfx.V(3, 4)
-	// gfx.V(2, 1)
+	// gfx.V(3.00000000, 4.00000000)
+	// gfx.V(2.00000000, 1.00000000)
 }
 
 func ExampleVecSub() {
@@ -106,8 +106,8 @@ func ExampleVecSub() {
 	)
 
 	// Output:
-	// gfx.V(-1, -2)
-	// gfx.V(4, 5)
+	// gfx.V(-1.00000000, -2.00000000)
+	// gfx.V(4.00000000, 5.00000000)
 }
 
 func ExampleVecTo() {
@@ -117,8 +117,8 @@ func ExampleVecTo() {
 	)
 
 	// Output:
-	// gfx.V(1, 2)
-	// gfx.V(-4, -5)
+	// gfx.V(1.00000000, 2.00000000)
+	// gfx.V(-4.00000000, -5.00000000)
 }
 
 func ExampleVecMod() {
@@ -128,8 +128,8 @@ func ExampleVecMod() {
 	)
 
 	// Output:
-	// gfx.V(1, 1)
-	// gfx.V(0, 2.5)
+	// gfx.V(1.00000000, 1.00000000)
+	// gfx.V(0.00000000, 2.50000000)
 }
 
 func ExampleVecAbs() {
@@ -140,9 +140,9 @@ func ExampleVecAbs() {
 	)
 
 	// Output:
-	// gfx.V(1, 1)
-	// gfx.V(2, 2)
-	// gfx.V(3, 6)
+	// gfx.V(1.00000000, 1.00000000)
+	// gfx.V(2.00000000, 2.00000000)
+	// gfx.V(3.00000000, 6.00000000)
 }
 
 func ExampleVecMax() {
@@ -152,8 +152,8 @@ func ExampleVecMax() {
 	)
 
 	// Output:
-	// gfx.V(2.5, 3)
-	// gfx.V(2, 5.5)
+	// gfx.V(2.50000000, 3.00000000)
+	// gfx.V(2.00000000, 5.50000000)
 }
 
 func ExampleVecMin() {
@@ -163,8 +163,8 @@ func ExampleVecMin() {
 	)
 
 	// Output:
-	// gfx.V(1, 1)
-	// gfx.V(2, 3)
+	// gfx.V(1.00000000, 1.00000000)
+	// gfx.V(2.00000000, 3.00000000)
 }
 
 func ExampleVecDot() {
@@ -196,8 +196,8 @@ func ExampleVecProject() {
 	)
 
 	// Output:
-	// gfx.V(0.9016393442622951, 1.0819672131147542)
-	// gfx.V(3.153846153846153, 4.73076923076923)
+	// gfx.V(0.90163934, 1.08196721)
+	// gfx.V(3.15384615, 4.73076923)
 }
 
 func ExampleVecMap() {
@@ -207,8 +207,8 @@ func ExampleVecMap() {
 	)
 
 	// Output:
-	// gfx.V(2, 1)
-	// gfx.V(1, 3)
+	// gfx.V(2.00000000, 1.00000000)
+	// gfx.V(1.00000000, 3.00000000)
 }
 
 func ExampleVecVec3() {
@@ -289,11 +289,11 @@ func ExampleVecLerp() {
 	)
 
 	// Output:
-	// gfx.V(1, 2)
-	// gfx.V(3.9, 5.8)
-	// gfx.V(15.5, 21)
-	// gfx.V(27.1, 36.2)
-	// gfx.V(30, 40)
+	// gfx.V(1.00000000, 2.00000000)
+	// gfx.V(3.90000000, 5.80000000)
+	// gfx.V(15.50000000, 21.00000000)
+	// gfx.V(27.10000000, 36.20000000)
+	// gfx.V(30.00000000, 40.00000000)
 }
 
 func ExampleCentroid() {
@@ -303,6 +303,6 @@ func ExampleCentroid() {
 	)
 
 	// Output:
-	// gfx.V(3.3333333333333335, 2)
-	// gfx.V(5, 3.3333333333333335)
+	// gfx.V(3.33333333, 2.00000000)
+	// gfx.V(5.00000000, 3.33333333)
 }
