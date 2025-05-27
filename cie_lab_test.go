@@ -1,6 +1,6 @@
 package gfx
 
-func ExampleLab() {
+func ExampleCIELab() {
 	var (
 		rgba   = ColorRGBA(255, 0, 0, 255)
 		xyz    = ColorToXYZ(rgba)

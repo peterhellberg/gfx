@@ -77,7 +77,7 @@ func TestVecEq(t *testing.T) {
 	}
 }
 
-func ExampleVecAdd() {
+func ExampleVec_Add() {
 	Dump(
 		V(1, 1).Add(V(2, 3)),
 		V(3, 3).Add(V(-1, -2)),
@@ -88,7 +88,7 @@ func ExampleVecAdd() {
 	// gfx.V(2.00000000, 1.00000000)
 }
 
-func ExampleVecAddXY() {
+func ExampleVec_AddXY() {
 	Dump(
 		V(1, 1).AddXY(2, 3),
 		V(3, 3).AddXY(-1, -2),
@@ -99,7 +99,7 @@ func ExampleVecAddXY() {
 	// gfx.V(2.00000000, 1.00000000)
 }
 
-func ExampleVecSub() {
+func ExampleVec_Sub() {
 	Dump(
 		V(1, 1).Sub(V(2, 3)),
 		V(3, 3).Sub(V(-1, -2)),
@@ -110,7 +110,7 @@ func ExampleVecSub() {
 	// gfx.V(4.00000000, 5.00000000)
 }
 
-func ExampleVecTo() {
+func ExampleVec_To() {
 	Dump(
 		V(1, 1).To(V(2, 3)),
 		V(3, 3).To(V(-1, -2)),
@@ -121,7 +121,7 @@ func ExampleVecTo() {
 	// gfx.V(-4.00000000, -5.00000000)
 }
 
-func ExampleVecMod() {
+func ExampleVec_Mod() {
 	Dump(
 		V(1, 1).Mod(V(2.5, 3)),
 		V(2, 5.5).Mod(V(2, 3)),
@@ -132,7 +132,7 @@ func ExampleVecMod() {
 	// gfx.V(0.00000000, 2.50000000)
 }
 
-func ExampleVecAbs() {
+func ExampleVec_Abs() {
 	Dump(
 		V(1, -1).Abs(),
 		V(-2, -2).Abs(),
@@ -145,7 +145,7 @@ func ExampleVecAbs() {
 	// gfx.V(3.00000000, 6.00000000)
 }
 
-func ExampleVecMax() {
+func ExampleVec_Max() {
 	Dump(
 		V(1, 1).Max(V(2.5, 3)),
 		V(2, 5.5).Max(V(2, 3)),
@@ -156,7 +156,7 @@ func ExampleVecMax() {
 	// gfx.V(2.00000000, 5.50000000)
 }
 
-func ExampleVecMin() {
+func ExampleVec_Min() {
 	Dump(
 		V(1, 1).Min(V(2.5, 3)),
 		V(2, 5.5).Min(V(2, 3)),
@@ -167,7 +167,7 @@ func ExampleVecMin() {
 	// gfx.V(2.00000000, 3.00000000)
 }
 
-func ExampleVecDot() {
+func ExampleVec_Dot() {
 	Dump(
 		V(1, 1).Dot(V(2.5, 3)),
 		V(2, 5.5).Dot(V(2, 3)),
@@ -178,7 +178,7 @@ func ExampleVecDot() {
 	// 20.5
 }
 
-func ExampleVecCross() {
+func ExampleVec_Cross() {
 	Dump(
 		V(1, 1).Cross(V(2.5, 3)),
 		V(2, 5.5).Cross(V(2, 3)),
@@ -189,7 +189,7 @@ func ExampleVecCross() {
 	// -5
 }
 
-func ExampleVecProject() {
+func ExampleVec_Project() {
 	Dump(
 		V(1, 1).Project(V(2.5, 3)),
 		V(2, 5.5).Project(V(2, 3)),
@@ -200,7 +200,7 @@ func ExampleVecProject() {
 	// gfx.V(3.15384615, 4.73076923)
 }
 
-func ExampleVecMap() {
+func ExampleVec_Map() {
 	Dump(
 		V(1.1, 1).Map(math.Ceil),
 		V(1.1, 2.5).Map(math.Round),
@@ -211,7 +211,7 @@ func ExampleVecMap() {
 	// gfx.V(1.00000000, 3.00000000)
 }
 
-func ExampleVecVec3() {
+func ExampleVec_Vec3() {
 	Dump(
 		V(1, 2).Vec3(3),
 		V(4, 5).Vec3(6),
@@ -222,7 +222,7 @@ func ExampleVecVec3() {
 	// gfx.V3(4, 5, 6)
 }
 
-func ExampleVecPt() {
+func ExampleVec_Pt() {
 	Dump(
 		V(1, 2).Pt(),
 		V(3, 4).Pt(),
@@ -233,7 +233,7 @@ func ExampleVecPt() {
 	// (3,4)
 }
 
-func ExampleVecR() {
+func ExampleVec_R() {
 	Dump(
 		V(1, 2).R(V(3, 4)),
 		V(5, 2).R(V(3, 4)),
@@ -244,7 +244,7 @@ func ExampleVecR() {
 	// gfx.R(5, 2, 3, 4)
 }
 
-func ExampleVecB() {
+func ExampleVec_B() {
 	Dump(
 		V(1, 2).B(V(3, 4)),
 		V(5, 2).B(V(3, 4)),
@@ -255,7 +255,7 @@ func ExampleVecB() {
 	// (5,2)-(3,4)
 }
 
-func ExampleVecRect() {
+func ExampleVec_Rect() {
 	Dump(
 		V(10, 10).Rect(-1, -2, 3, 4),
 		V(3, 4).Rect(1.5, 2.2, 3.3, 4.5),
@@ -266,7 +266,7 @@ func ExampleVecRect() {
 	// gfx.R(4.5, 6.2, 6.3, 8.5)
 }
 
-func ExampleVecBounds() {
+func ExampleVec_Bounds() {
 	Dump(
 		V(10, 10).Bounds(-1, -2, 3, 4),
 		V(3, 4).Bounds(1.5, 2.2, 3.3, 4.5),
@@ -277,7 +277,7 @@ func ExampleVecBounds() {
 	// (4,6)-(6,8)
 }
 
-func ExampleVecLerp() {
+func ExampleVec_Lerp() {
 	a, b := V(1, 2), V(30, 40)
 
 	Dump(
