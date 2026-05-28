@@ -36,6 +36,54 @@ func TestDrawLayerOverPaletted(t *testing.T) {
 	DrawPalettedLayer(dst, dst.Bounds(), src)
 }
 
+func TestDrawPalettedImageNonOriginRect(t *testing.T) {
+	src := NewPaletted(8, 16, PaletteEN4)
+	for i := range src.Pix {
+		src.Pix[i] = 1
+	}
+
+	dst := NewPaletted(8, 16, PaletteEN4)
+	r := IR(2, 4, 6, 10)
+
+	DrawPalettedImage(dst, r, src)
+
+	for y := 0; y < 16; y++ {
+		for x := 0; x < 8; x++ {
+			inside := x >= r.Min.X && x < r.Max.X && y >= r.Min.Y && y < r.Max.Y
+			got := dst.ColorIndexAt(x, y)
+			want := uint8(0)
+			if inside {
+				want = 1
+			}
+			if got != want {
+				t.Fatalf("dst.ColorIndexAt(%d, %d) = %d, want %d (inside=%v)", x, y, got, want, inside)
+			}
+		}
+	}
+}
+
+func TestDrawPalettedLayerNonOriginRect(t *testing.T) {
+	src := newTestLayer()
+	dst := NewPaletted(16, 12, PaletteEN4)
+	r := IR(4, 4, 12, 8)
+
+	DrawPalettedLayer(dst, r, src)
+
+	for y := 0; y < 12; y++ {
+		for x := 0; x < 16; x++ {
+			inside := x >= r.Min.X && x < r.Max.X && y >= r.Min.Y && y < r.Max.Y
+			got := dst.ColorIndexAt(x, y)
+			if inside {
+				if want := src.ColorIndexAt(x, y); got != want {
+					t.Fatalf("dst.ColorIndexAt(%d, %d) = %d, want %d (from src)", x, y, got, want)
+				}
+			} else if got != 0 {
+				t.Fatalf("dst.ColorIndexAt(%d, %d) = %d, want 0 (outside r)", x, y, got)
+			}
+		}
+	}
+}
+
 func TestDrawLine(t *testing.T) {
 	dst := NewImage(32, 32)
 
