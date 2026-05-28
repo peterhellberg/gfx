@@ -27,6 +27,6 @@ func NewJSONEncoder(w io.Writer, options ...func(*json.Encoder)) *json.Encoder {
 }
 
 // EncodeJSON creates a new JSON encoder and encodes the provided value.
-func EncodeJSON(w io.Writer, v interface{}, options ...func(*json.Encoder)) error {
+func EncodeJSON(w io.Writer, v any, options ...func(*json.Encoder)) error {
 	return NewJSONEncoder(w, options...).Encode(v)
 }

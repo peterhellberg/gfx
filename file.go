@@ -65,7 +65,7 @@ func ReadFile(fn string, rf ReadFunc) error {
 }
 
 // ReadJSON opens and decodes a JSON file.
-func ReadJSON(fn string, v interface{}) error {
+func ReadJSON(fn string, v any) error {
 	return ReadFile(fn, DecodeJSONFunc(v))
 }
 
@@ -73,7 +73,7 @@ func ReadJSON(fn string, v interface{}) error {
 type ReadFunc func(r io.Reader) error
 
 // DecodeJSONFunc returns a function that takes a reader, and decodes into the given value.
-func DecodeJSONFunc(v interface{}) ReadFunc {
+func DecodeJSONFunc(v any) ReadFunc {
 	return func(r io.Reader) error {
 		return json.NewDecoder(r).Decode(v)
 	}

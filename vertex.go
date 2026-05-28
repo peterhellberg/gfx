@@ -11,7 +11,7 @@ type Vertex struct {
 }
 
 // NewVertex returns a new vertex with the given position.
-func NewVertex(pos Vec, args ...interface{}) Vertex {
+func NewVertex(pos Vec, args ...any) Vertex {
 	vx := Vertex{Position: pos}
 
 	for _, a := range args {
@@ -29,6 +29,6 @@ func NewVertex(pos Vec, args ...interface{}) Vertex {
 }
 
 // Vx returns a new vertex with the given coordinates.
-func Vx(pos Vec, args ...interface{}) Vertex {
+func Vx(pos Vec, args ...any) Vertex {
 	return NewVertex(pos, args...)
 }
