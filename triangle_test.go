@@ -117,7 +117,11 @@ func TestTriangleBounds(t *testing.T) {
 		{Position: V(2, 4)},
 	})
 
-	if got, want := tri.Bounds(), IR(0, 0, 2, 4); got != want {
+	// Max is rounded up so the iteration range includes the integer pixel
+	// column/row that the rightmost / bottom vertex falls on (using image.Rectangle's
+	// exclusive Max convention). With vertices at (0,0), (1,0), (2,4) the
+	// triangle covers pixel columns 0..2 and rows 0..4, so Max is (3, 5).
+	if got, want := tri.Bounds(), IR(0, 0, 3, 5); got != want {
 		t.Fatalf("tri.Bounds() = %v, want %v", got, want)
 	}
 }
