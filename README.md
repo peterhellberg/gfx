@@ -61,11 +61,11 @@ var edg32 = gfx.PaletteEDG32
 func main() {
 	m := gfx.NewNRGBA(gfx.IR(0, 0, 1024, 256))
 	p := gfx.Polygon{
-		{80, 40},
-		{440, 60},
-		{700, 200},
-		{250, 230},
-		{310, 140},
+		gfx.V(80, 40),
+		gfx.V(440, 60),
+		gfx.V(700, 200),
+		gfx.V(250, 230),
+		gfx.V(310, 140),
 	}
 
 	p.EachPixel(m, func(x, y int) {
@@ -141,7 +141,7 @@ func main() {
 	m := gfx.NewImage(1024, 256, c(5))
 
 	gfx.EachPixel(m.Bounds(), func(x, y int) {
-		sd := gfx.SignedDistance{gfx.IV(x, y)}
+		sd := gfx.SignedDistance{Vec: gfx.IV(x, y)}
 
 		if d := sd.OpRepeat(gfx.V(128, 128), func(sd gfx.SignedDistance) float64 {
 			return sd.OpSubtraction(sd.Circle(50), sd.Line(gfx.V(0, 0), gfx.V(64, 64)))
@@ -369,11 +369,11 @@ func main() {
 	c := gfx.V(128, 128)
 
 	p := gfx.Polygon{
-		{50, 50},
-		{50, 206},
-		{128, 96},
-		{206, 206},
-		{206, 50},
+		gfx.V(50, 50),
+		gfx.V(50, 206),
+		gfx.V(128, 96),
+		gfx.V(206, 206),
+		gfx.V(206, 50),
 	}
 
 	for d := 0.0; d < 360; d += 2 {

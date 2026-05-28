@@ -7,11 +7,11 @@ var edg32 = gfx.PaletteEDG32
 func main() {
 	m := gfx.NewNRGBA(gfx.IR(0, 0, 1024, 256))
 	p := gfx.Polygon{
-		{80, 40},
-		{440, 60},
-		{700, 200},
-		{250, 230},
-		{310, 140},
+		gfx.V(80, 40),
+		gfx.V(440, 60),
+		gfx.V(700, 200),
+		gfx.V(250, 230),
+		gfx.V(310, 140),
 	}
 
 	p.EachPixel(m, func(x, y int) {
