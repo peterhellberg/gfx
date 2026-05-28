@@ -40,9 +40,23 @@ func (t Triangle) Colors() (color.NRGBA, color.NRGBA, color.NRGBA) {
 	return t[0].Color, t[1].Color, t[2].Color
 }
 
-// Bounds returns the bounds of the triangle.
+// Bounds returns the integer bounding box of the triangle. Min is rounded
+// down and Max is rounded up so every pixel that can be inside the triangle
+// is included in the iteration range — otherwise the right/bottom edge can
+// lose a column or row when a vertex falls between pixel centers, leaving
+// thin gaps between adjacent triangles that share an edge.
 func (t Triangle) Bounds() image.Rectangle {
-	return t.Rect().Bounds()
+	a, b, c := t.Positions()
+
+	minX := math.Min(a.X, math.Min(b.X, c.X))
+	minY := math.Min(a.Y, math.Min(b.Y, c.Y))
+	maxX := math.Max(a.X, math.Max(b.X, c.X))
+	maxY := math.Max(a.Y, math.Max(b.Y, c.Y))
+
+	return image.Rectangle{
+		Min: image.Point{X: int(math.Floor(minX)), Y: int(math.Floor(minY))},
+		Max: image.Point{X: int(math.Floor(maxX)) + 1, Y: int(math.Floor(maxY)) + 1},
+	}
 }
 
 // Rect returns the triangle Rect.
