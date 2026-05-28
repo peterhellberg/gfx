@@ -130,10 +130,11 @@ func (p *Paletted) Pixels() []uint8 {
 }
 
 // PixOffset returns the index of the first element of Pix
-// that corresponds to the pixel at (x, y).
+// that corresponds to the pixel at (x, y). It honors Rect.Min so
+// that a Paletted whose bounds do not start at the origin (for
+// example one produced by SubImage) indexes correctly into Pix.
 func (p *Paletted) PixOffset(x, y int) int {
-	return y*p.Stride + x
-	//return (y-p.Rect.Min.Y)*p.Stride + (x-p.Rect.Min.X)*1
+	return (y-p.Rect.Min.Y)*p.Stride + (x - p.Rect.Min.X)
 }
 
 // Set changes the color at (x, y).
