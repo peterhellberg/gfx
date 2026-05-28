@@ -60,15 +60,30 @@ func IR(x0, y0, x1, y1 int) image.Rectangle {
 }
 
 // Mix the current pixel color at x and y with the given color.
+//
+// The blend is "source over destination" using premultiplied alpha,
+// matching the result of draw.Draw with draw.Over for a single pixel
+// but without allocating an image.Uniform per call.
 func Mix(m draw.Image, x, y int, c color.Color) {
-	_, _, _, a := c.RGBA()
+	sr, sg, sb, sa := c.RGBA()
 
-	switch a {
+	switch sa {
 	case 0xFFFF:
 		m.Set(x, y, c)
-	default:
-		DrawColorOver(m, IR(x, y, x+1, y+1), c)
+		return
+	case 0:
+		return
 	}
+
+	dr, dg, db, da := m.At(x, y).RGBA()
+	a := 0xFFFF - sa
+
+	m.Set(x, y, color.RGBA64{
+		R: uint16(sr + dr*a/0xFFFF),
+		G: uint16(sg + dg*a/0xFFFF),
+		B: uint16(sb + db*a/0xFFFF),
+		A: uint16(sa + da*a/0xFFFF),
+	})
 }
 
 // MixPoint the current pixel color at the image.Point with the given color.

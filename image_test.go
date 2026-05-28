@@ -2,6 +2,8 @@ package gfx
 
 import (
 	"image"
+	"image/color"
+	"image/draw"
 	"testing"
 )
 
@@ -21,5 +23,36 @@ func TestIR(t *testing.T) {
 
 	if got != want {
 		t.Fatalf("IR(%d, %d, %d, %d) = %v, want %v", x0, y0, x1, y1, got, want)
+	}
+}
+
+// TestMixMatchesDrawOver verifies that Mix produces the same pixel as
+// draw.Draw with draw.Over for a range of source/destination alpha
+// combinations, so the inlined blend stays bit-equivalent to the stdlib.
+func TestMixMatchesDrawOver(t *testing.T) {
+	cases := []color.RGBA{
+		{255, 0, 0, 255},
+		{0, 255, 0, 128},
+		{0, 0, 255, 64},
+		{200, 100, 50, 200},
+		{12, 34, 56, 1},
+		{0, 0, 0, 0},
+	}
+
+	for _, dstColor := range cases {
+		for _, srcColor := range cases {
+			got := image.NewRGBA(image.Rect(0, 0, 1, 1))
+			got.SetRGBA(0, 0, dstColor)
+			Mix(got, 0, 0, srcColor)
+
+			want := image.NewRGBA(image.Rect(0, 0, 1, 1))
+			want.SetRGBA(0, 0, dstColor)
+			draw.Draw(want, want.Bounds(), image.NewUniform(srcColor), image.Point{}, draw.Over)
+
+			if got.RGBAAt(0, 0) != want.RGBAAt(0, 0) {
+				t.Fatalf("Mix(dst=%v, src=%v) = %v, want %v",
+					dstColor, srcColor, got.RGBAAt(0, 0), want.RGBAAt(0, 0))
+			}
+		}
 	}
 }
