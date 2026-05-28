@@ -1,5 +1,3 @@
-//go:build !tinygo
-
 package gfx
 
 // Drawer glues all the fundamental interfaces (Target, Triangles, Picture) into a coherent and the
