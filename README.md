@@ -433,9 +433,13 @@ when experimenting with graphical effects, so I've included `gfx.Log`,
 
 ## Math
 
-I have included a few functions that call functions in the `math` package.
+I have included a few functions that call functions in the `math` package
+(`gfx.MathMin`, `gfx.MathMax`, `gfx.MathAbs`, `gfx.MathSqrt`, …) so that you
+don't have to import `math` yourself.
 
-There is also `gfx.Sign`, `gfx.Clamp` and `gfx.Lerp` functions for `float64`.
+`gfx.Sign`, `gfx.Clamp` and `gfx.Lerp` are generic: `gfx.Sign` and `gfx.Lerp`
+work on any numeric type (the `gfx.Numeric`/`gfx.Signed` constraints) and
+`gfx.Clamp` works on any `cmp.Ordered` type.
 
 ## Cmplx
 
@@ -593,7 +597,7 @@ func main() {
 
 ## License (MIT)
 
-Copyright (c) 2019-2025 [Peter Hellberg](https://c7.se)
+Copyright (c) 2019-2026 [Peter Hellberg](https://c7.se)
 
 > Permission is hereby granted, free of charge, to any person obtaining
 > a copy of this software and associated documentation files (the
