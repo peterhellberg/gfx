@@ -1,6 +1,7 @@
 package gfx
 
 import (
+	"image"
 	"image/color"
 	"testing"
 )
@@ -77,6 +78,40 @@ func TestPalettedSubImage(t *testing.T) {
 	// — the same coordinate Put was called with — must return 2.
 	if got, want := sm.Index(1, 1), uint8(2); got != want {
 		t.Fatalf("sm.Index(1,1) = %d, want %d", got, want)
+	}
+}
+
+func TestPalettedOutOfBoundsAccess(t *testing.T) {
+	m := NewPalettedImage(IR(10, 20, 14, 24), PaletteEN4)
+
+	m.SetColorIndex(11, 21, 2)
+
+	// Reads outside the bounds return 0 instead of panicking.
+	for _, p := range []image.Point{
+		{0, 0},   // negative offset (left and above)
+		{9, 19},  // one step before Min
+		{14, 24}, // exactly at Max (exclusive)
+		{50, 50}, // far past Max
+	} {
+		if got := m.ColorIndexAt(p.X, p.Y); got != 0 {
+			t.Fatalf("ColorIndexAt(%v) = %d outside bounds, want 0", p, got)
+		}
+	}
+
+	// Writes outside the bounds are no-ops instead of panicking.
+	for _, p := range []image.Point{
+		{0, 0},
+		{9, 19},
+		{14, 24},
+		{50, 50},
+	} {
+		m.SetColorIndex(p.X, p.Y, 3)
+		m.Put(p.X, p.Y, 3)
+	}
+
+	// The in-bounds write from before should be untouched.
+	if got := m.ColorIndexAt(11, 21); got != 2 {
+		t.Fatalf("ColorIndexAt(11, 21) = %d, want 2 (in-bounds pixel disturbed)", got)
 	}
 }
 
