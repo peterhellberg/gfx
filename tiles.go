@@ -19,7 +19,7 @@ type TilesetData [][]uint8
 func NewTileset(p Palette, s image.Point, td TilesetData) *Tileset {
 	ts := &Tileset{Palette: p, Size: s}
 
-	for i := 0; i < len(td); i++ {
+	for i := range td {
 		ts.Tiles = append(ts.Tiles, NewTile(p, s.X, td[i]))
 	}
 
@@ -33,8 +33,8 @@ func NewTilesetFromImage(p Palette, tileSize image.Point, src image.Image) *Tile
 
 	tiles := make(Tiles, cols*rows)
 
-	for row := 0; row < rows; row++ {
-		for col := 0; col < cols; col++ {
+	for row := range rows {
+		for col := range cols {
 			t := NewPaletted(tileSize.X, tileSize.Y, p)
 
 			DrawSrc(t, t.Bounds(), src, Pt(col*tileSize.X, row*tileSize.Y))

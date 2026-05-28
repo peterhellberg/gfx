@@ -46,8 +46,8 @@ func TestDrawPalettedImageNonOriginRect(t *testing.T) {
 
 	DrawPalettedImage(dst, r, src)
 
-	for y := 0; y < 16; y++ {
-		for x := 0; x < 8; x++ {
+	for y := range 16 {
+		for x := range 8 {
 			inside := x >= r.Min.X && x < r.Max.X && y >= r.Min.Y && y < r.Max.Y
 			got := dst.ColorIndexAt(x, y)
 			want := uint8(0)
@@ -68,8 +68,8 @@ func TestDrawPalettedLayerNonOriginRect(t *testing.T) {
 
 	DrawPalettedLayer(dst, r, src)
 
-	for y := 0; y < 12; y++ {
-		for x := 0; x < 16; x++ {
+	for y := range 12 {
+		for x := range 16 {
 			inside := x >= r.Min.X && x < r.Max.X && y >= r.Min.Y && y < r.Max.Y
 			got := dst.ColorIndexAt(x, y)
 			if inside {

@@ -19,7 +19,7 @@ func DrawPolygon(dst draw.Image, p Polygon, thickness float64, c color.Color) {
 	case thickness < 1:
 		p.Fill(dst, c)
 	default:
-		for i := 0; i < n; i++ {
+		for i := range n {
 			if i+1 == n {
 				polylineFromTo(p[n-1], p[0], thickness).Fill(dst, c)
 			} else {

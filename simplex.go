@@ -30,20 +30,20 @@ func NewSimplexNoise(seed int64) *SimplexNoise {
 	perm := make([]uint8, 512)
 	permMod12 := make([]uint8, 512)
 
-	for i := 0; i < 256; i++ {
+	for i := range 256 {
 		p[i] = uint8(i)
 	}
 
 	r := rand.New(rand.NewSource(seed))
 
-	for i := 0; i < 256; i++ {
+	for i := range 256 {
 		si := r.Int() & 255
 		p[i], p[si] = p[si], p[i]
 	}
 
 	// To remove the need for index wrapping, double the permutation table length
 
-	for i := 0; i < 512; i++ {
+	for i := range 512 {
 		perm[i] = p[i&255]
 		permMod12[i] = perm[i] % 12
 	}
