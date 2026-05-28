@@ -1,6 +1,7 @@
 package gfxhttp
 
 import (
+	"context"
 	"image"
 	"image/draw"
 
@@ -20,18 +21,18 @@ func NewTileServer(format string) *TileServer {
 }
 
 // GetImage fetches the image for the given GeoTile.
-func (ts *TileServer) GetImage(gt gfx.GeoTile) (image.Image, error) {
-	return ts.Client.GetImage(gt.Rawurl(ts.Format))
+func (ts *TileServer) GetImage(ctx context.Context, gt gfx.GeoTile) (image.Image, error) {
+	return ts.Client.GetImage(ctx, gt.Rawurl(ts.Format))
 }
 
 // TileImage fetches the image for the given GeoTile using the Default client.
-func TileImage(gt gfx.GeoTile, format string) (image.Image, error) {
-	return Default.GetImage(gt.Rawurl(format))
+func TileImage(ctx context.Context, gt gfx.GeoTile, format string) (image.Image, error) {
+	return Default.GetImage(ctx, gt.Rawurl(format))
 }
 
 // DrawTile fetches and draws the given GeoTile on dst.
-func (ts *TileServer) DrawTile(dst draw.Image, gt gfx.GeoTile, gp gfx.GeoPoint) error {
-	src, err := ts.GetImage(gt)
+func (ts *TileServer) DrawTile(ctx context.Context, dst draw.Image, gt gfx.GeoTile, gp gfx.GeoPoint) error {
+	src, err := ts.GetImage(ctx, gt)
 	if err != nil {
 		return err
 	}
@@ -42,9 +43,9 @@ func (ts *TileServer) DrawTile(dst draw.Image, gt gfx.GeoTile, gp gfx.GeoPoint) 
 }
 
 // DrawNeighbors fetches and draws the 8 neighbors of the given GeoTile.
-func (ts *TileServer) DrawNeighbors(dst draw.Image, gt gfx.GeoTile, gp gfx.GeoPoint) error {
+func (ts *TileServer) DrawNeighbors(ctx context.Context, dst draw.Image, gt gfx.GeoTile, gp gfx.GeoPoint) error {
 	for _, n := range gt.Neighbors() {
-		if err := ts.DrawTile(dst, n, gp); err != nil {
+		if err := ts.DrawTile(ctx, dst, n, gp); err != nil {
 			return err
 		}
 	}
@@ -53,12 +54,12 @@ func (ts *TileServer) DrawNeighbors(dst draw.Image, gt gfx.GeoTile, gp gfx.GeoPo
 }
 
 // DrawTileAndNeighbors draws the given GeoTile and its 8 neighbors on dst.
-// If drawing the central tile fails the neighbors are still drawn, matching
-// the prior behavior of gfx.GeoTileServer.
-func (ts *TileServer) DrawTileAndNeighbors(dst draw.Image, gt gfx.GeoTile, gp gfx.GeoPoint) error {
-	if err := ts.DrawTile(dst, gt, gp); err != nil {
-		return nil
+// If drawing the central tile fails its error is returned and the neighbors
+// are not drawn.
+func (ts *TileServer) DrawTileAndNeighbors(ctx context.Context, dst draw.Image, gt gfx.GeoTile, gp gfx.GeoPoint) error {
+	if err := ts.DrawTile(ctx, dst, gt, gp); err != nil {
+		return err
 	}
 
-	return ts.DrawNeighbors(dst, gt, gp)
+	return ts.DrawNeighbors(ctx, dst, gt, gp)
 }

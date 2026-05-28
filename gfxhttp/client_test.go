@@ -1,6 +1,8 @@
 package gfxhttp
 
 import (
+	"context"
+	"errors"
 	"image"
 	"net/http"
 	"net/http/httptest"
@@ -14,7 +16,7 @@ func TestGetPNG(t *testing.T) {
 	ts := testServer(palettedPNGHandler)
 	defer ts.Close()
 
-	m, err := GetPNG(ts.URL)
+	m, err := GetPNG(context.Background(), ts.URL)
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
@@ -43,13 +45,121 @@ func TestGetTileset(t *testing.T) {
 	ts := testServer(palettedPNGHandler)
 	defer ts.Close()
 
-	tileset, err := GetTileset(gfx.PaletteAmmo8, gfx.Pt(3, 3), ts.URL)
+	tileset, err := GetTileset(context.Background(), gfx.PaletteAmmo8, gfx.Pt(3, 3), ts.URL)
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
 
 	if got, want := len(tileset.Tiles), 4; got != want {
 		t.Fatalf("len(tileset.Tiles) = %d, want %d", got, want)
+	}
+}
+
+func TestGetPNGStatusError(t *testing.T) {
+	ts := testServer(func(w http.ResponseWriter, r *http.Request) {
+		http.Error(w, "nope", http.StatusNotFound)
+	})
+	defer ts.Close()
+
+	_, err := GetPNG(context.Background(), ts.URL)
+	if err == nil {
+		t.Fatalf("expected error, got nil")
+	}
+
+	var se *StatusError
+	if !errors.As(err, &se) {
+		t.Fatalf("expected *StatusError, got %T: %v", err, err)
+	}
+	if se.Code != http.StatusNotFound {
+		t.Fatalf("StatusError.Code = %d, want %d", se.Code, http.StatusNotFound)
+	}
+	if se.URL != ts.URL {
+		t.Fatalf("StatusError.URL = %q, want %q", se.URL, ts.URL)
+	}
+}
+
+func TestGetContextCancellation(t *testing.T) {
+	ts := testServer(func(w http.ResponseWriter, r *http.Request) {
+		<-r.Context().Done()
+	})
+	defer ts.Close()
+
+	ctx, cancel := context.WithCancel(context.Background())
+	cancel()
+
+	_, err := GetPNG(ctx, ts.URL)
+	if err == nil {
+		t.Fatalf("expected error from cancelled context, got nil")
+	}
+	if !errors.Is(err, context.Canceled) {
+		t.Fatalf("expected context.Canceled, got %v", err)
+	}
+}
+
+func TestWithHeader(t *testing.T) {
+	var seenAuth, seenAccept string
+	ts := testServer(func(w http.ResponseWriter, r *http.Request) {
+		seenAuth = r.Header.Get("Authorization")
+		seenAccept = r.Header.Get("Accept")
+		w.Write(palettedPNGData)
+	})
+	defer ts.Close()
+
+	c := NewClient(
+		WithHeader("Authorization", "Bearer secret"),
+		WithHeader("Accept", "image/png"),
+	)
+
+	if _, err := c.GetPNG(context.Background(), ts.URL); err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	if seenAuth != "Bearer secret" {
+		t.Fatalf("Authorization = %q, want %q", seenAuth, "Bearer secret")
+	}
+	if seenAccept != "image/png" {
+		t.Fatalf("Accept = %q, want %q", seenAccept, "image/png")
+	}
+}
+
+func TestWithUserAgentBeatsWithHeader(t *testing.T) {
+	var seenUA string
+	ts := testServer(func(w http.ResponseWriter, r *http.Request) {
+		seenUA = r.Header.Get("User-Agent")
+		w.Write(palettedPNGData)
+	})
+	defer ts.Close()
+
+	c := NewClient(
+		WithHeader("User-Agent", "via-header"),
+		WithUserAgent("via-option"),
+	)
+
+	if _, err := c.GetPNG(context.Background(), ts.URL); err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	if seenUA != "via-option" {
+		t.Fatalf("User-Agent = %q, want %q", seenUA, "via-option")
+	}
+}
+
+func TestWithHeaderReplaces(t *testing.T) {
+	var seen string
+	ts := testServer(func(w http.ResponseWriter, r *http.Request) {
+		seen = r.Header.Get("X-Token")
+		w.Write(palettedPNGData)
+	})
+	defer ts.Close()
+
+	c := NewClient(
+		WithHeader("X-Token", "first"),
+		WithHeader("X-Token", "second"),
+	)
+
+	if _, err := c.GetPNG(context.Background(), ts.URL); err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	if seen != "second" {
+		t.Fatalf("X-Token = %q, want %q", seen, "second")
 	}
 }
 

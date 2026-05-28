@@ -418,11 +418,12 @@ transitive `crypto/tls`, `crypto/x509`, `net`, etc.).
 ```go
 import "github.com/peterhellberg/gfx/gfxhttp"
 
-img, err := gfxhttp.GetPNG("https://example.com/sprite.png")
+img, err := gfxhttp.GetPNG(ctx, "https://example.com/sprite.png")
 ```
 
 `gfxhttp.NewClient` accepts options like `WithUserAgent`, `WithTimeout` and
-`WithHTTPClient`. Map tile servers are available through `gfxhttp.TileServer`.
+`WithHTTPClient`. Non-2xx responses are returned as `*gfxhttp.StatusError`.
+Map tile servers are available through `gfxhttp.TileServer`.
 
 ## Log
 
