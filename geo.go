@@ -196,14 +196,8 @@ func (gt GeoTile) NW() GeoTile {
 	return gt
 }
 
-// GetImage for the tile.
-func (gt GeoTile) GetImage(format string) (image.Image, error) {
-	return GetImage(gt.Rawurl(format))
-}
-
 // Draw the tile on dst.
 func (gt GeoTile) Draw(dst draw.Image, gp GeoPoint, src image.Image) {
-
 	Draw(dst, gt.Bounds(dst, gp, src.Bounds().Dx()), src)
 }
 
@@ -212,51 +206,4 @@ func (gt GeoTile) Bounds(dst image.Image, gp GeoPoint, tileSize int) image.Recta
 	c := BoundsCenter(dst.Bounds())
 
 	return dst.Bounds().Add(c.Pt()).Sub(gp.In(gt, tileSize).Pt())
-}
-
-// GeoTileServer represents a tile server.
-type GeoTileServer struct {
-	Format string
-}
-
-// GTS creates a GeoTileServer.
-func GTS(format string) GeoTileServer {
-	return GeoTileServer{Format: format}
-}
-
-// GetImage for the given GeoTile from the tile server.
-func (gts GeoTileServer) GetImage(gt GeoTile) (image.Image, error) {
-	return gt.GetImage(gts.Format)
-}
-
-// DrawTileAndNeighbors on dst.
-func (gts GeoTileServer) DrawTileAndNeighbors(dst draw.Image, gt GeoTile, gp GeoPoint) error {
-	if err := gts.DrawTile(dst, gt, gp); err != nil {
-		return nil
-	}
-
-	return gts.DrawNeighbors(dst, gt, gp)
-}
-
-// DrawTile on dst.
-func (gts GeoTileServer) DrawTile(dst draw.Image, gt GeoTile, gp GeoPoint) error {
-	src, err := gts.GetImage(gt)
-	if err != nil {
-		return err
-	}
-
-	gt.Draw(dst, gp, src)
-
-	return nil
-}
-
-// DrawNeighbors on dst.
-func (gts GeoTileServer) DrawNeighbors(dst draw.Image, gt GeoTile, gp GeoPoint) error {
-	for _, n := range gt.Neighbors() {
-		if err := gts.DrawTile(dst, n, gp); err != nil {
-			return err
-		}
-	}
-
-	return nil
 }

@@ -411,7 +411,18 @@ The `gfx.Error` type is a string that implements the `error` interface.
 
 ## HTTP
 
-You can use `gfx.GetPNG` to download and decode a PNG given an URL.
+HTTP helpers live in the `gfxhttp` subpackage so that importers of `gfx`
+who do not need them are not forced to pull in `net/http` (and its
+transitive `crypto/tls`, `crypto/x509`, `net`, etc.).
+
+```go
+import "github.com/peterhellberg/gfx/gfxhttp"
+
+img, err := gfxhttp.GetPNG("https://example.com/sprite.png")
+```
+
+`gfxhttp.NewClient` accepts options like `WithUserAgent`, `WithTimeout` and
+`WithHTTPClient`. Map tile servers are available through `gfxhttp.TileServer`.
 
 ## Log
 
