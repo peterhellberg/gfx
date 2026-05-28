@@ -21,7 +21,7 @@ func main() {
 	}
 
 	for i := 0; i < len(p)-4; i++ {
-		t := gfx.NewTile(p[i:i+4], 8, fireflower)
+		t := gfx.NewTile(p[i:i+5], 8, fireflower)
 
 		a.AddPalettedImage(gfx.NewScaledPalettedImage(t, 20))
 	}
