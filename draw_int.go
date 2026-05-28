@@ -84,8 +84,6 @@ func DrawIntRectangle(dst draw.Image, x, y, w, h int, c color.Color) {
 	DrawIntLine(dst, x, y, x, y+h-1, c)
 	DrawIntLine(dst, x+w-1, y, x+w-1, y+h-1, c)
 	DrawIntLine(dst, x, y+h-1, x+w-1, y+h-1, c)
-
-	return
 }
 
 // DrawIntFilledRectangle draws a filled rectangle given a point, width and height
@@ -97,8 +95,6 @@ func DrawIntFilledRectangle(dst draw.Image, x, y, w, h int, c color.Color) {
 	for i := x; i < x+w; i++ {
 		DrawIntLine(dst, i, y, i, y+h-1, c)
 	}
-
-	return
 }
 
 // DrawIntCircle draws a circle given a point and radius
