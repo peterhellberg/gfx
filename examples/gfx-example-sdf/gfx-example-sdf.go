@@ -7,7 +7,7 @@ func main() {
 	m := gfx.NewImage(1024, 256, c(5))
 
 	gfx.EachPixel(m.Bounds(), func(x, y int) {
-		sd := gfx.SignedDistance{gfx.IV(x, y)}
+		sd := gfx.SignedDistance{Vec: gfx.IV(x, y)}
 
 		if d := sd.OpRepeat(gfx.V(128, 128), func(sd gfx.SignedDistance) float64 {
 			return sd.OpSubtraction(sd.Circle(50), sd.Line(gfx.V(0, 0), gfx.V(64, 64)))
