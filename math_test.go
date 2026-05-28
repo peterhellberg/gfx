@@ -1,5 +1,43 @@
 package gfx
 
+import "testing"
+
+func TestClampInt(t *testing.T) {
+	cases := []struct {
+		x, lo, hi, want int
+	}{
+		{-5, 0, 10, 0},
+		{5, 0, 10, 5},
+		{15, 0, 10, 10},
+	}
+	for _, tc := range cases {
+		if got := Clamp(tc.x, tc.lo, tc.hi); got != tc.want {
+			t.Fatalf("Clamp(%d, %d, %d) = %d, want %d", tc.x, tc.lo, tc.hi, got, tc.want)
+		}
+	}
+}
+
+func TestSignInt(t *testing.T) {
+	if got := Sign(-3); got != -1 {
+		t.Fatalf("Sign(-3) = %d, want -1", got)
+	}
+	if got := Sign(0); got != 0 {
+		t.Fatalf("Sign(0) = %d, want 0", got)
+	}
+	if got := Sign(7); got != 1 {
+		t.Fatalf("Sign(7) = %d, want 1", got)
+	}
+}
+
+func TestLerpInt(t *testing.T) {
+	if got := Lerp(0, 10, 0.5); got != 5 {
+		t.Fatalf("Lerp(0, 10, 0.5) = %d, want 5", got)
+	}
+	if got := Lerp(0, 100, 0.25); got != 25 {
+		t.Fatalf("Lerp(0, 100, 0.25) = %d, want 25", got)
+	}
+}
+
 func ExampleMathMin() {
 	Dump(
 		MathMin(-1, 1),
@@ -149,9 +187,9 @@ func ExampleClamp() {
 
 func ExampleLerp() {
 	Dump(
-		Lerp(0, 2, 0.1),
-		Lerp(1, 10, 0.5),
-		Lerp(2, 4, 0.5),
+		Lerp(0.0, 2.0, 0.1),
+		Lerp(1.0, 10.0, 0.5),
+		Lerp(2.0, 4.0, 0.5),
 	)
 
 	// Output:
