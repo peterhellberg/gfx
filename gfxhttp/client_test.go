@@ -1,10 +1,13 @@
-package gfx
+package gfxhttp
 
 import (
 	"image"
 	"net/http"
 	"net/http/httptest"
 	"testing"
+	"time"
+
+	"github.com/peterhellberg/gfx"
 )
 
 func TestGetPNG(t *testing.T) {
@@ -18,7 +21,7 @@ func TestGetPNG(t *testing.T) {
 
 	p := m.(image.PalettedImage)
 
-	if got, want := p.Bounds(), IR(0, 0, 6, 6); !got.Eq(want) {
+	if got, want := p.Bounds(), gfx.IR(0, 0, 6, 6); !got.Eq(want) {
 		t.Fatalf("p.Bounds() = %v, want %v", got, want)
 	}
 
@@ -40,13 +43,24 @@ func TestGetTileset(t *testing.T) {
 	ts := testServer(palettedPNGHandler)
 	defer ts.Close()
 
-	tileset, err := GetTileset(PaletteAmmo8, Pt(3, 3), ts.URL)
+	tileset, err := GetTileset(gfx.PaletteAmmo8, gfx.Pt(3, 3), ts.URL)
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
 
 	if got, want := len(tileset.Tiles), 4; got != want {
 		t.Fatalf("len(tileset.Tiles) = %d, want %d", got, want)
+	}
+}
+
+func TestNewClientOptions(t *testing.T) {
+	c := NewClient(WithUserAgent("ua"), WithTimeout(0))
+
+	if got, want := c.userAgent, "ua"; got != want {
+		t.Fatalf("userAgent = %q, want %q", got, want)
+	}
+	if got, want := c.httpClient.Timeout, time.Duration(0); got != want {
+		t.Fatalf("Timeout = %v, want %v", got, want)
 	}
 }
 
