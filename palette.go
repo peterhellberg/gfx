@@ -5,7 +5,6 @@ import (
 	"image/color"
 	"image/draw"
 	"math"
-	"math/rand"
 	"sort"
 )
 
@@ -33,7 +32,7 @@ func (p Palette) Sort(less func(i, j int) bool) {
 
 // Random color from the palette.
 func (p Palette) Random() color.NRGBA {
-	return p[rand.Intn(p.Len())]
+	return p[RandIntn(p.Len())]
 }
 
 // Tile returns a new image based on the input image, but with colors from the palette.
