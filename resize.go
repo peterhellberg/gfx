@@ -53,8 +53,8 @@ func ResizeImage(dst draw.Image, src image.Image) {
 	xRatio := src.Bounds().Dx()<<16/w + 1
 	yRatio := src.Bounds().Dy()<<16/h + 1
 
-	for x := 0; x < w; x++ {
-		for y := 0; y < h; y++ {
+	for x := range w {
+		for y := range h {
 			sx := ((x * xRatio) >> 16)
 			sy := ((y * yRatio) >> 16)
 

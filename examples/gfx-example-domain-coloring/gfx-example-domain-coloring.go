@@ -29,10 +29,10 @@ func main() {
 		m  = gfx.NewImage(w, h)
 	)
 
-	for py := 0; py < h; py++ {
+	for py := range h {
 		x := p0.X
 
-		for px := 0; px < w; px++ {
+		for px := range w {
 			cc := p.CmplxPhaseAt(gfx.CmplxCos(gfx.CmplxSin(0.42 / complex(y*x, x*x))))
 
 			m.Set(px, py, cc)
