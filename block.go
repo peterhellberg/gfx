@@ -80,12 +80,12 @@ func (b Block) Triangles(origin Vec3) []Triangle {
 	c, l, m, d := b.Corners(origin), b.Color.Light, b.Color.Medium, b.Color.Dark
 
 	return []Triangle{
-		T(Vx(c.FrontUp, d), Vx(c.LeftDown), Vx(c.LeftUp)),
-		T(Vx(c.FrontUp, d), Vx(c.FrontDown), Vx(c.LeftDown)),
-		T(Vx(c.FrontUp, m), Vx(c.FrontDown), Vx(c.RightDown)),
-		T(Vx(c.FrontUp, m), Vx(c.RightUp), Vx(c.RightDown)),
-		T(Vx(c.FrontUp, l), Vx(c.BackUp), Vx(c.LeftUp)),
-		T(Vx(c.FrontUp, l), Vx(c.BackUp), Vx(c.RightUp)),
+		T(Vx(c.FrontUp, d), Vx(c.LeftDown, d), Vx(c.LeftUp, d)),
+		T(Vx(c.FrontUp, d), Vx(c.FrontDown, d), Vx(c.LeftDown, d)),
+		T(Vx(c.FrontUp, m), Vx(c.FrontDown, m), Vx(c.RightDown, m)),
+		T(Vx(c.FrontUp, m), Vx(c.RightUp, m), Vx(c.RightDown, m)),
+		T(Vx(c.FrontUp, l), Vx(c.BackUp, l), Vx(c.LeftUp, l)),
+		T(Vx(c.FrontUp, l), Vx(c.BackUp, l), Vx(c.RightUp, l)),
 	}
 }
 
