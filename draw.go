@@ -119,8 +119,8 @@ func DrawCircleFilled(dst draw.Image, u Vec, radius float64, c color.Color) {
 	})
 }
 
-// DrawCicleFast draws a (crude) filled circle.
-func DrawCicleFast(dst draw.Image, u Vec, radius float64, c color.Color) {
+// DrawCircleFast draws a (crude) filled circle.
+func DrawCircleFast(dst draw.Image, u Vec, radius float64, c color.Color) {
 	ir := int(radius)
 	r2 := ir * ir
 	pt := u.Pt()

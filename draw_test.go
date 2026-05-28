@@ -133,10 +133,10 @@ func TestDrawFilledCircle(t *testing.T) {
 	DrawCircleFilled(dst, V(16, 16), 8, ColorMagenta)
 }
 
-func TestDrawFastFilledCircle(t *testing.T) {
+func TestDrawCircleFast(t *testing.T) {
 	dst := NewImage(32, 32)
 
-	DrawCicleFast(dst, V(16, 16), 8, ColorMagenta)
+	DrawCircleFast(dst, V(16, 16), 8, ColorMagenta)
 }
 
 func TestDrawPointCircle(t *testing.T) {
