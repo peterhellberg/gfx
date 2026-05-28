@@ -34,3 +34,38 @@ func TestTurtleTurnAndForward(t *testing.T) {
 		t.Fatalf("Position after Turn(90) + Forward(10) = %v, want approximately (10, 0)", got)
 	}
 }
+
+func TestTurtleForwardDoesNotMutateDefaults(t *testing.T) {
+	tr := &Turtle{Position: V(0, 0), Direction: V(0, -1)}
+
+	tr.Forward(5)
+
+	if tr.Width != 0 {
+		t.Fatalf("Forward mutated Width to %v; struct-literal Turtles should keep their zero values", tr.Width)
+	}
+	if tr.Color != nil {
+		t.Fatalf("Forward mutated Color to %v; struct-literal Turtles should keep their zero values", tr.Color)
+	}
+}
+
+func TestTurtleReset(t *testing.T) {
+	tr := NewTurtle(V(0, 0), func(tr *Turtle) {
+		tr.Forward(10)
+		tr.Turn(90)
+		tr.Forward(10)
+	})
+
+	if got := len(tr.ops); got != 2 {
+		t.Fatalf("len(ops) = %d, want 2 before Reset", got)
+	}
+
+	pos := tr.Position
+	tr.Reset()
+
+	if got := len(tr.ops); got != 0 {
+		t.Fatalf("len(ops) = %d, want 0 after Reset", got)
+	}
+	if tr.Position != pos {
+		t.Fatalf("Reset mutated Position from %v to %v", pos, tr.Position)
+	}
+}
