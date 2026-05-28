@@ -1,6 +1,23 @@
 package gfx
 
-import "math"
+import (
+	"cmp"
+	"math"
+)
+
+// Numeric is a type constraint that permits any built-in numeric type
+// (integer or floating point). It is exported so callers can reuse it
+// when building on top of the generic helpers below.
+type Numeric interface {
+	~int | ~int8 | ~int16 | ~int32 | ~int64 |
+		~uint | ~uint8 | ~uint16 | ~uint32 | ~uint64 | ~uintptr |
+		~float32 | ~float64
+}
+
+// Signed is a type constraint that permits any signed numeric type.
+type Signed interface {
+	~int | ~int8 | ~int16 | ~int32 | ~int64 | ~float32 | ~float64
+}
 
 // Mathematical constants.
 const (
@@ -88,7 +105,7 @@ func MathRound(x float64) float64 {
 }
 
 // Sign returns -1 for values < 0, 0 for 0, and 1 for values > 0.
-func Sign(x float64) float64 {
+func Sign[T Signed](x T) T {
 	switch {
 	case x < 0:
 		return -1
@@ -103,7 +120,7 @@ func Sign(x float64) float64 {
 //
 // If x is less than min, min is returned. If x is more than max, max is returned. Otherwise, x is
 // returned.
-func Clamp(x, min, max float64) float64 {
+func Clamp[T cmp.Ordered](x, min, max T) T {
 	if x < min {
 		return min
 	}
@@ -113,7 +130,9 @@ func Clamp(x, min, max float64) float64 {
 	return x
 }
 
-// Lerp does linear interpolation between two values.
-func Lerp(a, b, t float64) float64 {
-	return a + (b-a)*t
+// Lerp does linear interpolation between two values. The interpolation
+// is computed in float64; when T is an integer type the result is
+// truncated toward zero on the way back.
+func Lerp[T Numeric](a, b T, t float64) T {
+	return T(float64(a) + (float64(b)-float64(a))*t)
 }
