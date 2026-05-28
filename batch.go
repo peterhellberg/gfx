@@ -1,36 +1,40 @@
 package gfx
 
-import "image/color"
-
-// Batch is a Target that allows for efficient drawing of many objects with the same Picture.
+// Batch is a Target that allows for efficient drawing of many objects
+// with the same Picture.
 //
 // To put an object into a Batch, just draw it onto it:
 //
 //	object.Draw(batch)
+//
+// Once a Batch has accumulated the desired triangles, call Draw to
+// render them all onto another Target in one go.
 type Batch struct {
 	cont Drawer
-
-	mat Matrix
-	col color.Color
+	mat  Matrix
 }
 
 var _ BasicTarget = (*Batch)(nil)
 
 // NewBatch creates an empty Batch with the specified Picture and container.
 //
-// The container is where objects get accumulated. Batch will support precisely those Triangles
-// properties, that the supplied container supports. If you retain access to the container and
-// change it, call Dirty to notify Batch about the change.
-//
-// Note, that if the container does not support TrianglesColor, color masking will not work.
+// The container is where objects get accumulated; it must implement
+// at least the Triangles interface and ideally TrianglesColor /
+// TrianglesPicture too so that those vertex properties survive the
+// batch. Batch supports exactly those properties the container does;
+// anything the container drops is dropped. If you retain access to
+// the container and modify it directly, call Dirty to notify Batch
+// about the change.
 func NewBatch(container Triangles, pic Picture) *Batch {
-	b := &Batch{cont: Drawer{Triangles: container, Picture: pic}}
-	b.SetMatrix(IM)
-	return b
+	return &Batch{
+		cont: Drawer{Triangles: container, Picture: pic},
+		mat:  IM,
+	}
 }
 
-// Dirty notifies Batch about an external modification of it's container. If you retain access to
-// the Batch's container and change it, call Dirty to notify Batch about the change.
+// Dirty notifies Batch about an external modification of its container.
+// If you retain access to the Batch's container and change it, call
+// Dirty to notify Batch about the change.
 //
 //	container := &gfx.TrianglesData{}
 //	batch := gfx.NewBatch(container, nil)
@@ -52,30 +56,35 @@ func (b *Batch) Draw(t Target) {
 }
 
 // SetMatrix sets a Matrix that every point will be projected by.
+// Subsequent draws into the Batch are projected by the new matrix;
+// triangles already accumulated keep the projection they were
+// captured with.
 func (b *Batch) SetMatrix(m Matrix) {
 	b.mat = m
 }
 
-// MakeTriangles returns a specialized copy of the provided Triangles that draws onto this Batch.
+// MakeTriangles returns a specialized copy of the provided Triangles
+// that draws onto this Batch.
 func (b *Batch) MakeTriangles(t Triangles) TargetTriangles {
-	bt := &batchTriangles{
+	return &batchTriangles{
 		tri: t.Copy(),
 		tmp: MakeTrianglesData(t.Len()),
 		dst: b,
 	}
-	return bt
 }
 
-// MakePicture returns a specialized copy of the provided Picture that draws onto this Batch.
+// MakePicture returns a specialized copy of the provided Picture that
+// draws onto this Batch. The Picture must be the same one the Batch
+// was created with; passing a different Picture panics.
 func (b *Batch) MakePicture(p Picture) TargetPicture {
 	if p != b.cont.Picture {
 		panic(Errorf("(%T).MakePicture: Picture is not the Batch's Picture", b))
 	}
-	bp := &batchPicture{
+
+	return &batchPicture{
 		pic: p,
 		dst: b,
 	}
-	return bp
 }
 
 type batchTriangles struct {
@@ -116,14 +125,15 @@ func (bt *batchTriangles) Copy() Triangles {
 func (bt *batchTriangles) draw(_ *batchPicture) {
 	bt.tmp.Update(bt.tri)
 
+	n := bt.tri.Len()
+	mat := bt.dst.mat
 	for i := range *bt.tmp {
-		(*bt.tmp)[i].Position = bt.dst.mat.Project((*bt.tmp)[i].Position)
-		//(*bt.tmp)[i].Color = bt.dst.col.Mul((*bt.tmp)[i].Color)
+		(*bt.tmp)[i].Position = mat.Project((*bt.tmp)[i].Position)
 	}
 
 	cont := bt.dst.cont.Triangles
-	cont.SetLen(cont.Len() + bt.tri.Len())
-	added := cont.Slice(cont.Len()-bt.tri.Len(), cont.Len())
+	cont.SetLen(cont.Len() + n)
+	added := cont.Slice(cont.Len()-n, cont.Len())
 	added.Update(bt.tri)
 	added.Update(bt.tmp)
 	bt.dst.cont.Dirty()
