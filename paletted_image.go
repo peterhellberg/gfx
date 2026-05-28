@@ -159,16 +159,22 @@ func (p *Paletted) Put(x, y int, index uint8) {
 }
 
 // ColorIndexAt returns the color index at (x, y).
+// Returns 0 when (x, y) is outside the image bounds.
 func (p *Paletted) ColorIndexAt(x, y int) uint8 {
-	if o := p.PixOffset(x, y); o < len(p.Pix) {
-		return p.Pix[o]
+	if !(image.Point{x, y}.In(p.Rect)) {
+		return 0
 	}
 
-	return 0
+	return p.Pix[p.PixOffset(x, y)]
 }
 
-// SetColorIndex changes the color index at (x, y).
+// SetColorIndex changes the color index at (x, y). It is a no-op when
+// (x, y) is outside the image bounds, matching the behavior of Set.
 func (p *Paletted) SetColorIndex(x, y int, index uint8) {
+	if !(image.Point{x, y}.In(p.Rect)) {
+		return
+	}
+
 	p.Pix[p.PixOffset(x, y)] = index
 }
 
