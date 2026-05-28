@@ -421,9 +421,10 @@ import "github.com/peterhellberg/gfx/gfxhttp"
 img, err := gfxhttp.GetPNG(ctx, "https://example.com/sprite.png")
 ```
 
-`gfxhttp.NewClient` accepts options like `WithUserAgent`, `WithTimeout` and
-`WithHTTPClient`. Non-2xx responses are returned as `*gfxhttp.StatusError`.
-Map tile servers are available through `gfxhttp.TileServer`.
+`gfxhttp.NewClient` accepts options like `WithUserAgent`, `WithTimeout`,
+`WithHTTPClient` and `WithHeader`. Non-2xx responses are returned as
+`*gfxhttp.StatusError`. Map tile servers are available through
+`gfxhttp.TileServer`.
 
 ## Log
 
