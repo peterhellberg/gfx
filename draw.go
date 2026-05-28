@@ -33,10 +33,8 @@ func DrawOver(dst draw.Image, r image.Rectangle, src image.Image, sp image.Point
 
 // DrawPalettedImage draws a PalettedImage over a PalettedDrawImage.
 func DrawPalettedImage(dst PalettedDrawImage, r image.Rectangle, src PalettedImage) {
-	w, h, m := r.Dx(), r.Dy(), r.Min
-
-	for x := m.X; x != w; x++ {
-		for y := m.Y; y != h; y++ {
+	for x := r.Min.X; x < r.Max.X; x++ {
+		for y := r.Min.Y; y < r.Max.Y; y++ {
 			if src.AlphaAt(x, y) > 0 {
 				dst.SetColorIndex(x, y, src.ColorIndexAt(x, y))
 			}
@@ -47,10 +45,8 @@ func DrawPalettedImage(dst PalettedDrawImage, r image.Rectangle, src PalettedIma
 // DrawPalettedLayer draws a *Layer over a *Paletted.
 // (slightly faster than using the generic DrawPalettedImage)
 func DrawPalettedLayer(dst *Paletted, r image.Rectangle, src *Layer) {
-	w, h, m := r.Dx(), r.Dy(), r.Min
-
-	for x := m.X; x != w; x++ {
-		for y := m.Y; y != h; y++ {
+	for x := r.Min.X; x < r.Max.X; x++ {
+		for y := r.Min.Y; y < r.Max.Y; y++ {
 			if src.AlphaAt(x, y) > 0 {
 				dst.SetColorIndex(x, y, src.ColorIndexAt(x, y))
 			}
