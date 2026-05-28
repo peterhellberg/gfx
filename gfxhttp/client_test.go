@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"image"
+	"io"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -16,7 +17,7 @@ func TestGetPNG(t *testing.T) {
 	ts := testServer(palettedPNGHandler)
 	defer ts.Close()
 
-	m, err := GetPNG(context.Background(), ts.URL)
+	m, err := GetPNG(t.Context(), ts.URL)
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
@@ -45,7 +46,7 @@ func TestGetTileset(t *testing.T) {
 	ts := testServer(palettedPNGHandler)
 	defer ts.Close()
 
-	tileset, err := GetTileset(context.Background(), gfx.PaletteAmmo8, gfx.Pt(3, 3), ts.URL)
+	tileset, err := GetTileset(t.Context(), gfx.PaletteAmmo8, gfx.Pt(3, 3), ts.URL)
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
@@ -61,7 +62,7 @@ func TestGetPNGStatusError(t *testing.T) {
 	})
 	defer ts.Close()
 
-	_, err := GetPNG(context.Background(), ts.URL)
+	_, err := GetPNG(t.Context(), ts.URL)
 	if err == nil {
 		t.Fatalf("expected error, got nil")
 	}
@@ -84,7 +85,7 @@ func TestGetContextCancellation(t *testing.T) {
 	})
 	defer ts.Close()
 
-	ctx, cancel := context.WithCancel(context.Background())
+	ctx, cancel := context.WithCancel(t.Context())
 	cancel()
 
 	_, err := GetPNG(ctx, ts.URL)
@@ -110,7 +111,7 @@ func TestWithHeader(t *testing.T) {
 		WithHeader("Accept", "image/png"),
 	)
 
-	if _, err := c.GetPNG(context.Background(), ts.URL); err != nil {
+	if _, err := c.GetPNG(t.Context(), ts.URL); err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
 	if seenAuth != "Bearer secret" {
@@ -134,7 +135,7 @@ func TestWithUserAgentBeatsWithHeader(t *testing.T) {
 		WithUserAgent("via-option"),
 	)
 
-	if _, err := c.GetPNG(context.Background(), ts.URL); err != nil {
+	if _, err := c.GetPNG(t.Context(), ts.URL); err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
 	if seenUA != "via-option" {
@@ -155,11 +156,107 @@ func TestWithHeaderReplaces(t *testing.T) {
 		WithHeader("X-Token", "second"),
 	)
 
-	if _, err := c.GetPNG(context.Background(), ts.URL); err != nil {
+	if _, err := c.GetPNG(t.Context(), ts.URL); err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
 	if seen != "second" {
 		t.Fatalf("X-Token = %q, want %q", seen, "second")
+	}
+}
+
+func TestClientGetRawResponse(t *testing.T) {
+	ts := testServer(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("X-Test", "value")
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte("hello"))
+	})
+	defer ts.Close()
+
+	resp, err := Get(t.Context(), ts.URL)
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		t.Fatalf("StatusCode = %d, want %d", resp.StatusCode, http.StatusOK)
+	}
+	if got := resp.Header.Get("X-Test"); got != "value" {
+		t.Fatalf("X-Test header = %q, want %q", got, "value")
+	}
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		t.Fatalf("ReadAll: %v", err)
+	}
+	if string(body) != "hello" {
+		t.Fatalf("body = %q, want %q", body, "hello")
+	}
+}
+
+func TestClientGetRawDoesNotErrOnNon2xx(t *testing.T) {
+	ts := testServer(func(w http.ResponseWriter, r *http.Request) {
+		http.Error(w, "boom", http.StatusInternalServerError)
+	})
+	defer ts.Close()
+
+	resp, err := Get(t.Context(), ts.URL)
+	if err != nil {
+		t.Fatalf("Get returned an error on 500: %v (raw Get should leave status checks to the caller)", err)
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusInternalServerError {
+		t.Fatalf("StatusCode = %d, want %d", resp.StatusCode, http.StatusInternalServerError)
+	}
+}
+
+func TestGetImage(t *testing.T) {
+	ts := testServer(palettedPNGHandler)
+	defer ts.Close()
+
+	m, err := GetImage(t.Context(), ts.URL)
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	if got, want := m.Bounds(), gfx.IR(0, 0, 6, 6); !got.Eq(want) {
+		t.Fatalf("m.Bounds() = %v, want %v", got, want)
+	}
+}
+
+func TestWithHTTPClientNilIsNoOp(t *testing.T) {
+	c := NewClient(WithHTTPClient(nil))
+
+	if c.httpClient == nil {
+		t.Fatalf("httpClient is nil after WithHTTPClient(nil); expected the default *http.Client to be kept")
+	}
+	if got, want := c.httpClient.Timeout, DefaultTimeout; got != want {
+		t.Fatalf("httpClient.Timeout = %v, want %v (default kept)", got, want)
+	}
+}
+
+func TestTileServerDrawTile(t *testing.T) {
+	var requested string
+	ts := testServer(func(w http.ResponseWriter, r *http.Request) {
+		requested = r.URL.Path
+		w.Write(palettedPNGData)
+	})
+	defer ts.Close()
+
+	// Pretend the URL pattern is "<server>/<zoom>/<x>/<y>"; Rawurl uses
+	// the gt's Zoom, X, Y in that order.
+	server := &TileServer{Format: ts.URL + "/%d/%d/%d", Client: NewClient()}
+
+	dst := gfx.NewImage(16, 16)
+	gt := gfx.GT(3, 4, 5)
+	gp := gfx.GP(0, 0)
+
+	if err := server.DrawTile(t.Context(), dst, gt, gp); err != nil {
+		t.Fatalf("DrawTile: %v", err)
+	}
+
+	if want := "/3/4/5"; requested != want {
+		t.Fatalf("requested path = %q, want %q", requested, want)
 	}
 }
 
