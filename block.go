@@ -127,14 +127,23 @@ func (b Block) DrawRectangles(dst draw.Image, origin Vec3) {
 func (b Block) DrawBounds(dst draw.Image, origin Vec3) {
 	r := b.Rect(origin)
 
+	// Round Min down and Max up so the rectangle covers every pixel
+	// the float Rect touches — otherwise a fractional right/bottom edge
+	// loses a column or row through int() truncation.
+	minX := int(math.Floor(r.Min.X))
+	minY := int(math.Floor(r.Min.Y))
+	maxX := int(math.Floor(r.Max.X)) + 1
+	maxY := int(math.Floor(r.Max.Y)) + 1
+
 	if r.Area() < 20 {
-		DrawColor(dst, r.Bounds(), b.Color.Medium)
+		DrawColor(dst, IR(minX, minY, maxX, maxY), b.Color.Medium)
 		return
 	}
 
 	rw6 := r.W() / 6
+	topMaxY := int(math.Floor(r.Max.Y-rw6)) + 1
 
-	DrawColor(dst, IR(int(r.Min.X), int(r.Min.Y), int(r.Max.X), int(r.Max.Y-rw6)), b.Color.Light)
+	DrawColor(dst, IR(minX, minY, maxX, topMaxY), b.Color.Light)
 
 	DrawLineBresenham(dst, r.Min, V(r.Max.X, r.Min.Y), b.Color.Medium)
 	DrawLineBresenham(dst, r.Min, V(r.Min.X, r.Max.Y-rw6), b.Color.Dark)
