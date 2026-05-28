@@ -12,6 +12,6 @@ func (e Error) Error() string {
 }
 
 // Errorf constructs a formatted error.
-func Errorf(format string, a ...interface{}) error {
+func Errorf(format string, a ...any) error {
 	return Error(Sprintf(format, a...))
 }
