@@ -79,10 +79,12 @@ func DrawTrianglesOver(dst draw.Image, triangles []Triangle) {
 	}
 }
 
-// DrawTrianglesWireframe draws triangles on dst.
+// DrawTrianglesWireframe draws triangles on dst using each triangle's
+// first vertex color.
 func DrawTrianglesWireframe(dst draw.Image, triangles []Triangle) {
 	for _, t := range triangles {
-		t.DrawWireframe(dst, t.Color(V(0, 0)))
+		a, _, _ := t.Colors()
+		t.DrawWireframe(dst, a)
 	}
 }
 
