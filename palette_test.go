@@ -127,6 +127,11 @@ func TestPaletteAt(t *testing.T) {
 		{PaletteEN4, 0, PaletteEN4[0]},
 		{PaletteEN4, -1, PaletteEN4[0]},
 		{PaletteEN4, 0.5, color.RGBA64{37907, 36751, 28784, 65535}},
+		{Palette{ColorBlack, ColorWhite}, 0.5, color.RGBA64{32767, 32767, 32767, 65535}},
+		{Palette{ColorRed}, 0.5, ColorRed},
+		{Palette{ColorRed}, 0, ColorRed},
+		{Palette{ColorRed}, 1, ColorRed},
+		{Palette{}, 0.5, color.NRGBA{}},
 	} {
 		r, g, b, a := tc.p.At(tc.t).RGBA()
 		wr, wg, wb, wa := tc.want.RGBA()
